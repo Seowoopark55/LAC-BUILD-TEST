@@ -106,8 +106,7 @@ function renderLogin(state) {
           <div class="runtime-access-brand-compact"><strong>LAC HUB</strong><small>통합 플랫폼</small></div>
           <div class="runtime-access-panel-head"><h2>다시 오신 걸 환영해요.</h2><p>Discord 계정으로 로그인해 주세요.</p></div>
           <button type="button" class="runtime-access-discord" data-action="discord-login" ${state.loading ? 'disabled' : ''}><span class="runtime-access-discord-mark" aria-hidden="true"><i></i><i></i></span><strong>Discord로 로그인</strong><em aria-hidden="true">→</em></button>
-          <details class="lac-login-code" ${state.loginCreateCode?'open':''}><summary>새 회사를 개설하시나요? · 코드 입력</summary><label>회사 개설 코드<input data-login-create-code type="text" maxlength="80" placeholder="운영자에게 발급받은 코드" value="${esc(state.loginCreateCode||'')}" autocomplete="off" spellcheck="false" autocapitalize="off"></label><small>로그인 후 회사 등록 시 확인됩니다. 기존 회원은 필요 없어요.</small></details>
-          <div class="runtime-access-trust"><div class="runtime-access-privacy"><i aria-hidden="true">✓</i><span><strong>기존 회원은 바로 로그인할 수 있어요.</strong><small>등록된 회사로 이동하거나 새 회사를 개설할 수 있습니다.</small></span></div></div>
+          <div class="runtime-access-trust"><div class="runtime-access-privacy"><i aria-hidden="true">✓</i><span><strong>Discord 계정 하나로 이용해요.</strong><small>로그인 상태는 HUB와 BUILD에서 공유됩니다.</small></span></div></div>
         </div>
       </div>
     </div>
