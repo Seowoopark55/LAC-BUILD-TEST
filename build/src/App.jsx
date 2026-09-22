@@ -3600,6 +3600,9 @@ export default function App() {
 
   useEffect(() => {
     const onPopState = () => {
+      // The embedded BUILD stays mounted while HUB is visible. Its router must
+      // ignore HUB history entries instead of resetting the hidden BUILD view.
+      if (!/^\/build(?:\/|$)/.test(window.location.pathname)) return;
       setTab(tabFromLocation());
       setCategoryFilter(categoryFromLocation());
       setSelectedBuild(null);
@@ -3609,7 +3612,11 @@ export default function App() {
     };
 
     window.addEventListener("popstate", onPopState);
-    return () => window.removeEventListener("popstate", onPopState);
+    window.addEventListener("lac:build-route-change", onPopState);
+    return () => {
+      window.removeEventListener("popstate", onPopState);
+      window.removeEventListener("lac:build-route-change", onPopState);
+    };
   }, []);
 
   useEffect(() => {
@@ -3997,7 +4004,7 @@ export default function App() {
 
   function jumpToBuilds() {
     navigateTab("builds");
-    window.setTimeout(() => document.getElementById("build-archive")?.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
+    window.setTimeout(() => (document.querySelector("#lac-build-host")?.shadowRoot?.getElementById("build-archive") || document.getElementById("build-archive"))?.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
   }
 
 

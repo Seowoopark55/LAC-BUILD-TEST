@@ -1,6 +1,7 @@
-// Root entrypoint for the same-origin integration Vercel project. Install root dependencies first.
+// TEST PILOT ONLY. One SPA entrypoint (HUB) imports BUILD React as an internal view.
+// BUILD public files remain at /build/assets/; BUILD has no second HTML entrypoint.
 import { execFileSync } from 'node:child_process';
-import { cpSync, existsSync, mkdirSync, readFileSync, rmSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, rmSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -8,16 +9,14 @@ const vite = resolve(root, 'node_modules/vite/bin/vite.js');
 if (!existsSync(vite)) throw new Error('Root dependencies missing. Run npm install in the repository root.');
 execFileSync(process.execPath, [resolve(root, 'scripts/verify.mjs')], { cwd: root, stdio: 'inherit' });
 execFileSync(process.execPath, [resolve(root, 'scripts/verify-deploy.mjs')], { cwd: root, stdio: 'inherit' });
-for (const folder of ['hub', 'build']) {
-  console.log(`Building ${folder}...`);
-  execFileSync(process.execPath, [vite, 'build'], { cwd: resolve(root, folder), stdio: 'inherit', env: process.env });
-}
-const from = resolve(root, 'build/dist');
+console.log('Building one HUB entrypoint with embedded BUILD...');
+execFileSync(process.execPath, [vite, 'build'], { cwd: resolve(root, 'hub'), stdio: 'inherit', env: process.env });
+const publicAssets = resolve(root, 'build/public');
 const to = resolve(root, 'hub/dist/build');
 rmSync(to, { recursive: true, force: true });
 mkdirSync(to, { recursive: true });
-cpSync(from, to, { recursive: true, force: true });
-const html = readFileSync(resolve(to, 'index.html'), 'utf8');
-if (!html.includes('/build/assets/')) throw new Error('BUILD assets are not under /build/assets/.');
-if (!existsSync(resolve(root, 'hub/dist/index.html'))) throw new Error('HUB index.html missing.');
-console.log('PASS: unified build assembled at hub/dist (HUB / + BUILD /build/).');
+cpSync(publicAssets, to, { recursive: true, force: true });
+if (!existsSync(resolve(root, 'hub/dist/index.html')) || !existsSync(resolve(to, 'assets/equipment/top-team.webp'))) {
+  throw new Error('Embedded HUB entrypoint or BUILD static assets missing.');
+}
+console.log('PASS: one HUB SPA, BUILD React bundled as an internal screen, public files at /build/assets/.');

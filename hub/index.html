@@ -7,6 +7,9 @@
     <meta name="theme-color" content="#0a0d11" />
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/lac-one.svg" />
     <style>
+      html.lac-build-route #app, #lac-build-host[hidden] { display: none !important; }
+      html.lac-build-route body::before,html.lac-build-route body::after { display: none !important; }
+      #lac-build-host { display: block; min-height: 100vh; position: relative; z-index: 3; }
       html,body,#app{min-height:100%;margin:0;color:#f1f4f7}html{background:#040608}body{background:#040608}#app{background:transparent}
       .pwa-boot{min-height:100vh;display:grid;place-items:center;font-family:Inter,Pretendard,"Noto Sans KR",system-ui,-apple-system,"Segoe UI",sans-serif}
       .pwa-boot__mark{display:grid;justify-items:center;gap:10px;color:#f1f4f7}
@@ -19,6 +22,7 @@
   </head>
   <body>
     <div id="app"><section class="pwa-boot" aria-label="LAC HUB 시작 중"><div class="pwa-boot__mark"><div class="pwa-boot__icon">L</div><div class="pwa-boot__copy"><strong>LAC HUB</strong><small>통합 플랫폼</small></div></div></section></div>
+    <script>if (/^\/build(?:\/|$)/.test(location.pathname)) document.documentElement.classList.add('lac-build-route');</script>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

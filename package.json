@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "check": "node scripts/verify.mjs && node scripts/verify-deploy.mjs && node hub/scripts/hub-phase24-build-entry-check.mjs && cd hub && npm run check",
+    "check": "node scripts/verify.mjs && node scripts/verify-deploy.mjs && node scripts/verify-embedded.mjs && node hub/scripts/hub-phase24-build-entry-check.mjs && cd hub && npm run check",
     "build": "node scripts/deploy-build.mjs"
   },
   "engines": {

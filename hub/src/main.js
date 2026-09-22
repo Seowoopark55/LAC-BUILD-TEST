@@ -23,6 +23,63 @@ import { renderShell, canAdmin, currentMembership, moduleEnabled, moduleRow } fr
 import { initializePrimaryScreenHistory, readPrimaryScreen, recordPrimaryScreen } from './platform/screenHistory.js';
 
 const root = document.querySelector('#app');
+const isBuildRoute = () => /^\/build(?:\/|$)/.test(window.location.pathname);
+let embeddedHost = null;
+let embedLoadPromise = null;
+
+function switchVisibleApp(buildActive) {
+  document.documentElement.classList.toggle('lac-build-route', buildActive);
+  root.hidden = buildActive;
+  if (embeddedHost) embeddedHost.hidden = !buildActive;
+  if (!buildActive) document.title = 'LAC HUB';
+}
+
+function showEmbeddedBuild({ push = false } = {}) {
+  if (push && !isBuildRoute()) {
+    window.history.pushState({ axeTab: 'home' }, '', '/build/');
+    window.dispatchEvent(new Event('lac:build-route-change'));
+  }
+  if (!embeddedHost) {
+    embeddedHost = document.createElement('section');
+    embeddedHost.id = 'lac-build-host';
+    embeddedHost.setAttribute('aria-label', 'LAC BUILD');
+    root.insertAdjacentElement('afterend', embeddedHost);
+  }
+  switchVisibleApp(true);
+  if (!embedLoadPromise) {
+    embeddedHost.textContent = 'LAC BUILD 화면을 준비하고 있습니다…';
+    embedLoadPromise = import('./buildEmbed.jsx')
+      .then(({ mountEmbeddedBuild }) => {
+        embeddedHost.textContent = '';
+        mountEmbeddedBuild(embeddedHost);
+        embeddedHost.hidden = !isBuildRoute();
+      })
+      .catch((error) => {
+        console.error('LAC BUILD embedded startup failed', error);
+        embeddedHost.textContent = 'BUILD 화면을 시작하지 못했습니다. 새로고침해 주세요.';
+        embedLoadPromise = null;
+      });
+  }
+}
+
+// Intercept only the BUILD card's ordinary click. Preserve native open-in-new-tab
+// gestures and every existing HUB delegated action.
+root.addEventListener('click', (event) => {
+  if (event.button !== 0 || event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
+  const anchor = event.target instanceof Element ? event.target.closest('a[href="/build/"]') : null;
+  if (!anchor) return;
+  event.preventDefault();
+  event.stopPropagation();
+  showEmbeddedBuild({ push: true });
+}, true);
+window.addEventListener('lac:navigate-hub', () => {
+  if (!isBuildRoute()) return;
+  window.history.pushState({ lac_hub_primary_screen_v1: 'hub' }, '', '/');
+  state.page = 'hub';
+  switchVisibleApp(false);
+  render();
+  window.scrollTo(0, 0);
+});
 const now = new Date();
 const currentMonth = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
 const validPages = ['hub','hub-board','dashboard','fund','members','assets','accounts','questions','suggestions','settings','platform','info','game-info','layout'];
@@ -539,9 +596,11 @@ function allowedHistoryPage(target) {
 function installPrimaryScreenHistory() {
   // Restore the target before the first authenticated render, so a restored
   // company route is never briefly painted and then replaced by HUB (or vice versa).
-  const initial = initializePrimaryScreenHistory(window.history);
+  const initial = isBuildRoute() ? 'hub' : initializePrimaryScreenHistory(window.history);
   state.page = initial;
   window.addEventListener('popstate', event => {
+    if (isBuildRoute()) { showEmbeddedBuild(); return; }
+    switchVisibleApp(false);
     const target = readPrimaryScreen(event.state);
     if (!target) return; // An unrelated browser entry remains the browser's responsibility.
     state.page = allowedHistoryPage(target);
@@ -1039,6 +1098,7 @@ function installSessionResumeRecovery(){
 async function boot() {
   if(!envReady){state.ready=true;render();return;}
   installPrimaryScreenHistory();
+  if (isBuildRoute()) showEmbeddedBuild();
   // Keep the HUB startup screen until the session and the requested route are ready.
   render();
   try{state.session=await getSession();if(state.session){const exp=Number(state.session.expires_at||0)*1000;if(!exp||exp-Date.now()<5*60*1000)state.session=await refreshSession()||state.session;}}catch(error){state.error=String(error?.message||error);} render(); await refreshAll();
