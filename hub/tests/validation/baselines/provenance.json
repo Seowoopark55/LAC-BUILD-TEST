@@ -1,0 +1,27 @@
+{
+  "baseline": "AXE ONE WEB 3.26.19",
+  "originalZipSHA256": "2b7174c1d2b05d651e72a6e7be6dcc4c1dc23a153137c3d5306a29aecb13c430",
+  "viewport": {
+    "desktop": [
+      1440,
+      1000
+    ],
+    "mobile": [
+      390,
+      844
+    ]
+  },
+  "data": "Synthetic fixtures only",
+  "productFiles": "See ../product-sha256.json; production files unchanged",
+  "visualPolicy": {
+    "threshold": 0,
+    "includeAA": true,
+    "maxDifferentPixels": 4,
+    "reason": "Two isolated pixels differed across restored identical Chromium/font sessions; 2px geometry shifts affect many pixels. All observed pixel counts retained."
+  },
+  "limitations": [
+    "Fixture baseline, not a screenshot certification of LIVE",
+    "Linux fonts differ from user Windows installations",
+    "Existing defects deliberately preserved"
+  ]
+}

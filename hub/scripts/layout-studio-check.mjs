@@ -1,0 +1,28 @@
+import fs from 'node:fs';
+const main=fs.readFileSync(new URL('../src/main.js',import.meta.url),'utf8');
+const render=fs.readFileSync(new URL('../src/ui/render.js',import.meta.url),'utf8');
+const tokens=fs.readFileSync(new URL('../src/styles/tokens.css',import.meta.url),'utf8');
+const mgmt=fs.readFileSync(new URL('../src/styles/management.css',import.meta.url),'utf8');
+const fund=fs.readFileSync(new URL('../src/styles/fund.css',import.meta.url),'utf8');
+const settings=fs.readFileSync(new URL('../src/styles/settings.css',import.meta.url),'utf8');
+const studio=fs.readFileSync(new URL('../src/ui/layoutStudio.js',import.meta.url),'utf8');
+const studioCss=fs.readFileSync(new URL('../src/styles/layout-studio.css',import.meta.url),'utf8');
+const rootCss=fs.readFileSync(new URL('../src/styles.css',import.meta.url),'utf8');
+const checks=[]; const expect=(label,ok)=>checks.push([label,Boolean(ok)]);
+expect('layout studio is a valid route',main.includes("'platform','layout'"));
+expect('layout studio is platform-owner gated',render.includes("state.page === 'layout') return state.platformAdmin ? renderLayoutStudio(state) : renderPermission(state)"));
+expect('platform owner account menu exposes studio',render.includes('data-action="open-layout-studio"')&&render.includes('레이아웃 스튜디오'));
+expect('studio has intuitive quick controls',render.includes('글자 크기')&&render.includes('행 간격')&&render.includes('표 너비')&&render.includes('상태 · 관리 요소'));
+expect('studio has live preview',render.includes('실시간 미리보기')&&render.includes('layout-preview-board'));
+expect('studio advanced controls are collapsible',render.includes('layout-toggle-advanced')&&render.includes('세부 설정'));
+expect('studio saves locally without DB/API dependency',studio.includes('localStorage.setItem')&&!studio.includes('supabase')&&!studio.includes('fetch('));
+expect('studio supports save/revert/default',main.includes("action==='layout-save'")&&main.includes("action==='layout-revert'")&&main.includes("action==='layout-reset-default'"));
+expect('standard table typography tokens exist',tokens.includes('--ops-table-header-font-size:8.5px')&&tokens.includes('--ops-table-primary-font-size:10.2px')&&tokens.includes('--ops-table-secondary-font-size:9px')&&tokens.includes('--ops-table-control-font-size:9.6px')&&tokens.includes('--ops-table-status-font-size:8.3px'));
+expect('management tables consume typography tokens',mgmt.includes('font-size:var(--ops-table-header-font-size)')&&mgmt.includes('font-size:var(--ops-table-primary-font-size)')&&mgmt.includes('font-size:var(--ops-table-secondary-font-size)')&&mgmt.includes('font-size:var(--ops-table-status-font-size)'));
+expect('fund tables consume typography tokens',fund.includes('var(--ops-table-header-font-size)')&&fund.includes('var(--ops-table-primary-font-size)')&&fund.includes('var(--ops-table-secondary-font-size)'));
+expect('cooking table consumes typography tokens',settings.includes('var(--ops-table-header-font-size)')&&settings.includes('var(--ops-table-primary-font-size)')&&settings.includes('var(--ops-table-secondary-font-size)'));
+expect('layout studio stylesheet is isolated and imported',rootCss.includes("@import './styles/layout-studio.css';")&&studioCss.includes('.layout-studio-page')&&studioCss.includes('.layout-studio-preview'));
+expect('member management no longer shows web registration CTA',render.includes("pageHeader('MEMBERS','멤버 관리','','')"));
+expect('existing registration pathways remain',render.includes('Discord 우클릭 → 앱 → AXE 멤버 등록')&&render.includes('선택 멤버 등록'));
+let failed=0; for(const [label,ok] of checks){console.log(`${ok?'PASS':'FAIL'} ${label}`);if(!ok)failed++;}
+console.log(`Layout Studio: ${checks.length-failed}/${checks.length} PASS`); if(failed)process.exit(1);

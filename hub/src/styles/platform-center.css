@@ -1,0 +1,19 @@
+/* Phase 4 · HUB administration is independent from the company workspace. */
+.platform-center{background:#0d1117;color:#ecedf0}
+.platform-center__header{min-height:66px;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:10px 26px;border-bottom:1px solid rgba(213,163,67,.15);background:#0b0f13}
+.platform-center__brand{display:flex;align-items:center;gap:10px;border:0;background:transparent;color:#e7c586;cursor:pointer;text-align:left}
+.platform-center__brand span{display:grid;gap:2px}.platform-center__brand strong{font-size:19px;letter-spacing:.08em}.platform-center__brand small{font-size:11px;letter-spacing:.06em;color:#aab2ba}
+.platform-center__account{display:flex;align-items:center;gap:12px;color:#d4d9de;font-size:12px}
+.platform-center__role{color:#dfbf80;font-size:11px}
+.platform-center__logout{border:1px solid #313944;border-radius:8px;background:#151b22;color:#bcc6ce;padding:8px 12px;cursor:pointer}
+.platform-center__workspace{width:min(880px,calc(100% - 48px));margin:0 auto;padding:28px 0 54px}
+.platform-center__intro{margin:0 0 18px}.platform-center__intro>span{color:#c7a568;font-size:10px;letter-spacing:.2em;font-weight:800}.platform-center__intro h1{font-size:28px;margin:7px 0}.platform-center__intro p{color:#9ca8b3;font-size:12px;line-height:1.6;margin:0}
+.platform-center__nav{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:9px;margin-bottom:20px;border:1px solid #303840;border-radius:12px;background:#131a21}
+.platform-center__nav button{border:1px solid transparent;border-radius:8px;padding:10px 13px;background:transparent;color:#aeb7c1;font-weight:800;font-size:12px;cursor:pointer}
+.platform-center__nav button.is-active{background:#27251e;border-color:rgba(213,163,67,.3);color:#eaca87}
+.platform-center__nav>span{margin-left:auto;color:#788691;font-size:11px}
+.platform-center__main{min-width:0;padding:0 0 40px!important}
+.platform-center .platform-page,.platform-center .layout-studio-page{margin:0 auto;max-width:100%}
+.platform-center .platform-service-view,.platform-center .platform-service-tabs,.platform-center .platform-page .ops-mgmt-summary{max-width:100%}
+@media(min-width:761px){.runtime-app.platform-center{width:min(1120px,calc(100vw - 40px));min-width:0;min-height:calc(100vh - 36px)} }
+@media(max-width:760px){.platform-center__header{padding:10px 12px;flex-wrap:wrap}.platform-center__account{flex-wrap:wrap;gap:8px}.platform-center__role{display:none}.platform-center__workspace{width:calc(100% - 24px);padding-top:20px}.platform-center__nav>span{margin-left:0}.platform-center__intro h1{font-size:24px}}

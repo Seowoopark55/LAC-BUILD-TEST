@@ -1,13 +1,14 @@
 {
-  "name": "lac-hub-lac-build",
+  "name": "lac-hub-build-test-repo",
   "private": true,
-  "version": "1.1.33",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "check": "vite build",
-    "preview": "vite preview"
+    "check": "node scripts/verify.mjs && node scripts/verify-deploy.mjs",
+    "build": "node scripts/deploy-build.mjs"
+  },
+  "engines": {
+    "node": ">=20.19.0"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",

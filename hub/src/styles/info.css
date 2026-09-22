@@ -1,0 +1,113 @@
+/* LAC HUB common game information: scoped presentation only; other pages unchanged. */
+.axe-info{display:grid;gap:14px;min-width:0}
+.axe-info-header{display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:61px}
+.axe-info-header h1{font-size:calc((30px) * var(--lac-type-scale, 1));margin:5px 0 0}
+.axe-info-header p{font-size:calc((11px) * var(--lac-type-scale, 1));color:var(--muted);margin:8px 0 0}
+.axe-info-header>button{height:33px;padding:0 12px;border:1px solid #29333e;border-radius:8px;background:#11171d;color:#aab4bd;font-size:calc((11px) * var(--lac-type-scale, 1))}
+/* A single quiet navigation rail replaces the six large category cards. */
+.axe-info-tabs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));align-items:stretch;gap:2px;min-width:0;border-bottom:1px solid #303943}
+.axe-info-tabs>button{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-width:0;min-height:41px;padding:0 6px 2px;border:0;border-radius:6px 6px 0 0;background:transparent;color:#9aa6b3;font-size:calc((11px) * var(--lac-type-scale, 1));font-weight:760;white-space:nowrap;transition:color .12s,background .12s}
+.axe-info-tab-icon{width:14px;height:14px;flex:0 0 14px;display:block;opacity:.88}
+.axe-info-tabs>button.is-active .axe-info-tab-icon{opacity:1}
+.axe-info-tabs>button:hover{color:#e8e0d2;background:rgba(255,255,255,.028)}
+.axe-info-tabs>button.is-active{color:#edc47b;background:rgba(213,163,67,.052)}
+.axe-info-tabs>button.is-active:after{content:"";position:absolute;left:11px;right:11px;bottom:-1px;height:2px;border-radius:2px;background:#d3a450}
+.axe-info-tabs>button:focus-visible,.axe-info-row:focus-visible{outline:2px solid #d3a450;outline-offset:-2px}
+.axe-info-toolbar{display:flex;align-items:center;gap:12px;min-width:0}
+.axe-info-toolbar>input{height:37px;min-width:0;flex:1;padding:0 12px;border:1px solid #303b46;border-radius:8px;background:#0e141a;color:#e6eaf0;font-size:calc((12px) * var(--lac-type-scale, 1))}
+.axe-info-toolbar>input:focus{outline:none;border-color:rgba(213,163,67,.65)}
+.axe-info-toolbar label{display:inline-flex;align-items:center;gap:6px;flex-shrink:0;color:#99a4ae;font-size:calc((10px) * var(--lac-type-scale, 1));white-space:nowrap;cursor:pointer}
+.axe-info-toolbar label input{margin:0;accent-color:#cba354}
+.axe-info-owner-note{font-size:calc((10px) * var(--lac-type-scale, 1));color:#877b69;text-align:right}
+.axe-info-error{padding:12px;border:1px solid rgba(232,116,116,.3);border-radius:8px;color:#e3a5a5;font-size:calc((11px) * var(--lac-type-scale, 1))}
+.axe-info-error button{margin-left:8px;background:transparent;border:0;color:#e7bd72;text-decoration:underline}
+/* Navigation list and information detail always occupy their own clear pane. */
+.axe-info-content{display:grid;grid-template-columns:minmax(0,.84fr) minmax(0,1.16fr);gap:12px;align-items:start;min-width:0}
+.axe-info-list,.axe-info-detail{min-width:0;border:1px solid #28323c;border-radius:10px;background:#0c1218;overflow:hidden}
+.axe-info-list{display:flex;flex-direction:column}
+.axe-info-list__heading{min-height:46px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 15px;border-bottom:1px solid #222b34;color:#c8d0d9;font-size:calc((11px) * var(--lac-type-scale, 1));font-weight:780}
+.axe-info-list__heading small{font-size:calc((10px) * var(--lac-type-scale, 1));color:#83909e;font-weight:650}
+.axe-info-list__items{max-height:min(54vh,500px);overflow-y:auto;overscroll-behavior:contain;padding:5px 7px}
+.axe-info-row{width:100%;min-width:0;min-height:41px;display:flex;align-items:center;justify-content:space-between;gap:9px;margin:0;padding:9px 11px;border:0;border-left:2px solid transparent;border-radius:5px;background:transparent;text-align:left;color:#cdd5dd}
+.axe-info-row+.axe-info-row{border-top:1px solid rgba(46,57,67,.35)}
+.axe-info-row strong{font-size:calc((12px) * var(--lac-type-scale, 1));font-weight:730;line-height:1.4;overflow-wrap:anywhere}
+.axe-info-row em,.axe-info-detail em{flex-shrink:0;font-size:calc((9px) * var(--lac-type-scale, 1));color:#cfaa65;font-style:normal}
+.axe-info-row:hover{background:#141c24;color:#f0f3f5}
+.axe-info-row.is-active{border-left-color:#cfa250;background:rgba(213,163,67,.075);color:#f0d3a0}
+.axe-info-detail{min-height:355px;padding:17px 19px;align-self:stretch}
+.axe-info-detail header{display:grid;gap:8px;padding-bottom:15px;border-bottom:1px solid #27313a}
+.axe-info-detail header span,.axe-info-detail__eyebrow{font-size:calc((10px) * var(--lac-type-scale, 1));color:#a28b62;font-weight:700}
+.axe-info-detail header strong{font-size:calc((17px) * var(--lac-type-scale, 1));font-weight:800;line-height:1.45;overflow-wrap:anywhere}
+.axe-info-detail dl{display:grid;gap:0;margin:9px 0 0}
+.axe-info-detail dl>div{display:grid;grid-template-columns:minmax(88px,32%) minmax(0,1fr);align-items:start;gap:12px;padding:10px 0}
+.axe-info-detail dl>div+div{border-top:1px solid rgba(39,49,58,.55)}
+.axe-info-detail dt{color:#82909d;font-size:calc((10px) * var(--lac-type-scale, 1));line-height:1.55}
+.axe-info-detail dd{margin:0;color:#e0e5ea;font-size:calc((11px) * var(--lac-type-scale, 1));line-height:1.6;overflow-wrap:anywhere}
+.axe-info-detail--empty{display:flex;flex-direction:column}
+.axe-info-detail__placeholder{flex:1;min-height:255px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px;text-align:center}
+.axe-info-detail__placeholder-mark{display:grid;place-items:center;width:38px;height:38px;border:1px solid #303b45;border-radius:11px;color:#7c8b98;font-size:calc((20px) * var(--lac-type-scale, 1))}
+.axe-info-detail__placeholder strong{font-size:calc((12px) * var(--lac-type-scale, 1));color:#aab5bf}
+.axe-info-detail__placeholder p{margin:0;font-size:calc((10px) * var(--lac-type-scale, 1));color:#75818d;line-height:1.8}
+.axe-info-empty{font-size:calc((11px) * var(--lac-type-scale, 1));color:#8895a0;padding:16px 12px}
+/* Existing question/suggestion tabs: preserve the Stage 1 support layout. */
+.axe-support-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:0 0 12px}.axe-support-tabs button{min-height:39px;background:#10161c;border:1px solid #29343f;border-radius:8px;color:#9ca8b4;font-weight:800;font-size:calc((12px) * var(--lac-type-scale, 1))}.axe-support-tabs button.is-active{color:#eac57b;border-color:rgba(213,163,67,.4);background:rgba(213,163,67,.065)}.axe-support-tabs em{font-size:calc((9px) * var(--lac-type-scale, 1));font-style:normal;margin-left:6px;color:#eac57b}
+@media(max-width:1120px){.axe-info-tabs{grid-template-columns:repeat(3,minmax(0,1fr))}.axe-info-content{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}}
+@media(max-width:760px){.axe-info-header h1{font-size:calc((27px) * var(--lac-type-scale, 1))}.axe-info-content{grid-template-columns:minmax(0,1fr)}.axe-info-list__items{max-height:285px}.axe-info-detail{min-height:260px}.axe-info-detail__placeholder{min-height:180px}}
+@media(max-width:450px){.axe-info-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.axe-info-toolbar{flex-wrap:wrap}.axe-info-toolbar>input{flex-basis:100%}}
+/* Stage 3: a quiet, compact secondary navigation band; main six tabs stay put. */
+.axe-info-subfilters{display:flex;flex-direction:column;gap:10px;min-width:0;padding:12px 14px;border:1px solid #29343e;border-radius:9px;background:#10171d}
+.axe-info-subfilter{display:flex;align-items:flex-start;gap:13px;min-width:0}
+.axe-info-subfilter__label{flex:0 0 76px;padding-top:7px;color:#8d9aa6;font-size:calc((10px) * var(--lac-type-scale, 1));line-height:1.4;font-weight:730;white-space:nowrap}
+.axe-info-chips{display:flex;flex-wrap:wrap;gap:5px;min-width:0}
+.axe-info-chips>button{display:inline-flex;align-items:center;gap:7px;min-height:29px;padding:5px 10px;border:1px solid #303b45;border-radius:6px;background:#131c24;color:#abb7c0;font-size:calc((11px) * var(--lac-type-scale, 1));line-height:1.3;font-weight:650;white-space:nowrap}
+.axe-info-chips>button small{font-size:calc((9px) * var(--lac-type-scale, 1));color:#81909c;font-weight:650}
+.axe-info-chips>button:hover{border-color:#53616b;color:#eef0f2}
+.axe-info-chips>button.is-active{border-color:rgba(211,164,80,.56);background:rgba(211,164,80,.105);color:#f0cc90}
+.axe-info-chips>button.is-active small{color:#d2ad74}
+.axe-info-chips>button:focus-visible,.axe-info-subfilter select:focus-visible{outline:2px solid #d3a450;outline-offset:2px}
+.axe-info-subfilter--select{align-items:center}
+.axe-info-subfilter--select .axe-info-subfilter__label{padding-top:0}
+.axe-info-subfilter select{width:min(100%,340px);min-height:34px;padding:0 10px;border:1px solid #3b4652;border-radius:7px;background:#111a21;color:#e1e6e9;font-size:calc((11px) * var(--lac-type-scale, 1));font-weight:650}
+@media(max-width:760px){.axe-info-subfilters{padding:10px}.axe-info-subfilter{gap:7px;flex-wrap:wrap}.axe-info-subfilter__label{flex:0 0 100%;padding-top:0}.axe-info-chips{width:100%}}
+/* Stage 4 — five top-level tabs; compact progressive craft/skill grouping. */
+.axe-info-tabs{grid-template-columns:repeat(5,minmax(0,1fr))}
+.axe-info-subfilters{gap:8px}
+.axe-info-subfilter__label{flex-basis:80px}
+.axe-info-list__heading small{white-space:normal;text-align:right}
+@media(max-width:1120px){.axe-info-tabs{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:450px){.axe-info-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Stage 5 — four top-level information categories and distinct recipe sources. */
+.axe-info-tabs{grid-template-columns:repeat(4,minmax(0,1fr))}
+.axe-info-detail__section{margin-top:15px;padding:12px 0 2px;border-top:1px solid #303943;color:#d6ae68;font-size:calc((11px) * var(--lac-type-scale, 1));font-weight:780}
+@media(max-width:760px){.axe-info-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Stage 6: search is independent of category navigation; result paths distinguish domains. */
+.axe-info-search-hint{font-size:calc((10px) * var(--lac-type-scale, 1));color:#caa76a;white-space:nowrap}
+.axe-info-row--search{flex-wrap:wrap;column-gap:9px;row-gap:3px}
+.axe-info-row--search .axe-info-row__path{margin-left:auto;font-size:calc((10px) * var(--lac-type-scale, 1));color:#a18c65;white-space:normal;text-align:right}
+.axe-info-row--search strong{max-width:100%}
+@media(max-width:760px){.axe-info-row--search .axe-info-row__path{width:100%;margin-left:0;text-align:left}}
+@media(max-width:450px){.axe-info-search-hint{display:none}}
+
+/* Stage 7: retain the existing tab rail while adding the company-scoped modbook view. */
+.axe-info-tabs{grid-template-columns:repeat(5,minmax(0,1fr))}
+.axe-info-subfilter--exception .axe-info-chips>button{border-style:dashed;color:#a5a3a0}
+@media(max-width:760px){.axe-info-tabs{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:450px){.axe-info-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+
+/* Stage 8: restrained symbols and type-specific accent, isolated to modbook filters/details. */
+.axe-info-subfilter--modbook .axe-info-chips>button{gap:6px}
+.axe-info-chip-icon{width:13px;height:13px;flex:0 0 13px;display:inline-block;vertical-align:middle}
+.axe-info-subfilter--modbook .axe-info-chips>button.axe-info-chip--prefix{border-color:rgba(90,140,194,.38);color:#a8caee;background:rgba(64,112,172,.055)}
+.axe-info-subfilter--modbook .axe-info-chips>button.axe-info-chip--prefix.is-active{border-color:#6d9cda;color:#d7e9ff;background:rgba(78,131,198,.19)}
+.axe-info-subfilter--modbook .axe-info-chips>button.axe-info-chip--prefix.is-active small{color:#b7d5f7}
+.axe-info-subfilter--modbook .axe-info-chips>button.axe-info-chip--suffix{border-color:rgba(193,92,92,.36);color:#e8b2b2;background:rgba(165,71,71,.055)}
+.axe-info-subfilter--modbook .axe-info-chips>button.axe-info-chip--suffix.is-active{border-color:#d07a7a;color:#ffe0e0;background:rgba(172,73,73,.2)}
+.axe-info-subfilter--modbook .axe-info-chips>button.axe-info-chip--suffix.is-active small{color:#f2bcbc}
+.axe-info-type-badge{display:inline-flex;gap:4px;align-items:center;margin-left:6px;padding:3px 7px;border:1px solid;border-radius:5px;font-size:calc((10px) * var(--lac-type-scale, 1));font-weight:750;vertical-align:middle}
+.axe-info-detail header span.axe-info-type-badge--prefix{color:#b7d6ff;border-color:rgba(100,152,220,.45);background:rgba(65,122,192,.14)}
+.axe-info-detail header span.axe-info-type-badge--suffix{color:#ffd1d1;border-color:rgba(220,113,113,.45);background:rgba(180,77,77,.14)}
+.axe-info-type-badge .axe-info-chip-icon{width:11px;height:11px;flex-basis:11px}
+

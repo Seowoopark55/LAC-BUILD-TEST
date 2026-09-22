@@ -1,0 +1,13 @@
+import fs from 'node:fs';
+const main=fs.readFileSync(new URL('../src/main.js',import.meta.url),'utf8');
+const render=fs.readFileSync(new URL('../src/ui/render.js',import.meta.url),'utf8');
+const check=(ok,label)=>{console.log(`${ok?'PASS':'FAIL'} ${label}`);if(!ok)process.exitCode=1;};
+check(render.includes("modbook:{name:'개조서'")&&render.includes("['channel_id','개조서 채널']"),'company settings expose modbook channel');
+check(main.includes("modbook:String(settingsByKey.modbook?.channel_id||'')"),'guided setup restores saved modbook channel');
+check(main.includes("key:'modbook',moduleKey:'modbook',settingKey:'channel_id'"),'guided quick channel plan persists modbook binding');
+check(main.includes("modbook:['modbook','channel_id']"),'guided channel binding supports modbook');
+check(render.includes("key:'modbook',label:'개조서 조회 · 가격'"),'live guided setup renders modbook channel');
+check(render.includes("channelSelect('개조서','개조서 채널'"),'preview direct setup renders modbook channel');
+check(main.includes("'record_channel_id','channel_id','order_channel_id'"),'module settings save channel_id');
+if(process.exitCode)process.exit(process.exitCode);
+console.log('Modbook Channel Guided Setup: 7/7 PASS');

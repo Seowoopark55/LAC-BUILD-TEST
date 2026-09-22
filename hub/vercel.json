@@ -1,0 +1,41 @@
+{
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/build",
+      "destination": "/build/index.html"
+    },
+    {
+      "source": "/build/",
+      "destination": "/build/index.html"
+    },
+    {
+      "source": "/build/builds",
+      "destination": "/build/index.html"
+    },
+    {
+      "source": "/build/notices",
+      "destination": "/build/index.html"
+    },
+    {
+      "source": "/build/presets",
+      "destination": "/build/index.html"
+    },
+    {
+      "source": "/build/modbooks",
+      "destination": "/build/index.html"
+    },
+    {
+      "source": "/build/weapons",
+      "destination": "/build/index.html"
+    },
+    {
+      "source": "/build/reports",
+      "destination": "/build/index.html"
+    },
+    {
+      "source": "/build/admin",
+      "destination": "/build/index.html"
+    }
+  ]
+}

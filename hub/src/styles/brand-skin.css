@@ -1,0 +1,137 @@
+/* AXE ONE 3.14.7 · AXE NET BLACK + SUBTLE GOLD
+   Visual-only override. Layout, runtime, RPC, auth and data flow are unchanged. */
+:root{
+  --bg:#08090b;
+  --header:#090a0c;
+  --sidebar:#0b0d10;
+  --surface:#0c0e11;
+  --surface-raised:#0f1114;
+  --surface-input:#111317;
+  --line:rgba(255,255,255,.085);
+  --line-soft:rgba(255,255,255,.055);
+  --text:#e9e5dd;
+  --text-2:#d8d4cc;
+  --muted:#85888d;
+  --sub:#686c72;
+  --gold:#d5a343;
+  --gold-strong:#e2b45a;
+  --gold-soft:rgba(255,181,46,.038);
+  --amber:#d6ad61;
+  --amber-soft:rgba(255,181,46,.045);
+  --green:#83d4a4;
+  --green-soft:rgba(93,191,127,.07);
+  --red:#ef8f89;
+  --red-soft:rgba(255,92,92,.055);
+  --ops-title:#e9e5dd;
+  --ops-copy:#d8d4cc;
+  --ops-sub:#777c83;
+  --ops-meta:#666b72;
+  --ops-gold:#cda554;
+  --ops-gold-bright:#d9b566;
+}
+
+body{background:var(--bg);color:var(--text)}
+.global-header{background:#090a0c;box-shadow:none}
+.product-brand small{color:#6f7379}
+.environment-pill,.icon-button{background:#0e1013;color:#858a91}
+.icon-button:hover{border-color:rgba(255,255,255,.15);background:#111317;color:#e3ded5}
+
+.sidebar{background:#0b0d10;box-shadow:none}
+.overline{color:#62666c}.overline.gold{color:#9d8049}
+.runtime-company-trigger,.company-select{background:#0f1114!important;border-color:rgba(255,255,255,.09)!important;color:#e7e3dc!important}
+.runtime-company-trigger small,.company-select__copy small{color:#666b72!important}
+.runtime-company-menu{background:#0c0e11!important;border-color:rgba(255,255,255,.10)!important}
+.runtime-company-menu button{color:#aaa9a5!important}.runtime-company-menu button:hover{background:rgba(255,255,255,.025)!important;color:#e8e3d9!important}
+.runtime-company-menu button.is-current{background:rgba(255,181,46,.035)!important;border-color:rgba(255,181,46,.16)!important;color:#d6b16a!important}
+.company-quick-actions button{background:#0f1114;color:#999da3}
+.company-quick-actions .accent-action{background:rgba(255,181,46,.025);border-color:rgba(255,181,46,.16);color:#cda554}
+.sidebar-nav__label{color:#565b61}
+.nav-item{color:#aaa9a5}
+.nav-item:hover{background:rgba(255,255,255,.022);color:#e8e3d9}
+.nav-item.is-active{background:rgba(255,181,46,.035);color:#e7d6b4;box-shadow:inset 2px 0 rgba(213,163,67,.74)}
+.nav-item__icon{color:#6e7379}.nav-item.is-active .nav-item__icon{color:#cda554}
+.nav-item--support{color:#989a9d}.nav-item--support:hover{background:rgba(255,255,255,.022);color:#ddd8cf}.nav-item--support .nav-item__icon{color:#7f735e}.nav-item--support:hover .nav-item__icon{color:#cda554}
+.account-summary{border-left-color:rgba(213,163,67,.22)}
+.connection-status small,.account-summary small{color:#666b72}
+.mini-icon{color:#73787f}.mini-icon:hover{background:rgba(255,255,255,.025);color:#ded9d0}
+
+/* Surfaces stay neutral black. Gold is reserved for state and action accents. */
+.summary-strip,.panel,.ops-mgmt-summary,.ops-mgmt-board,.ops-settings-overview,.ops-settings-board,
+.axe-fund-card,.axe-fund-review-card,.axe-fund-settings-list,.axe-fund-history-surface{
+  background:#0c0e11!important;
+  box-shadow:none!important;
+}
+.panel-heading,.toolbar,.ops-mgmt-toolbar,.ops-settings-board-head{background:#0f1114!important}
+.summary-metric>span{color:#777b82}.summary-metric>small{color:#5f646a}
+
+.button{background:#111317;color:#bab7b0}
+.button:hover{background:#15171a;border-color:rgba(255,255,255,.15);color:#e5e1d8}
+.button--primary{border-color:rgba(255,181,46,.24);background:#12130f;color:#d9b566;text-shadow:none;box-shadow:none}
+.button--primary:hover{border-color:rgba(255,181,46,.38);background:#17160f;color:#e5c57f}
+.button--secondary{background:#111317;color:#aaa9a5}
+
+.tab-row button,.axe-fund-tabs button,.ops-mgmt-tabs button,.ops-mgmt-tabs__items button{color:#7f838a}
+.tab-row button:hover,.axe-fund-tabs button:hover,.ops-mgmt-tabs button:hover,.ops-mgmt-tabs__items button:hover{background:rgba(255,255,255,.012);color:#ddd8cf}
+.tab-row button.is-active,.axe-fund-tabs button.is-active,.ops-mgmt-tabs button.is-active,.ops-mgmt-tabs__items button.is-active{color:#d6b16a;background:transparent;border-color:transparent}
+.tab-row button.is-active:after,.axe-fund-tabs button.is-active:after,.ops-mgmt-tabs button.is-active:after,.ops-mgmt-tabs__items button.is-active:after{background:#d5a343}
+
+.search-control,.control-select,.ops-mgmt-search,.ops-mgmt-select,.ops-settings-control input,.ops-settings-control select,.ops-settings-channels select,
+.axe-fund-select,.axe-fund-input,.axe-fund-history-select,.runtime-modal-form input,.runtime-modal-form select,.runtime-modal-form textarea{
+  background:#111317!important;border-color:rgba(255,255,255,.09)!important;color:#ded9d0!important
+}
+.search-control input{color:#ded9d0}.search-control input::placeholder{color:#5f646a}
+.control-select:focus,.search-control:focus-within,.ops-mgmt-search:focus-within,.ops-mgmt-select:focus,.ops-settings-control input:focus,.ops-settings-control select:focus,.ops-settings-channels select:focus,.axe-fund-select:focus,.axe-fund-input:focus,.axe-fund-history-select:focus,.runtime-modal-form input:focus,.runtime-modal-form select:focus,.runtime-modal-form textarea:focus{
+  border-color:rgba(255,181,46,.28)!important;box-shadow:0 0 0 2px rgba(255,181,46,.035)!important
+}
+select{color-scheme:dark}select option{background:#111317;color:#ded9d0}
+
+.data-table th{background:#0f1114;color:#7f838a}.data-table tbody tr:hover{background:rgba(255,255,255,.015)}
+.row-actions button:hover{background:rgba(255,255,255,.022);color:#e3ded5}
+.badge--neutral{background:rgba(255,255,255,.025);color:#93979d}
+.text-action{color:#cda554}
+
+/* Management screens: remove warm washes, keep only small active clues. */
+.ops-mgmt-segments button{background:transparent;border-color:rgba(255,255,255,.05);color:#85888d}
+.ops-mgmt-segments button:hover{border-color:rgba(255,255,255,.11);color:#d7d3cb}
+.ops-mgmt-segments button.is-active{border-color:rgba(255,181,46,.15);background:rgba(255,181,46,.03);color:#d6b16a;box-shadow:none}
+.ops-mgmt-segments em{background:rgba(255,255,255,.035);color:#8f9399}
+.ops-mgmt-segments button.is-active em{background:rgba(255,181,46,.055);color:#cda554}
+.ops-mgmt-row:hover{background:rgba(255,255,255,.012)}
+.ops-mgmt-action{background:transparent!important;border-color:rgba(255,255,255,.08)!important;color:#999da3!important}
+.ops-mgmt-action:hover{background:rgba(255,255,255,.018)!important;border-color:rgba(255,255,255,.14)!important;color:#e3ded5!important}
+
+/* Settings: black first, gold only on selected tab / enabled power. */
+.ops-settings-tabs{background:#0c0e11}
+.ops-settings-tabs button strong{color:#9b9da1}.ops-settings-tabs button span{color:#666b72}
+.ops-settings-tabs button:hover{background:rgba(255,255,255,.012);border-color:rgba(255,255,255,.07)}
+.ops-settings-tabs button.is-active{border-color:rgba(255,181,46,.14);background:rgba(255,181,46,.025);box-shadow:inset 2px 0 rgba(213,163,67,.68)}
+.ops-settings-tabs button.is-active strong{color:#d8c39b}.ops-settings-tabs button.is-active span{color:#83755d}
+.ops-settings-save-action{border-color:rgba(255,181,46,.22);background:#111317;color:#d6b16a;box-shadow:none}
+.ops-settings-save-action svg{color:#cda554}.ops-settings-save-action:hover{border-color:rgba(255,181,46,.34);background:#15171a;color:#e3c57f;box-shadow:none}
+/* The AI settings row uses the same left gold finish as existing feature rows, without implying that AI replies are enabled. */
+.ops-settings-module.is-enabled,.ops-settings-module.ops-settings-ai-row{box-shadow:inset 2px 0 rgba(213,163,67,.42)}
+.ops-settings-no-channel{border-color:rgba(255,181,46,.10);color:#7f765f}
+.ops-power-toggle,.runtime-power.is-off{border-color:rgba(255,255,255,.10);background:#111317;color:#777b82}
+.ops-power-toggle:hover,.runtime-power.is-off:hover{border-color:rgba(255,255,255,.15);background:#15171a;color:#a8aaad}
+.ops-power-toggle:has(input:checked),.runtime-power.is-on{border-color:rgba(255,181,46,.30);background:rgba(255,181,46,.055);color:#d9b566;box-shadow:none}
+.ops-power-toggle:has(input:checked) .ops-power-toggle__icon{text-shadow:none}
+.ops-settings-module-foot,.runtime-bot-note{background:rgba(255,255,255,.008);border-top-color:rgba(255,255,255,.055)}
+.ops-settings-module-foot strong,.runtime-bot-note strong{color:#a88a52}
+
+/* Runtime/login/modal surfaces follow the same AXE NET temperature. */
+.runtime-auth{background:#08090b}.runtime-auth-card,.runtime-onboarding-card,.runtime-startup-card,.runtime-permission{background:#0c0e11;border-color:rgba(255,255,255,.085)}
+.runtime-auth p,.runtime-startup-card p,.runtime-permission span{color:#7f838a}
+.runtime-onboarding-card input{background:#111317;border-color:rgba(255,255,255,.09);color:#ded9d0}
+.runtime-login-button{border-color:rgba(255,181,46,.24);background:#111317;color:#d9b566}.runtime-login-button:hover{background:#15171a}
+.runtime-login-button--ghost{background:#111317;border-color:rgba(255,255,255,.09);color:#bab7b0}
+.runtime-modal{background:#0c0e11;border-color:rgba(255,255,255,.10)}.runtime-modal>header{background:#0f1114;border-bottom-color:rgba(255,255,255,.06)}
+.runtime-modal>header h2{color:#e9e5dd}.runtime-modal>header p{color:#7f838a}
+.runtime-btn-primary{border-color:rgba(255,181,46,.22);background:#111317;color:#d9b566}.runtime-btn-ghost{border-color:rgba(255,255,255,.09);background:#111317;color:#aaa9a5}
+.feedback-modal{background:#0c0e11!important;border-color:rgba(255,255,255,.10)!important}.feedback-modal-head{background:#0f1114!important}
+.feedback-type-row button{background:#111317!important;color:#85888d!important}.feedback-type-row button.is-active{background:rgba(255,181,46,.03)!important;border-color:rgba(255,181,46,.16)!important;color:#d6b16a!important;box-shadow:none!important}
+.feedback-submit{border-color:rgba(255,181,46,.22)!important;background:#111317!important;color:#d9b566!important}.feedback-submit:hover{border-color:rgba(255,181,46,.36)!important;background:#15171a!important;color:#e3c57f!important}
+
+/* Preserve the AXE NET ledger as visual source of truth. */
+.axe-fund-history-surface{background:#0c0e11!important;border-color:rgba(255,255,255,.075)!important}
+.axe-fund-history-toolbar{background:#0f1114!important}
+.axe-fund-history-row:hover{background:rgba(255,255,255,.015)!important}

@@ -1,0 +1,50 @@
+/* LAC HUB: balanced typography scale; no visual changes at the 100% baseline. */
+:root { --lac-type-scale:1; }
+.lac-type-panel { max-width:580px; }
+.lac-type-panel>header { min-height:68px; }
+.lac-type-percent { color:#e8c279;font-size:calc(18px * var(--lac-type-scale,1));font-variant-numeric:tabular-nums;white-space:nowrap; }
+.lac-type-controls { display:grid;gap:13px;padding:23px 18px; }
+.lac-type-controls input[type="range"] { display:block;width:100%;accent-color:#dfb65f;cursor:pointer; }
+.lac-type-scale-labels { display:flex;justify-content:space-between;gap:8px;color:#9b9fa3;font-size:calc(10px * var(--lac-type-scale,1)); }
+.lac-type-hint { margin:12px 2px;color:#8e989f;font-size:calc(10px * var(--lac-type-scale,1));line-height:1.6; }
+.lac-login-code { margin:14px 0 0;padding:11px 12px;border:1px solid rgba(225,184,103,.18);border-radius:9px;background:rgba(12,14,17,.50);color:#b2b6b8; }
+.lac-login-code summary { cursor:pointer;color:#e0c080;font-size:calc(10px * var(--lac-type-scale,1));font-weight:750; }
+.lac-login-code label { display:grid;gap:6px;margin-top:10px;color:#aab2b9;font-size:calc(9.5px * var(--lac-type-scale,1)); }
+.lac-login-code input { width:100%;min-width:0;height:39px;padding:0 10px;border:1px solid #394049;border-radius:8px;background:#090e12;color:#e6e2da;font-size:calc(11px * var(--lac-type-scale,1));letter-spacing:.035em; }
+.lac-login-code small { display:block;margin-top:7px;color:#8e959a;font-size:calc(9px * var(--lac-type-scale,1));line-height:1.45; }
+.lac-issued-code { display:grid;gap:9px;min-width:0;padding:12px;border:1px solid rgba(225,184,103,.22);border-radius:9px;background:#17130e; }
+.lac-issued-code strong { color:#e0c080;font-size:calc(11px * var(--lac-type-scale,1)); }
+.lac-issued-code code { min-width:0;overflow-wrap:anywhere;user-select:all;color:#f4e7c9;font-size:calc(11px * var(--lac-type-scale,1)); }
+.lac-issued-code button { width:max-content;min-height:32px;padding:0 10px;border:1px solid #67502e;border-radius:7px;background:#241c10;color:#f1cf8e; }
+/* Room for larger text, while the baseline 100% page geometries remain untouched. */
+html[data-layout-studio-active="true"] .runtime-app .ops-lane-head,
+html[data-layout-studio-active="true"] .runtime-app .axe-fund-ledger-columns {height:auto;min-height:calc(30px * var(--lac-type-scale,1));}
+html[data-layout-studio-active="true"] .runtime-app .ops-lane-row,
+html[data-layout-studio-active="true"] .runtime-app .axe-fund-ledger-row {height:auto;min-height:calc(42px * var(--lac-type-scale,1));}
+html[data-layout-studio-active="true"] .runtime-app button,
+html[data-layout-studio-active="true"] .runtime-app select,
+html[data-layout-studio-active="true"] .runtime-app input {min-height:calc(28px * var(--lac-type-scale,1));}
+@media(max-width:780px) {
+  .lac-login-code{margin-top:10px;}
+  .lac-type-scale-labels{flex-wrap:wrap;}
+}
+/* Let enlarged dense tables scroll rather than silently clipping the final columns. */
+html[data-layout-studio-active="true"] .runtime-app .ops-mgmt-workspace,
+html[data-layout-studio-active="true"] .runtime-app .ops-mgmt-board,
+html[data-layout-studio-active="true"] .runtime-app .axe-fund-ledger { overflow-x:auto; }
+html[data-layout-studio-active="true"] .runtime-app .main--members .ops-lane-head,
+html[data-layout-studio-active="true"] .runtime-app .main--members .ops-lane-row,
+html[data-layout-studio-active="true"] .runtime-app .main--assets .ops-lane-head,
+html[data-layout-studio-active="true"] .runtime-app .main--assets .ops-lane-row,
+html[data-layout-studio-active="true"] .runtime-app .main--accounts .ops-lane-head,
+html[data-layout-studio-active="true"] .runtime-app .main--accounts .ops-lane-row,
+html[data-layout-studio-active="true"] .runtime-app .main--fund .axe-fund-ledger-columns,
+html[data-layout-studio-active="true"] .runtime-app .main--fund .axe-fund-ledger-row {
+  min-width:calc(600px * var(--lac-type-scale,1));
+}
+@media(max-width:760px) {
+  html[data-layout-studio-active="true"] .runtime-app .ops-lane-head,
+  html[data-layout-studio-active="true"] .runtime-app .ops-lane-row,
+  html[data-layout-studio-active="true"] .runtime-app .axe-fund-ledger-columns,
+  html[data-layout-studio-active="true"] .runtime-app .axe-fund-ledger-row {min-width:0;}
+}

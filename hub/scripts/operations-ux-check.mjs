@@ -1,0 +1,23 @@
+import fs from 'node:fs';
+const main=fs.readFileSync(new URL('../src/main.js',import.meta.url),'utf8');
+const render=fs.readFileSync(new URL('../src/ui/render.js',import.meta.url),'utf8');
+const api=fs.readFileSync(new URL('../src/lib/productApi.js',import.meta.url),'utf8');
+const sql='DATABASE 1.7.48 is a separate apply prerequisite';
+function check(c,l){if(!c){console.error(`FAIL ${l}`);process.exitCode=1;}else console.log(`PASS ${l}`)}
+check(render.includes("function companyDisplayName(state) { return currentCompany(state)?.name || '회사'; }"),'canonical company name comes from companies.name');
+check(!render.includes('Discord ${esc(m.discord_user_id)}'),'member list hides Discord numeric ID');
+check(render.includes('employment_started_on')&&render.includes('ops-lane-head--member')&&render.includes('<span>입사일</span>'),'actual employment date UX exists');
+check(render.includes('name="company_name"')&&!render.includes('name="brand_name"'),'company settings edits canonical company name only');
+check(!render.includes('name="company_banner"')&&!render.includes('회사 배너'),'company banner registration UI removed');
+check(render.includes('등록자')&&!render.includes('관련자<select'),'fund ledger uses automatic registrant UX');
+check(!render.includes('name="legacy_no"')&&!render.includes('기존 ID'),'asset legacy/internal ID is hidden');
+check(render.includes('data-asset-modal-status')&&render.includes('value="미배정"'),'asset status dropdown exists');
+check(render.includes("a.membership_id?'상세':'배정'"),'unassigned asset exposes assign action');
+check(main.includes('existing?.legacy_no||null'),'hidden legacy ID is preserved on asset edit');
+check(main.includes('updateMembershipEmploymentDate'),'member employment date is persisted');
+check(main.includes('updateCompanyName(state.companyId,companyName)'),'canonical company name RPC is used');
+check(!main.includes('uploadCompanyBanner')&&!main.includes('removeCompanyBanner'),'company banner mutation wiring removed from web');
+check(api.includes("web_company_admin_update_name"),'company name admin RPC binding exists');
+check(api.includes("axe-product-company-branding"),'legacy branding storage binding left untouched for compatibility');
+check(render.includes('global-account')&&render.includes('sidebar-footer')&&render.includes('connection-status'),'account/header and clean Discord-only sidebar footer layout present');
+if(!process.exitCode)console.log(`LAC ONE OPERATIONS UX CHECK: PASS · ${sql}`);

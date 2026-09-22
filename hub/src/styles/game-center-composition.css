@@ -1,0 +1,125 @@
+/* Phase 10 — rebalance the actual independent Game Info viewport.
+   In previous iterations hero/search were compressed while the result panels
+   inherited ALL remaining height. Reallocate height instead of filling panels
+   with fabricated information. Company-embedded Game Info is unaffected. */
+@media (min-width:1100px) and (min-height:800px) {
+  body:has(.runtime-app--game-info.game-center) {overflow-y:hidden;}
+  .runtime-app--game-info.game-center {
+    width:min(1510px,calc(100vw - 40px));
+    height:min(calc(100dvh - 28px),860px);
+    max-height:min(calc(100dvh - 28px),860px);
+    min-height:0;
+    margin:12px auto;
+    display:flex;flex-direction:column;overflow:hidden;
+  }
+  .game-center .game-center__header {
+    flex:0 0 52px;min-height:52px;padding:7px 24px;
+  }
+  .game-center .game-center__body {
+    display:flex;flex:1 1 auto;flex-direction:column;
+    min-height:0;overflow:hidden;padding:0 15px 12px;
+  }
+  /* Hero gets the remaining available space after reserving usable panel
+     height. This makes one-filter and three-filter categories equally legible. */
+  .game-center .game-center__hero {
+    flex:1 1 auto;min-height:175px;max-height:none;
+    padding:clamp(20px,3vh,30px) clamp(28px,3vw,48px) 72px;
+    align-items:flex-start;
+    background-position:center 55%;
+  }
+  .game-center .game-center__hero h1 {
+    margin:8px 0 9px;font-size:clamp(35px,4.4vh,43px);line-height:1.12;
+  }
+  .game-center .game-center__hero p {font-size:12px;line-height:1.55;}
+  .game-center .game-center__eyebrow {font-size:10px;}
+  .game-center .game-center__hero-sign {
+    display:block;right:24px;bottom:78px;font-size:10px;
+  }
+  .game-center .game-center__refresh {top:16px;right:20px;}
+  .game-center .axe-info {
+    position:relative;z-index:2;flex:0 0 auto;
+    display:flex;flex-direction:column;gap:8px;min-height:0;padding:0;
+  }
+  .game-center .axe-info-toolbar {
+    flex:0 0 54px;min-height:54px;box-sizing:border-box;
+    margin:-60px 18px 10px;padding:6px 12px 6px 16px;
+    border-radius:11px;box-shadow:0 10px 24px rgba(0,0,0,.30);
+  }
+  .game-center .axe-info-toolbar::before {font-size:27px;}
+  .game-center .axe-info-toolbar>input {height:40px;font-size:13px;}
+  .game-center .axe-info-tabs {
+    flex:0 0 48px;min-height:48px;padding:4px 6px;
+  }
+  .game-center .axe-info-tabs>button {min-height:39px;font-size:12px;}
+  .game-center .axe-info-tab-icon {width:17px;height:17px;flex-basis:17px;}
+  /* Category rows can still scroll independently if data creates too many. */
+  .game-center .axe-info-subfilters {
+    flex:0 0 auto;max-height:min(13dvh,108px);
+    padding:8px 12px;gap:5px;overflow-y:auto;
+  }
+  .game-center .axe-info-subfilter {gap:10px;}
+  .game-center .axe-info-chips>button {min-height:27px;padding:5px 10px;font-size:11px;}
+  /* Explicitly reserve a balanced TWO-column workspace rather than stretching
+     it to the bottom of a tall desktop monitor. Only its content scrolls. */
+  .game-center .axe-info-content {
+    flex:0 0 clamp(300px,43dvh,410px);
+    height:clamp(300px,43dvh,410px);min-height:0;
+    display:grid;grid-template-columns:minmax(0,.83fr) minmax(0,1.17fr);
+    gap:11px;overflow:hidden;
+  }
+  .game-center .axe-info-list,.game-center .axe-info-detail {
+    height:100%;min-height:0;max-height:100%;
+    border-radius:11px;
+  }
+  .game-center .axe-info-list__heading {flex:0 0 38px;min-height:38px;}
+  .game-center .axe-info-list__items {
+    flex:1 1 auto;min-height:0;max-height:none;
+    padding:6px;overflow-y:auto;overscroll-behavior:contain;
+  }
+  .game-center .axe-info-row {min-height:42px;margin:0 0 5px;padding:8px 30px 8px 12px;}
+  /* The previously added tiny picture at the bottom emphasizes the empty
+     column; show subtle category atmosphere over the whole short-list panel
+     instead, without manufacturing catalogue rows. */
+  .game-center .game-info-list-endcap {display:none;}
+  .game-center .axe-info-list:has(.game-info-list-endcap) {
+    background-image:linear-gradient(180deg,#101820 0%,#101820 42%,rgba(16,24,32,.93) 68%,rgba(16,24,32,.60)),var(--game-list-art,url('/hub/game-info/hero.webp'));
+    background-size:cover;background-position:center bottom;
+  }
+  .game-center .axe-info-detail:not(.axe-info-detail--empty) {
+    padding:0 14px 11px;overflow-y:auto;
+  }
+  .game-center .axe-info-detail:not(.axe-info-detail--empty)::before {
+    height:176px;background-position:center 55%;
+  }
+  .game-center .axe-info-detail:not(.axe-info-detail--empty)::after {
+    height:195px;
+    background:linear-gradient(90deg,rgba(7,12,19,.72),rgba(7,12,19,.12) 85%),
+      linear-gradient(0deg,#111a24 0%,rgba(9,15,23,.10) 78%);
+  }
+  .game-center .axe-info-detail:not(.axe-info-detail--empty) header {
+    flex:0 0 148px;min-height:148px;
+    padding:13px 8px 13px;justify-content:flex-end;
+  }
+  .game-center .axe-info-detail:not(.axe-info-detail--empty) header strong {
+    font-size:22px;
+  }
+  .game-center .axe-info-detail:not(.axe-info-detail--empty) dl {
+    flex:0 0 auto;min-height:0;align-content:start;
+    margin:7px 0 0;gap:6px;
+  }
+  .game-center .axe-info-detail:not(.axe-info-detail--empty) dl>div {
+    min-height:49px;padding:7px 10px;
+  }
+  .game-center .axe-info-detail:not(.axe-info-detail--empty) dt {font-size:10px;}
+  .game-center .axe-info-detail:not(.axe-info-detail--empty) dd {font-size:12px;}
+  .game-center .axe-info-detail:has(dl>div:nth-child(8)) header {
+    flex:0 0 107px!important;min-height:107px!important;
+  }
+  .game-center .axe-info-detail:has(dl>div:nth-child(8))::before {height:140px!important;}
+  .game-center .axe-info-detail:has(dl>div:nth-child(8))::after {height:153px!important;}
+  .game-center .axe-info-detail--empty>.axe-info-detail__eyebrow {
+    height:153px;min-height:153px;
+  }
+}
+/* Low-height desktop and narrow screens keep Phase 8's safe overflow policy:
+   do not hide actual controls or introduce a second browser scroll region. */

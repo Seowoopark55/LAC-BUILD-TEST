@@ -1,35 +1,45 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "installCommand": "npm install",
+  "buildCommand": "npm run build",
+  "outputDirectory": "hub/dist",
   "rewrites": [
     {
-      "source": "/(.*)",
-      "destination": "/"
-    }
-  ],
-  "headers": [
+      "source": "/build",
+      "destination": "/build/index.html"
+    },
     {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
-        },
-        {
-          "key": "Permissions-Policy",
-          "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
-        },
-        {
-          "key": "X-Permitted-Cross-Domain-Policies",
-          "value": "none"
-        }
-      ]
+      "source": "/build/",
+      "destination": "/build/index.html"
+    },
+    {
+      "source": "/build/builds",
+      "destination": "/build/index.html"
+    },
+    {
+      "source": "/build/notices",
+      "destination": "/build/index.html"
+    },
+    {
+      "source": "/build/presets",
+      "destination": "/build/index.html"
+    },
+    {
+      "source": "/build/modbooks",
+      "destination": "/build/index.html"
+    },
+    {
+      "source": "/build/weapons",
+      "destination": "/build/index.html"
+    },
+    {
+      "source": "/build/reports",
+      "destination": "/build/index.html"
+    },
+    {
+      "source": "/build/admin",
+      "destination": "/build/index.html"
     }
   ]
 }

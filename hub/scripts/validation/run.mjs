@@ -1,0 +1,2 @@
+import {spawnSync} from 'node:child_process';import {root,write} from './common.mjs';
+const results=[];for(const file of ['static.mjs','assets.mjs','negative-controls.mjs','build.mjs','dom.mjs','browser.mjs']){const r=spawnSync(process.execPath,['scripts/validation/'+file],{cwd:root,stdio:'inherit'});results.push({file,exit:r.status,status:r.status===0?'PASS':r.status===2?'NOT RUN':'FAIL'});}write('suite',{status:results.some(r=>r.status==='FAIL')?'FAIL':results.some(r=>r.status==='NOT RUN')?'NOT RUN':'PASS',results});if(results.some(r=>r.status!=='PASS'))process.exitCode=1;

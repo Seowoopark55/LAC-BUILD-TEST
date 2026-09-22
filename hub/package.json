@@ -1,0 +1,18 @@
+{
+  "name": "axe-product-staging",
+  "private": true,
+  "version": "1.7.41-web-ui.79",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "node scripts/source-check.mjs && node scripts/integrated-ui-check.mjs && node scripts/onboarding-catalog-check.mjs && node scripts/operations-ux-check.mjs && node scripts/member-identity-ux-check.mjs && node scripts/dense-ops-system-check.mjs && node scripts/content-fit-density-check.mjs && node scripts/generated-ambient-shell-check.mjs && node scripts/guided-setup-typography-check.mjs && node scripts/live-guided-setup-check.mjs && node scripts/session-auth-privacy-check.mjs && node scripts/operations-row-actions-check.mjs && node scripts/platform-subscription-evidence-check.mjs && node scripts/platform-shell-balance-check.mjs && node scripts/content-offset-plan-check.mjs && node scripts/discord-permission-reapproval-check.mjs && node scripts/modbook-channel-guided-check.mjs && node scripts/discord-upfront-permissions-check.mjs && node scripts/dashboard-operations-check.mjs && node scripts/dashboard-readability-check.mjs && node scripts/dashboard-copy-cleanup-check.mjs && node scripts/interface-copy-cleanup-check.mjs && node scripts/account-lookup-owner-shell-check.mjs && node scripts/questions-board-check.mjs && node scripts/scale-safe-lists-check.mjs && node scripts/pinball-module-check.mjs && node scripts/suggestions-board-check.mjs && node scripts/first-run-onboarding-check.mjs && node scripts/test-center-check.mjs && node scripts/onboarding-flow-integrity-check.mjs && node scripts/company-delete-platform-scale-check.mjs && node scripts/axe-one-brand-check.mjs && node scripts/list-visual-cleanup-check.mjs && node scripts/fund-ledger-axis-specificity-check.mjs && node scripts/fund-ledger-alignment-check.mjs && node scripts/ops-table-fund-standard-check.mjs && node scripts/ops-density-balance-check.mjs && node scripts/member-account-balance-check.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.57.4"
+  },
+  "devDependencies": {
+    "vite": "^7.1.3"
+  }
+}

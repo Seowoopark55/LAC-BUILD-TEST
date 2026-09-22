@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import { readFileSync, existsSync } from 'node:fs';
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
+const read=(p)=>readFileSync(resolve(root,p),'utf8');
+const config=JSON.parse(read('vercel.json'));
+assert.equal(config.outputDirectory,'hub/dist');
+assert.equal(config.buildCommand,'npm run build');
+assert.ok(config.rewrites.find(r=>r.source==='/build/builds' && r.destination==='/build/index.html'));
+assert.ok(existsSync(resolve(root,'api/discord/start.js')) && existsSync(resolve(root,'api/discord/callback.js')));
+assert.ok(existsSync(resolve(root,'server/discordSecurity.js')));
+const rootPkg=JSON.parse(read('package.json'));
+for(const name of ['vite','@vitejs/plugin-react','react','react-dom','@supabase/supabase-js']) assert.ok(rootPkg.dependencies?.[name] || rootPkg.devDependencies?.[name]);
+assert.ok(read('scripts/deploy-build.mjs').includes('build/dist'));
+for(const part of ['hub','build']) assert.ok(!existsSync(resolve(root,part,'node_modules')));
+console.log('PASS: TEST repo has root Vercel config, root dependencies, copied serverless routes, and isolated build output.');
+console.log('NOTE: This does NOT prove npm install, Vite build on Vercel, Discord OAuth, or live auth.');

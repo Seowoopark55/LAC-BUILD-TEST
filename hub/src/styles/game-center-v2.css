@@ -1,0 +1,229 @@
+/* Phase 7 · Standalone game-information visual reconstruction.
+   Scope EVERYTHING to .game-center or body:has(.game-center): the company's
+   embedded info module uses the original UI, data handling and permissions. */
+body:has(.runtime-app--game-info)::before{
+  background:linear-gradient(90deg,rgba(5,9,14,.63),rgba(5,9,14,.19) 45%,rgba(5,9,14,.59)),
+    linear-gradient(0deg,rgba(5,8,12,.45),rgba(5,8,12,.23)),
+    url('/hub/game-info/hero.webp') center center/cover no-repeat,#080d14;
+}
+body:has(.runtime-app--game-info) #app{position:relative;isolation:isolate;}
+.runtime-app--game-info.game-center{
+  width:min(1510px,calc(100vw - 112px));min-width:0;min-height:calc(100vh - 28px);
+  margin:14px auto 24px;border:1px solid rgba(222,180,113,.33);border-radius:18px;
+  box-shadow:0 30px 90px rgba(0,0,0,.58),0 0 0 1px rgba(0,0,0,.28);
+  background:linear-gradient(155deg,rgba(13,20,28,.97),rgba(8,14,20,.965));
+  overflow:hidden;
+}
+.game-center .game-center__header{
+  position:relative;z-index:3;min-height:64px;padding:10px clamp(20px,3vw,35px);
+  background:rgba(9,14,21,.91);border-bottom:1px solid rgba(227,181,105,.25);
+  backdrop-filter:blur(9px);
+}
+.game-center .game-center__brand{gap:10px;font-size:21px;color:#f4e1bd}
+.game-center .game-center__brand img{width:31px;height:31px}
+.game-center .game-center__brand b{font-size:16px;color:#f2f2f1}
+.game-center .game-center__company{font-size:12px;border-radius:9px}
+.game-center .game-center__actions button{border-radius:9px;font-size:12px}
+.game-center .game-center__actions .game-center__back{background:rgba(190,139,66,.13);color:#ffdfa6;border-color:#bb9051}
+.game-center .game-center__body{width:100%;padding:0 clamp(12px,1.6vw,24px) 16px}
+/* Larger banner, with copy AND imagery as a single branded entrance. */
+.game-center .game-center__hero{
+  position:relative;display:flex;align-items:flex-start;justify-content:space-between;
+  min-height:277px;padding:33px clamp(23px,3vw,47px) 89px;
+  overflow:hidden;border:1px solid rgba(207,163,94,.27);border-top:0;
+  border-radius:0 0 15px 15px;
+  background:#0b1119 url('/hub/game-info/hero.webp') center 57%/cover no-repeat;
+}
+.game-center .game-center__hero::before{
+  background:linear-gradient(90deg,rgba(5,10,17,.92) 0%,rgba(5,10,17,.78) 27%,rgba(5,10,17,.29) 62%,rgba(5,10,17,.18) 100%),
+  linear-gradient(0deg,rgba(5,10,17,.79),transparent 48%);
+}
+.game-center .game-center__hero-copy{position:relative;z-index:1;max-width:660px}
+.game-center .game-center__eyebrow{font-size:10px;letter-spacing:.21em;color:#ebc58b}
+.game-center .game-center__hero h1{
+  margin:8px 0 9px;font-size:clamp(35px,3.5vw,52px);line-height:1.15;
+  font-weight:850;color:#fff8ea;letter-spacing:-.045em;
+  text-shadow:0 2px 24px rgba(0,0,0,.45)
+}
+.game-center .game-center__hero p{font-size:13px;line-height:1.7;color:#e0e4e6;text-shadow:0 1px 6px #05080c}
+.game-center .game-center__hero-sign{
+  position:absolute;right:30px;bottom:80px;font-size:10px;letter-spacing:.17em;
+  color:rgba(243,214,163,.72);font-weight:750;text-shadow:0 1px 5px #05080c;
+}
+.game-center .game-center__refresh{
+  position:absolute;top:26px;right:27px;align-self:auto;z-index:2;
+  min-height:36px;background:rgba(9,16,23,.78);border-color:rgba(222,187,132,.52);
+}
+/* Search lifts into the banner; its DOM/event binding remains the original
+   single data-info-query control, so typing/search and focus preservation work. */
+.game-center .axe-info{position:relative;z-index:2;padding:0;gap:13px}
+.game-center .axe-info-header{display:none}
+.game-center .axe-info-toolbar{
+  position:relative;z-index:3;display:flex;min-height:54px;margin:-69px 24px 16px;
+  padding:7px 9px 7px 17px;border:1px solid rgba(216,173,111,.56);
+  border-radius:12px;background:rgba(11,18,26,.94);box-shadow:0 12px 25px rgba(0,0,0,.31);
+  backdrop-filter:blur(10px);
+}
+.game-center .axe-info-toolbar::before{
+  content:'⌕';color:#ecc584;font-size:30px;line-height:1;margin:0 1px 0 2px;
+}
+.game-center .axe-info-toolbar>input{
+  height:39px;min-width:0;flex:1;padding:0 10px;border:0;border-radius:5px;
+  background:transparent;color:#f5f6f8;font-size:13px;outline:none;
+}
+.game-center .axe-info-toolbar>input:focus,.game-center .axe-info-toolbar>input:focus-visible{outline:none;box-shadow:none}
+.game-center .axe-info-toolbar:focus-within{border-color:#f4d19a;box-shadow:0 0 0 2px rgba(228,177,104,.14)}
+.game-center .axe-info-toolbar label{font-size:11px;white-space:nowrap}
+.game-center .axe-info-search-hint{font-size:11px}
+.game-center .axe-info-tabs{
+  min-height:58px;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;
+  padding:4px 7px;border:1px solid rgba(229,184,108,.21);border-radius:10px;
+  background:linear-gradient(180deg,#141d25,#0f1720);
+}
+.game-center .axe-info-tabs>button{
+  min-height:49px;gap:10px;border-right:1px solid rgba(128,150,169,.13);
+  border-radius:5px;font-size:13px;letter-spacing:.01em;
+}
+.game-center .axe-info-tabs>button:last-child{border-right:0}
+.game-center .axe-info-tabs>button.is-active{
+  color:#ffe3ac;background:linear-gradient(180deg,rgba(187,137,62,.17),rgba(187,137,62,.065));
+}
+.game-center .axe-info-tabs>button.is-active:after{height:2px;bottom:1px;left:13px;right:13px}
+.game-center .axe-info-tab-icon{width:18px;height:18px;flex:0 0 18px}
+.game-center .axe-info-subfilters{
+  padding:12px 16px;border:1px solid rgba(145,169,186,.24);border-radius:10px;
+  background:linear-gradient(90deg,#14202a,#121c26);gap:11px;
+}
+.game-center .axe-info-subfilter__label{font-size:12px;color:#c0ccd7}
+.game-center .axe-info-chips{gap:8px}
+.game-center .axe-info-chips>button{
+  min-height:34px;padding:7px 12px;border:1px solid #344553;
+  border-radius:8px;background:#17232e;color:#bbc7d0;font-size:12px;
+}
+.game-center .axe-info-chips>button.is-active{border-color:#d1a862;background:rgba(185,140,62,.13);color:#f8d693}
+/* Explorer on the left, editorial feature on the right. */
+.game-center .axe-info-content{grid-template-columns:minmax(0,.89fr) minmax(0,1.11fr);gap:14px;align-items:stretch}
+.game-center .axe-info-list,.game-center .axe-info-detail{
+  border:1px solid rgba(151,176,191,.30);border-radius:12px;background:#101922;
+  box-shadow:0 8px 22px rgba(0,0,0,.13);
+}
+.game-center .axe-info-list__heading{
+  min-height:51px;padding:0 20px;border-bottom:1px solid rgba(152,177,196,.19);
+  background:linear-gradient(90deg,rgba(211,160,79,.06),transparent 50%);
+  color:#f0eee8;font-size:14px;
+}
+.game-center .axe-info-list__heading small{color:#c4ab81;font-size:12px}
+.game-center .axe-info-list__items{max-height:min(50vh,485px);min-height:280px;padding:10px}
+.game-center .axe-info-row{
+  position:relative;min-height:57px;margin:0 0 5px;padding:12px 38px 12px 17px;
+  border:1px solid rgba(119,145,163,.23);border-left:2px solid rgba(119,145,163,.22);
+  border-radius:9px;background:linear-gradient(90deg,rgba(35,49,62,.57),rgba(24,35,45,.55));
+  color:#dee5eb;transition:background .12s,border-color .12s;
+}
+.game-center .axe-info-row::after{
+  content:'›';position:absolute;right:15px;top:50%;transform:translateY(-55%);
+  color:#aab7c6;font-size:26px;line-height:1;font-weight:300;
+}
+.game-center .axe-info-row+.axe-info-row{border-top-color:rgba(119,145,163,.23)}
+.game-center .axe-info-row strong{font-size:13px;line-height:1.35;font-weight:760}
+.game-center .axe-info-row:hover{border-color:rgba(217,177,115,.6);background:#202935;color:#fff1d8}
+.game-center .axe-info-row.is-active{
+  border:1px solid #ddb779;border-left:3px solid #e2b767;
+  background:linear-gradient(90deg,rgba(172,130,63,.24),rgba(52,47,38,.14));
+  box-shadow:0 0 0 1px rgba(192,138,55,.12),inset 0 0 28px rgba(199,160,98,.06);color:#ffdfa2;
+}
+.game-center .axe-info-row.is-active::after{color:#f3cb88}
+.game-center .axe-info-row--search{gap:6px}
+.game-center .axe-info-row--search .axe-info-row__path{font-size:11px;color:#bfad8c}
+/* Category art is atmospheric only. All headings and fields come from
+   existing selected DB records; never draw sample recipes, rates or items. */
+.game-center .axe-info-detail{
+  position:relative;isolation:isolate;min-height:435px;overflow:hidden;
+  padding:0 23px 23px;background:linear-gradient(180deg,#141e28,#0e1720);
+}
+.game-center .axe-info-detail::before{
+  z-index:-2;top:0;left:0;right:0;height:280px;
+  background-image:var(--game-detail-art);background-position:center 52%;background-size:cover;
+}
+.game-center .axe-info-detail::after{
+  z-index:-1;top:0;left:0;right:0;height:340px;
+  background:linear-gradient(90deg,rgba(9,15,22,.79),rgba(9,15,22,.23) 72%),
+    linear-gradient(0deg,#111b25 2%,rgba(12,20,28,.03) 82%);
+}
+.game-center .axe-info-detail header{
+  min-height:205px;display:flex;flex-direction:column;align-items:flex-start;
+  justify-content:flex-end;gap:8px;padding:27px 0 21px;
+  border-bottom:1px solid rgba(218,180,123,.28);
+}
+.game-center .axe-info-detail header span{color:#e6bd77;font-size:12px;font-weight:800;letter-spacing:.035em}
+.game-center .axe-info-detail header strong{
+  max-width:min(94%,650px);font-size:clamp(19px,2vw,27px);line-height:1.2;
+  color:#fff6e5;text-shadow:0 2px 16px rgba(0,0,0,.65)
+}
+.game-center .axe-info-detail dl{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:9px;margin:12px 0 0;padding:0;
+}
+.game-center .axe-info-detail dl>div{
+  display:flex;flex-direction:column;align-items:stretch;gap:5px;
+  min-height:61px;padding:10px 12px;border:1px solid rgba(122,148,164,.23);
+  border-radius:8px;background:rgba(16,27,37,.84);min-width:0;
+}
+.game-center .axe-info-detail dl>div+div{border-top:1px solid rgba(122,148,164,.23)}
+.game-center .axe-info-detail dt{font-size:11px;color:#c2ab80;line-height:1.35}
+.game-center .axe-info-detail dd{font-size:13px;line-height:1.5;color:#e5eaf0}
+.game-center .axe-info-detail dl>.axe-info-detail__section{grid-column:1/-1;background:rgba(9,16,24,.3);border-width:1px 0 0;border-radius:0;padding:13px 3px 4px}
+.game-center .axe-info-detail--empty{padding:0 23px 22px}
+.game-center .axe-info-detail--empty>.axe-info-detail__eyebrow{
+  height:210px;display:flex;align-items:flex-end;padding:0 0 19px;
+  border-bottom:1px solid rgba(218,180,123,.25);font-size:12px;color:#eac890;
+}
+.game-center .axe-info-detail__placeholder{
+  align-items:flex-start;justify-content:center;text-align:left;
+  gap:9px;min-height:200px;padding:8px 5px 0;
+}
+.game-center .axe-info-detail__placeholder-mark{border-color:rgba(222,179,108,.44);color:#d6b078}
+.game-center .axe-info-detail__placeholder strong{color:#f3e7d6;font-size:18px;letter-spacing:-.02em}
+.game-center .axe-info-detail__placeholder p{color:#b2c0ce;font-size:12px;line-height:1.75}
+.game-center .game-center__context{margin:12px 3px 0;font-size:11px;color:#9aa6b1}
+@media(max-width:1200px){
+ .runtime-app--game-info.game-center{width:calc(100vw - 38px)}
+ .game-center .game-center__hero-sign{display:none}
+ .game-center .axe-info-content{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
+}
+@media(max-width:850px){
+ .game-center .game-center__header{flex-direction:column;align-items:stretch}
+ .game-center .game-center__actions{justify-content:flex-end}
+ .game-center .game-center__hero{min-height:254px;padding:25px 25px 90px}
+ .game-center .axe-info-content{grid-template-columns:minmax(0,1fr)}
+ .game-center .axe-info-list__items{max-height:260px;min-height:0}
+ .game-center .axe-info-detail{min-height:360px}
+}
+@media(max-width:760px){
+ .runtime-app--game-info.game-center{width:calc(100vw - 16px);margin:8px auto 20px;border-radius:12px}
+ .game-center .game-center__body{padding:0 10px 20px}
+ .game-center .game-center__hero{min-height:250px;padding:23px 17px 93px;display:block}
+ .game-center .game-center__hero h1{font-size:36px}
+ .game-center .game-center__hero p{font-size:12px}
+ .game-center .game-center__refresh{top:auto;bottom:18px;right:17px;min-height:31px}
+ .game-center .axe-info-toolbar{margin:-78px 110px 19px 11px;padding:5px 8px;min-height:43px}
+ .game-center .axe-info-toolbar>input{height:31px;font-size:11px}
+ .game-center .axe-info-toolbar::before{display:none}
+ .game-center .axe-info-tabs{grid-template-columns:repeat(5,minmax(0,1fr));gap:0;padding:3px}
+ .game-center .axe-info-tabs>button{min-height:44px;flex-direction:column;gap:2px;font-size:10px;padding:4px 2px;border-right:0}
+ .game-center .axe-info-tab-icon{width:15px;height:15px;flex-basis:15px}
+ .game-center .axe-info-content{grid-template-columns:minmax(0,1fr)}
+ .game-center .axe-info-detail{min-height:390px;padding:0 15px 16px}
+ .game-center .axe-info-detail dl{grid-template-columns:minmax(0,1fr)}
+ .game-center .axe-info-detail header{min-height:180px}
+ .game-center .axe-info-detail--empty>.axe-info-detail__eyebrow{height:185px}
+}
+@media(max-width:420px){
+ .game-center .game-center__actions{justify-content:flex-start}
+ .game-center .axe-info-toolbar{margin:-78px 12px 18px}
+ .game-center .game-center__refresh{top:16px;right:16px;bottom:auto}
+ .game-center .game-center__hero{padding-top:58px}
+ .game-center .axe-info-toolbar label{font-size:9px}
+ .game-center .axe-info-tabs>button{font-size:9px}
+}
+@media(prefers-reduced-motion:reduce){.game-center .axe-info-row{transition:none}}

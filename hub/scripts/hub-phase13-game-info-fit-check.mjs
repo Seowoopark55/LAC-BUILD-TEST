@@ -1,0 +1,27 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {renderInfoPage} from '../src/ui/infoPage.js';
+const css=readFileSync(new URL('../src/styles/game-center.css',import.meta.url),'utf8');
+const render=readFileSync(new URL('../src/ui/infoPage.js',import.meta.url),'utf8');
+const base={companyId:'owner-company',platformAdmin:false};
+const craft={id:'c1',item_name:'원본 나이프',category:'KNIFE',success_rate:40,craft_rank:'D',obtain_place:'무법지대'};
+const state={...base,info:{loaded:true,table:'info_crafts',companyId:'owner-company',data:{info_crafts:[craft],info_craft_materials:[{id:'i1',craft_id:'c1',material_name:'실제 재료',quantity:4}]},craftGroup:'근접무기',selectedId:'c1'}};
+const sparse=renderInfoPage(state,{standalone:true});
+assert.match(sparse,/game-detail--regular/); // five visible fields including linked materials
+for(const field of ['원본 나이프','실제 재료 × 4','무법지대','40','D']) assert.ok(sparse.includes(field));
+const sparseOne=renderInfoPage({...state,info:{...state.info,data:{info_crafts:[{id:'c1',item_name:'원본 나이프',category:'KNIFE'}],info_craft_materials:[]}}},{standalone:true});
+assert.match(sparseOne,/game-detail--sparse/);
+const mod={id:'m1',name:'원본 개조서',type:'접두',category:'SMG',parts:'SMG',option1:'옵션1',option2:'옵션2',option3:'옵션3',success_rate:'50',recent_price:123000,recent_date:'2026-09-20',price_note:'원본 가격정보',note:'원본 설명'};
+const heavyState={...base,info:{loaded:true,table:'modbook_catalog',companyId:'owner-company',data:{modbook_catalog:[mod]},selectedId:'m1',filterPrimary:'무기',filterSecondary:'접두',modbookCategory:'SMG'}};
+const heavy=renderInfoPage(heavyState,{standalone:true});
+assert.match(heavy,/game-detail--dense/);
+for(const field of ['원본 개조서','123,000원','원본 설명','원본 가격정보'])assert.ok(heavy.includes(field));
+const inner=renderInfoPage(state);assert.doesNotMatch(inner,/game-detail--regular|game-detail-sections/);
+for(const tab of ['info_crafts','info_processes','info_quests','info_skill_ranks','modbook_catalog']) assert.ok(sparse.includes(`data-info-table="${tab}"`));
+assert.match(css,/PHASE 13 — selected-record-first detail fit/);
+assert.match(css,/game-detail--dense/);
+assert.match(css,/game-detail--extended/);
+assert.match(css,/overflow-y:auto;overscroll-behavior:contain/);
+assert.doesNotMatch(css,/!important/);
+assert.doesNotMatch(render,/(?:수리 키트|택시 기사|제작하기 →)/);
+console.log('PHASE13 PASS: ordinary/short/dense records render original fields, company view unchanged, all five menus intact, dense short-screen safety scroll only.');

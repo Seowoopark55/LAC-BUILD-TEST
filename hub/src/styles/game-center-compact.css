@@ -1,0 +1,150 @@
+/* Phase 8: standalone game-information compact desktop viewport.
+   Only the independent screen is affected. Embedded company information,
+   backend, data, permission and route handling are untouched. */
+@media (min-width: 901px) and (min-height: 700px) {
+  body:has(.runtime-app--game-info.game-center) { overflow-y: hidden; }
+  .runtime-app--game-info.game-center {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: calc(100dvh - 12px);
+    min-height: 0;
+    max-height: calc(100dvh - 12px);
+    width: min(1510px, calc(100vw - 36px));
+    margin: 6px auto;
+    overflow: hidden;
+  }
+  .game-center .game-center__header {
+    box-sizing: border-box;
+    flex: 0 0 50px;
+    min-height: 50px;
+    padding: 5px 23px;
+  }
+  .game-center .game-center__brand { font-size: 18px; }
+  .game-center .game-center__brand img { width: 25px; height: 25px; }
+  .game-center .game-center__brand b { font-size: 14px; }
+  .game-center .game-center__actions button { min-height: 30px; padding: 5px 10px; }
+  .game-center .game-center__company { padding: 6px 9px; }
+  .game-center .game-center__body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-height: 0;
+    padding: 0 14px 10px;
+    overflow: hidden;
+  }
+  .game-center .game-center__hero {
+    box-sizing: border-box;
+    flex: 0 0 clamp(116px, 18vh, 154px);
+    min-height: 0;
+    padding: 13px 26px 45px;
+  }
+  .game-center .game-center__hero h1 { margin: 4px 0 5px; font-size: clamp(28px, 3.1vh, 34px); line-height: 1.12; }
+  .game-center .game-center__hero p { font-size: 11px; line-height: 1.42; }
+  .game-center .game-center__eyebrow { font-size: 9px; letter-spacing: .12em; }
+  .game-center .game-center__hero-sign { display: none; }
+  .game-center .game-center__refresh { top: 12px; right: 16px; min-height: 30px; padding: 5px 10px; font-size: 11px; }
+  .game-center .axe-info {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: 0;
+    gap: 7px;
+    padding: 0;
+  }
+  .game-center .axe-info-toolbar {
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    min-height: 39px;
+    margin: -42px 15px 5px;
+    padding: 3px 8px 3px 11px;
+    border-radius: 9px;
+  }
+  .game-center .axe-info-toolbar::before { font-size: 22px; }
+  .game-center .axe-info-toolbar>input { height: 30px; font-size: 12px; }
+  .game-center .axe-info-tabs {
+    box-sizing: border-box;
+    flex: 0 0 43px;
+    min-height: 43px;
+    padding: 3px 5px;
+  }
+  .game-center .axe-info-tabs>button { min-height: 36px; font-size: 12px; }
+  .game-center .axe-info-tab-icon { width: 15px; height: 15px; flex-basis: 15px; }
+  .game-center .axe-info-subfilters {
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    max-height: min(18vh, 110px);
+    gap: 4px;
+    padding: 6px 11px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+  .game-center .axe-info-subfilter { align-items: center; gap: 9px; }
+  .game-center .axe-info-subfilter__label { flex-basis: 72px; padding-top: 0; font-size: 11px; }
+  .game-center .axe-info-chips { gap: 4px; }
+  .game-center .axe-info-chips>button { min-height: 25px; padding: 4px 9px; font-size: 11px; line-height: 1.15; }
+  .game-center .axe-info-chips>button small { font-size: 10px; }
+  .game-center .axe-info-subfilter select { min-height: 29px; }
+  .game-center .axe-info-content {
+    display: grid;
+    flex: 1 1 auto;
+    grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+    min-height: 0;
+    gap: 10px;
+    align-items: stretch;
+    overflow: hidden;
+  }
+  .game-center .axe-info-list {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    height: 100%;
+  }
+  .game-center .axe-info-list__heading { flex: 0 0 36px; min-height: 36px; padding: 0 13px; font-size: 12px; }
+  .game-center .axe-info-list__items {
+    box-sizing: border-box;
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: none;
+    padding: 6px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #687481 #111922;
+  }
+  .game-center .axe-info-row {
+    min-height: 39px;
+    margin: 0 0 4px;
+    padding: 7px 29px 7px 12px;
+    border-radius: 7px;
+  }
+  .game-center .axe-info-row strong { font-size: 12px; line-height: 1.35; }
+  .game-center .axe-info-row::after { right: 10px; font-size: 20px; }
+  .game-center .axe-info-detail {
+    box-sizing: border-box;
+    min-height: 0;
+    height: 100%;
+    padding: 0 17px 14px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #687481 #111922;
+  }
+  .game-center .axe-info-detail::before { height: 170px; }
+  .game-center .axe-info-detail::after { height: 205px; }
+  .game-center .axe-info-detail header { min-height: 123px; padding: 15px 0 11px; }
+  .game-center .axe-info-detail header strong { font-size: 19px; }
+  .game-center .axe-info-detail dl { margin-top: 7px; gap: 6px; }
+  .game-center .axe-info-detail dl>div { min-height: 0; padding: 8px 10px; }
+  .game-center .axe-info-detail--empty>.axe-info-detail__eyebrow { height: 115px; padding-bottom: 11px; }
+  .game-center .axe-info-detail__placeholder { min-height: 0; padding: 10px 5px; align-items: center; text-align: center; }
+  .game-center .axe-info-detail__placeholder strong { font-size: 14px; }
+  .game-center .game-center__context { display: none; }
+  .game-center .axe-info-owner-note { font-size: 10px; flex: 0 0 auto; }
+}
+/* When vertical space is genuinely insufficient, never crop usable controls. */
+@media (min-width: 901px) and (max-height: 699px) {
+  body:has(.runtime-app--game-info.game-center) { overflow-y: auto; }
+}

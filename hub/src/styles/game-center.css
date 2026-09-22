@@ -1,0 +1,296 @@
+/* PHASE 11: independently owned GAME INFO design, one stylesheet.
+   The five legacy standalone styles are NOT imported. Company embedded info
+   remains governed by info.css. No new game data, API or permissions. */
+body:has(.runtime-app--game-info.game-center){margin:0;background:#090f16;overflow-x:hidden}
+body:has(.runtime-app--game-info.game-center)::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(5,9,14,.70),rgba(5,9,14,.23) 45%,rgba(5,9,14,.65)),linear-gradient(0deg,rgba(5,9,14,.5),rgba(5,9,14,.15)),url('/hub/game-info/hero.webp') center/cover no-repeat}
+body:has(.runtime-app--game-info.game-center) #app{position:relative;isolation:isolate}
+.runtime-app--game-info.game-center{--game-art:url('/hub/game-info/craft.webp');width:min(1216px,calc(100vw - 46px));min-width:0;margin:12px auto 16px;color:#e8edf2;background:#0b131b;border:1px solid rgba(218,169,103,.47);border-radius:16px;box-shadow:0 24px 72px rgba(0,0,0,.58);display:grid;grid-template-rows:52px minmax(0,1fr);overflow:hidden}
+.game-center[data-game-scene="production"]{--game-art:url('/hub/game-info/production.webp')}
+.game-center[data-game-scene="quest"]{--game-art:url('/hub/game-info/quest.webp')}
+.game-center[data-game-scene="skill"]{--game-art:url('/hub/game-info/skill.webp')}
+.game-center[data-game-scene="modbook"]{--game-art:url('/hub/game-info/modbook.webp')}
+.game-center,.game-center *{box-sizing:border-box}
+.game-center button:focus-visible,.game-center input:focus-visible,.game-center select:focus-visible{outline:2px solid #eac58e;outline-offset:2px}
+.game-center .game-center__header{display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0;padding:0 18px;border-bottom:1px solid rgba(215,175,114,.22);background:#0c1218}
+.game-center .game-center__brand{display:inline-flex;align-items:center;gap:8px;min-width:0;border:0;background:transparent;color:#f1d8ae;font-size:18px;text-align:left;font-weight:800}
+.game-center .game-center__brand img{width:29px;height:29px;object-fit:contain}
+.game-center .game-center__brand span{color:#71808c;font-weight:400}
+.game-center .game-center__brand b{color:#e8edf2;font-size:13px;white-space:nowrap}
+.game-center .game-center__actions{display:flex;align-items:center;gap:6px;min-width:0}
+.game-center .game-center__actions button{border:1px solid #374550;border-radius:7px;background:#151f28;color:#dbe0e5;padding:7px 10px;font-size:11px;font-weight:700;line-height:1.3;white-space:nowrap}
+.game-center .game-center__actions .game-center__back{background:#292316;border-color:#ad8550;color:#f7d7a0}
+.game-center .game-center__actions button:hover{border-color:#dbb980;color:#ffe6bd}
+/* Phase 15: the standalone desktop shell must have a DEFINITE viewport height.
+   Without it, a long modbook list supplies the grid's intrinsic height and
+   expands the entire page even though its inner list has overflow:auto. */
+@media (min-width:1100px) and (min-height:755px){
+  body:has(.runtime-app--game-info.game-center){display:flow-root;overflow-y:hidden}
+  .runtime-app--game-info.game-center{
+    height:calc(100dvh - 28px);
+    max-height:calc(100dvh - 28px);
+  }
+  .game-center .game-center__body{
+    height:100%;
+    min-height:0;
+    overflow:hidden;
+  }
+  .game-center .axe-info{
+    height:100%;
+    min-height:0;
+    overflow:hidden;
+  }
+  .game-center .axe-info-content,
+  .game-center .axe-info-list,
+  .game-center .axe-info-list__items{
+    min-height:0;
+    min-width:0;
+  }
+  .game-center .axe-info-list__items{
+    flex:1 1 0;
+    max-height:100%;
+    overflow-y:auto;
+    overscroll-behavior:contain;
+  }
+}
+/* Header 52px; true cinematic hero ~245px; 50px nav; true company filters;
+   two detail panels occupy the remaining space, with independent overflow. */
+.game-center .game-center__body{width:100%;min-width:0;min-height:0;padding:0 13px 13px;display:grid;grid-template-rows:minmax(214px,29%) minmax(0,1fr);gap:10px}
+.game-center .game-center__hero{position:relative;isolation:isolate;overflow:hidden;min-height:0;border:1px solid rgba(209,163,95,.22);border-top:0;border-radius:0 0 11px 11px;background:#0d1520 url('/hub/game-info/hero.webp') center 56%/cover no-repeat;padding:25px 30px 74px}
+.game-center .game-center__hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(7,13,19,.91),rgba(7,13,19,.57) 38%,rgba(7,13,19,.08) 83%),linear-gradient(0deg,rgba(6,12,18,.51),transparent 63%)}
+.game-center .game-center__hero-copy{max-width:550px}
+.game-center .game-center__hero h1{margin:0 0 10px;font-size:40px;line-height:1.1;letter-spacing:-.045em;color:#fff5e5;text-shadow:0 2px 18px rgba(0,0,0,.45)}
+.game-center .game-center__hero p{margin:0;color:#d5dce2;font-size:12px;line-height:1.65}
+/* Search stays the ORIGINAL interactive input, visually entering the hero. */
+.game-center .axe-info{position:relative;min-width:0;min-height:0;padding:0;display:grid;grid-template-rows:50px auto minmax(0,1fr);gap:9px}
+.game-center .axe-info-header{display:none}
+.game-center .axe-info:not(:has(.axe-info-subfilters)){grid-template-rows:50px minmax(0,1fr)}
+.game-center .axe-info-toolbar{position:absolute;z-index:3;top:-75px;left:16px;right:16px;margin:0;height:48px;min-height:48px;display:flex;align-items:center;gap:8px;padding:5px 12px;border:1px solid rgba(213,166,100,.67);border-radius:9px;background:rgba(11,19,27,.97);box-shadow:0 8px 20px rgba(0,0,0,.37)}
+.game-center .axe-info-toolbar::before{content:'⌕';color:#e4bc7d;font-size:27px;line-height:1}
+.game-center .axe-info-toolbar>input{flex:1 1 auto;min-width:0;width:100%;height:35px;padding:0 6px;border:0;border-radius:4px;background:transparent;color:#f2f2ef;font-size:12px;outline:none}
+.game-center .axe-info-toolbar:focus-within{border-color:#f6d19a;box-shadow:0 0 0 2px rgba(217,168,98,.14)}
+.game-center .axe-info-toolbar>input:focus{outline:none;box-shadow:none}
+.game-center .axe-info-toolbar label{font-size:11px;white-space:nowrap;color:#bec8d0}
+.game-center .axe-info-tabs{min-width:0;min-height:0;height:50px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin:0;padding:4px 6px;border:1px solid #37414a;border-radius:9px;background:linear-gradient(180deg,#161e27,#0f171f)}
+.game-center .axe-info-tabs>button{position:relative;min-width:0;min-height:39px;height:41px;border:0;border-right:1px solid #2b353f;background:transparent;border-radius:5px;color:#bbc5cf;font-size:12px;font-weight:750;display:flex;align-items:center;justify-content:center;gap:9px}
+.game-center .axe-info-tabs>button:last-child{border-right:0}
+.game-center .axe-info-tabs>button.is-active{color:#ffe0a7;background:rgba(174,127,62,.13)}
+.game-center .axe-info-tabs>button.is-active::after{content:"";position:absolute;bottom:1px;left:10px;right:10px;height:2px;background:#d8ad68}
+.game-center .axe-info-tab-icon{width:17px;height:17px;flex:0 0 17px}
+.game-center .axe-info-subfilters{display:flex;flex-direction:column;gap:5px;min-width:0;max-height:106px;padding:9px 12px;border:1px solid #344451;border-radius:9px;background:#15212b;overflow-y:auto;overscroll-behavior:contain}
+.game-center .axe-info-subfilter{display:flex;align-items:center;gap:11px;min-width:0}
+.game-center .axe-info-subfilter__label{flex:0 0 76px;padding:0;color:#c2cbd2;font-size:10px;font-weight:750;white-space:nowrap}
+.game-center .axe-info-chips{display:flex;flex-wrap:wrap;align-items:center;gap:5px;min-width:0}
+.game-center .axe-info-chips>button{min-height:27px;padding:4px 9px;display:inline-flex;align-items:center;gap:6px;border:1px solid #354753;border-radius:7px;background:#192632;color:#c5cdd5;font-size:11px;line-height:1.3;white-space:nowrap}
+.game-center .axe-info-chips>button small{font-size:10px;color:#99a5b3}
+.game-center .axe-info-chips>button.is-active{border-color:#bc9257;background:rgba(179,128,57,.20);color:#ffe0a4}
+.game-center .axe-info-chips>button.is-active small{color:#e6c28c}
+.game-center .axe-info-subfilter select{min-height:28px;font-size:11px}
+.game-center .axe-info-content{display:grid;grid-template-columns:minmax(0,.83fr) minmax(0,1.17fr);gap:10px;min-width:0;min-height:0;overflow:hidden;align-items:stretch}
+.game-center .axe-info-list,.game-center .axe-info-detail{position:relative;min-width:0;min-height:0;height:100%;max-height:100%;border:1px solid #364653;border-radius:10px;background:#101a23;overflow:hidden}
+.game-center .axe-info-list{display:flex;flex-direction:column}
+.game-center .axe-info-list__heading{display:flex;align-items:center;justify-content:space-between;gap:8px;flex:0 0 39px;min-height:39px;padding:0 13px;background:rgba(17,25,34,.92);border-bottom:1px solid rgba(156,175,187,.19);font-size:12px;color:#f1ebe3;font-weight:800}
+.game-center .axe-info-list__heading small{font-size:11px;color:#e4ba78}
+.game-center .axe-info-list__items{min-height:0;flex:1 1 auto;max-height:none;overflow-y:auto;overscroll-behavior:contain;padding:7px;scrollbar-width:thin;scrollbar-color:#48525c transparent}
+.game-center .axe-info-row{width:100%;min-height:46px;margin:0 0 5px;padding:9px 32px 9px 12px;position:relative;display:flex;align-items:center;gap:7px;border:1px solid #344550;border-radius:7px;background:linear-gradient(90deg,#1a2934,#16212b);color:#dce4eb;text-align:left}
+.game-center .axe-info-row strong{font-size:12px;font-weight:780;line-height:1.3}
+.game-center .axe-info-row::after{content:'›';position:absolute;right:11px;top:50%;transform:translateY(-55%);color:#bac2ca;font-size:23px;line-height:1}
+.game-center .axe-info-row:hover,.game-center .axe-info-row.is-active{border-color:#d7ac69;background:linear-gradient(90deg,rgba(141,101,51,.35),rgba(56,49,39,.20));color:#ffe1a9}
+.game-center .axe-info-row.is-active{box-shadow:inset 2px 0 #e2b771}
+.game-center .axe-info-row--search{flex-wrap:wrap}
+.game-center .axe-info-row__path{font-size:10px}
+/* Art is decoration. Detail fields are exactly the current DB fields, not mockup fiction. */
+.game-center .axe-info-detail{isolation:isolate;display:flex;flex-direction:column;overflow-y:auto;padding:0 12px 12px;scrollbar-width:thin;scrollbar-color:#46515c transparent;background:linear-gradient(0deg,rgba(13,23,31,.96),rgba(13,23,31,.88) 42%,rgba(13,23,31,.15) 100%)}
+.game-center .axe-info-detail::before{content:"";position:absolute;inset:0 0 auto;height:100%;z-index:-2;pointer-events:none;background-image:var(--game-art);background-size:cover;background-position:center 53%}
+.game-center .axe-info-detail::after{content:"";position:absolute;inset:0 0 auto;height:100%;z-index:-1;pointer-events:none;background:linear-gradient(0deg,rgba(12,22,30,.96) 0%,rgba(12,22,30,.76) 40%,rgba(9,15,22,.20) 85%),linear-gradient(90deg,rgba(8,15,23,.66),rgba(8,15,23,.15))}
+.game-center .axe-info-detail header{display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;gap:5px;flex:0 0 43%;min-height:118px;margin:0;padding:10px 6px 12px;border-bottom:1px solid rgba(230,185,113,.34)}
+.game-center .axe-info-detail header span{color:#ebbb73;font-size:11px;font-weight:850}
+.game-center .axe-info-detail header strong{color:#fff5e5;font-size:24px;font-weight:850;line-height:1.24}
+.game-center .axe-info-detail dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;flex:0 0 auto;margin:8px 0 0;padding:0}
+.game-center .axe-info-detail dl>div{display:flex;flex-direction:column;gap:5px;min-height:56px;min-width:0;padding:8px 10px;border:1px solid #38505b;border-radius:7px;background:rgba(20,33,44,.93)}
+.game-center .axe-info-detail dl>div+div{border-top:1px solid #38505b}
+.game-center .axe-info-detail dt{font-size:10px;color:#ccad7d;line-height:1.3}
+.game-center .axe-info-detail dd{margin:0;font-size:12px;color:#e5eaf0;line-height:1.48;overflow-wrap:anywhere}
+.game-center .axe-info-detail dl>.axe-info-detail__section{grid-column:1/-1;border:0;background:transparent;padding:8px 0 0}
+.game-center .axe-info-detail--empty>.axe-info-detail__eyebrow{flex:0 0 42%;min-height:110px;display:flex;align-items:flex-end;padding-bottom:12px;border-bottom:1px solid rgba(230,185,113,.34);color:#ebbb73;font-size:11px}
+.game-center .axe-info-detail__placeholder{flex:1 0 auto;min-height:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:9px;padding:8px;color:#aabac6;text-align:center}
+.game-center .axe-info-detail__placeholder strong{font-size:14px;color:#e9e3dc}
+.game-center .axe-info-detail__placeholder p{font-size:11px;color:#bdc8d1}
+.game-center .axe-info-owner-note{font-size:10px;color:#8c9baa}
+.game-center .game-center__context{display:none}
+/* PHASE 13 — selected-record-first detail fit: retired conflicting height overrides.
+   Phase 14 owns the actual presentation and retains source-value visibility. */
+/* PHASE 14: SINGLE detail design. The former Phase 12/13 flex cards +
+   flattened section + forced density CSS were removed, rather than overridden.
+   Company-embedded Game Info is outside this .game-center scope. */
+.game-center .axe-info-list__items{padding:8px 9px}
+.game-center .axe-info-row--studio{
+  min-height:52px;margin-bottom:6px;padding:7px 31px 7px 9px;gap:10px;
+  border-radius:8px;background:linear-gradient(110deg,#202e39,#16212b);
+  transition:border-color .16s ease,background .16s ease,transform .16s ease;
+}
+.game-center .axe-info-row--studio .game-list-symbol{
+  display:grid;place-items:center;flex:0 0 32px;width:32px;height:32px;
+  border:1px solid rgba(190,155,106,.28);border-radius:8px;
+  color:#d3b384;background:rgba(189,149,93,.12);
+}
+.game-center .axe-info-row--studio .axe-info-tab-icon{width:17px;height:17px;flex:0 0 auto}
+.game-center .axe-info-row--studio .game-list-label{display:flex;flex:1;min-width:0;flex-direction:column;gap:3px}
+.game-center .axe-info-row--studio .game-list-label strong{
+  font-size:12px;font-weight:790;line-height:1.28;color:#f1f1ee;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.game-center .axe-info-row--studio .game-list-label small{
+  font-size:10px;line-height:1.28;color:#a3b3bf;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.game-center .axe-info-row--studio.is-active{
+  background:linear-gradient(110deg,rgba(100,77,46,.50),rgba(42,42,39,.71));
+  border-color:#e0b673;box-shadow:inset 3px 0 #f0c483;
+}
+.game-center .axe-info-row--studio.is-active .game-list-label strong{color:#ffe1ae}
+.game-center .axe-info-row--studio:hover{transform:translateX(2px)}
+
+/* The art, heading, and real record attributes now own separate regions.
+   No artificial 43%-height title, no vertical card stack, no 3-column squeeze. */
+.game-center .axe-info-detail--studio{
+  display:grid;grid-template-rows:minmax(145px,43%) minmax(0,1fr);
+  align-content:stretch;gap:0;padding:0;overflow:hidden;
+  background:#101923;
+}
+/* Record-size-specific ART allocation: sparse data gets breathing room in the
+   image, while data-rich records reserve more height for real field values. */
+.game-center .axe-info-detail--studio.game-detail--sparse{grid-template-rows:minmax(150px,56%) minmax(0,1fr)}
+.game-center .axe-info-detail--studio.game-detail--regular{grid-template-rows:minmax(145px,46%) minmax(0,1fr)}
+.game-center .axe-info-detail--studio.game-detail--dense{grid-template-rows:minmax(115px,31%) minmax(0,1fr)}
+.game-center .axe-info-detail--studio.game-detail--extended{grid-template-rows:minmax(105px,26%) auto}
+.game-center .axe-info-detail--studio::before{
+  z-index:0;inset:0;height:100%;background-position:center 41%;opacity:.78;
+}
+.game-center .axe-info-detail--studio::after{
+  z-index:0;inset:0;height:100%;background:
+   linear-gradient(180deg,rgba(8,15,22,.07) 0%,rgba(8,15,22,.17) 23%,rgba(8,15,22,.85) 43%,#101923 65%);
+}
+.game-center .axe-info-detail--studio .game-detail-hero{
+  position:relative;z-index:1;min-width:0;min-height:0;
+  display:flex;align-items:flex-end;padding:10px 15px 12px;
+  background:linear-gradient(90deg,rgba(6,12,19,.73),rgba(6,12,19,.14) 66%);
+}
+.game-center .axe-info-detail--studio .game-detail-hero > header{
+  display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;
+  gap:6px;flex:0 0 auto;min-height:0;width:100%;max-height:100%;
+  margin:0;padding:0 0 5px;border:0;
+}
+.game-center .axe-info-detail--studio .game-detail-hero header strong{
+  max-width:100%;font-size:clamp(19px,1.7vw,25px);line-height:1.2;
+  color:#fff5e5;text-shadow:0 2px 13px #030609;
+}
+.game-center .axe-info-detail--studio .game-detail-hero header span{color:#eac28a;font-size:11px}
+.game-center .axe-info-detail--studio .game-detail-sections{
+  position:relative;z-index:1;min-width:0;min-height:0;max-height:100%;
+  display:grid;grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);
+  align-items:stretch;gap:8px;margin:0;padding:7px 9px 9px;
+  border-top:1px solid rgba(225,179,108,.34);
+  background:linear-gradient(110deg,rgba(14,25,34,.96),rgba(15,24,33,.88));
+}
+.game-center .axe-info-detail--studio .game-detail-sections--single{grid-template-columns:1fr}
+.game-center .axe-info-detail--studio .game-detail-section{
+  min-width:0;min-height:0;display:flex;flex-direction:column;
+  border:1px solid rgba(107,130,143,.33);border-radius:8px;
+  background:linear-gradient(145deg,rgba(24,39,50,.89),rgba(13,25,35,.76));
+  overflow:hidden;
+}
+.game-center .axe-info-detail--studio .game-detail-section--requirements{
+  border-color:rgba(181,145,95,.42);background:linear-gradient(145deg,rgba(44,38,30,.74),rgba(15,27,36,.86));
+}
+.game-center .axe-info-detail--studio .game-detail-section h3{
+  display:flex;align-items:center;gap:7px;flex:0 0 auto;
+  min-height:29px;margin:0;padding:5px 10px;
+  border-bottom:1px solid rgba(134,155,165,.18);
+  color:#eac58c;font-size:10.5px;font-weight:820;letter-spacing:.02em;
+}
+.game-center .axe-info-detail--studio .game-detail-section h3::before{
+  content:'';width:2px;height:12px;border-radius:2px;background:#d8ab6d;
+}
+.game-center .axe-info-detail--studio .game-detail-section dl{
+  min-width:0;min-height:0;display:grid;grid-template-columns:1fr;
+  align-content:start;gap:0;margin:0;padding:4px 10px 6px;
+}
+.game-center .axe-info-detail--studio .game-detail-section .axe-info-detail__datum{
+  display:grid;grid-template-columns:minmax(60px,.7fr) minmax(0,1.3fr);
+  align-items:start;gap:6px;min-width:0;min-height:33px;
+  margin:0;padding:7px 0;border:0;border-bottom:1px solid rgba(125,147,160,.19);
+  border-radius:0;background:transparent;
+}
+.game-center .axe-info-detail--studio .game-detail-section .axe-info-detail__datum:last-child{border-bottom:0}
+.game-center .axe-info-detail--studio .game-detail-section dt{
+  min-width:0;color:#d7b47e;font-size:10.5px;font-weight:740;line-height:1.35;
+}
+.game-center .axe-info-detail--studio .game-detail-section dd{
+  min-width:0;margin:0;color:#eff0ee;font-size:11.8px;
+  font-weight:670;line-height:1.4;overflow-wrap:anywhere;
+}
+.game-center .axe-info-detail--studio .game-detail-section .is-narrative{
+  grid-template-columns:1fr;gap:4px;
+}
+.game-center .axe-info-detail--studio .game-detail-section .is-material{
+  grid-template-columns:1fr;gap:4px;
+}
+.game-center .axe-info-detail--studio .game-detail-materials{
+  display:flex;flex-wrap:wrap;gap:5px;min-width:0;
+}
+.game-center .axe-info-detail--studio .game-detail-material{
+  display:inline-flex;align-items:center;gap:6px;min-width:0;
+  padding:5px 7px;border:1px solid rgba(201,165,108,.28);border-radius:6px;
+  background:rgba(11,20,28,.56);color:#eee0c7;font-size:10.5px;
+}
+.game-center .axe-info-detail--studio .game-detail-material::before{
+  content:'';flex:0 0 5px;width:5px;height:5px;border:1px solid #d7aa69;
+  transform:rotate(45deg);
+}
+/* Phase 13's long-record safety is retained, but normal details never
+   scroll independently. The value count is based only on real DB fields. */
+@media(min-width:1100px) and (min-height:755px){
+ .game-center .axe-info-detail--studio.game-detail--dense .game-detail-section dl,
+ .game-center .axe-info-detail--studio.game-detail--extended .game-detail-section dl{
+   grid-template-columns:repeat(2,minmax(0,1fr));gap:0 8px;
+ }
+ .game-center .axe-info-detail--studio.game-detail--dense .game-detail-section .axe-info-detail__datum,
+ .game-center .axe-info-detail--studio.game-detail--extended .game-detail-section .axe-info-detail__datum{
+   grid-template-columns:1fr;gap:3px;min-height:40px;padding:6px 0;
+ }
+ .game-center .axe-info-detail--studio.game-detail--dense .game-detail-section dl>.is-narrative,
+ .game-center .axe-info-detail--studio.game-detail--extended .game-detail-section dl>.is-narrative{grid-column:1/-1}
+ .game-center .axe-info-detail--studio.game-detail--extended,
+ .game-center .axe-info-detail--studio.game-detail--long-copy{overflow-y:auto;overscroll-behavior:contain}
+ .game-center .axe-info-detail--studio.game-detail--extended .game-detail-sections,
+ .game-center .axe-info-detail--studio.game-detail--long-copy .game-detail-sections{max-height:none;align-items:start}
+ .game-center .axe-info-detail--studio.game-detail--extended .game-detail-section,
+ .game-center .axe-info-detail--studio.game-detail--long-copy .game-detail-section{overflow:visible}
+}
+@media(max-width:1099px),(max-height:754px){
+ .game-center .axe-info-detail--studio,.game-center .axe-info-detail--studio.game-detail--sparse,.game-center .axe-info-detail--studio.game-detail--regular,.game-center .axe-info-detail--studio.game-detail--dense,.game-center .axe-info-detail--studio.game-detail--extended{grid-template-rows:minmax(155px,auto) auto;height:auto;max-height:none;overflow:visible}
+ .game-center .axe-info-detail--studio .game-detail-hero{min-height:175px}
+ .game-center .axe-info-detail--studio .game-detail-sections{max-height:none;min-height:180px}
+}
+@media(max-width:740px){
+ .game-center .axe-info-detail--studio{grid-template-rows:minmax(145px,auto) auto}
+ .game-center .axe-info-detail--studio .game-detail-sections{grid-template-columns:1fr;gap:8px}
+ .game-center .axe-info-detail--studio .game-detail-hero{min-height:150px}
+ .game-center .axe-info-detail--studio .game-detail-section dl{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){.game-center .axe-info-row--studio{transition:none}.game-center .axe-info-row--studio:hover{transform:none}}
+/* On smaller screens, retain normal page navigation but keep very long lists
+   scrollable inside their own box rather than creating thousands of pixels. */
+@media (max-width:1099px), (max-height:754px){
+  .game-center .axe-info-content{align-items:start;overflow:visible}
+  .game-center .axe-info-list{
+    height:auto;
+    max-height:min(52vh,470px);
+  }
+  .game-center .axe-info-list__items{
+    flex:1 1 auto;
+    max-height:none;
+    overflow-y:auto;
+    overscroll-behavior:contain;
+  }
+}

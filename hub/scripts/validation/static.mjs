@@ -1,0 +1,5 @@
+import fs from 'node:fs';import path from 'node:path';import {spawnSync} from 'node:child_process';import {root,walk,finish} from './common.mjs';
+const inventory=spawnSync(process.execPath,[path.join(root,'scripts/validation/refactor-change-inventory.mjs')],{cwd:root,encoding:'utf8'});
+if(inventory.stdout)process.stdout.write(inventory.stdout);if(inventory.stderr)process.stderr.write(inventory.stderr);if(inventory.status!==0)process.exitCode=1;
+const syntax=[];for(const f of [...walk(path.join(root,'src')),...walk(path.join(root,'scripts')),...walk(path.join(root,'tests/validation'))].filter(f=>/\.(mjs|js)$/.test(f))){const p=spawnSync(process.execPath,['--check',f],{encoding:'utf8'});syntax.push({name:path.relative(root,f),ok:p.status===0,error:p.stderr||undefined});}finish('syntax',syntax);
+const legacy=[];for(const f of fs.readdirSync(path.join(root,'scripts')).filter(n=>n.endsWith('-check.mjs'))){const p=spawnSync(process.execPath,[path.join(root,'scripts',f)],{cwd:root,encoding:'utf8'});legacy.push({name:f,ok:p.status===0,output:p.stdout+p.stderr});}finish('legacy',legacy);

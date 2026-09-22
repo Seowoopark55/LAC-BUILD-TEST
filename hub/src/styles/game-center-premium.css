@@ -1,0 +1,78 @@
+/* Phase 6: standalone LAC HUB game information. The company's embedded
+   information view deliberately retains its original minimal styling. */
+.runtime-app--game-info.game-center{
+  --game-detail-art:url('/hub/game-info/craft.webp');
+  background:linear-gradient(180deg,#0c1219 0%,#0b1016 100%);color:#e9eef4;
+  border-color:rgba(216,170,100,.28);
+}
+.game-center[data-game-scene="production"]{--game-detail-art:url('/hub/game-info/production.webp')}
+.game-center[data-game-scene="quest"]{--game-detail-art:url('/hub/game-info/quest.webp')}
+.game-center[data-game-scene="skill"]{--game-detail-art:url('/hub/game-info/skill.webp')}
+.game-center[data-game-scene="modbook"]{--game-detail-art:url('/hub/game-info/modbook.webp')}
+.game-center .game-center__header{
+  min-height:60px;padding:9px clamp(16px,3.5vw,36px);background:#0b1118;
+  border-bottom:1px solid rgba(224,184,118,.22)
+}
+.game-center .game-center__brand{font-size:19px;gap:8px;letter-spacing:.02em}
+.game-center .game-center__brand b{font-size:16px}
+.game-center .game-center__actions{gap:8px}
+.game-center .game-center__company{padding:8px 11px;color:#bac5d0;border:1px solid #34414e;border-radius:8px;background:#121b25}
+.game-center .game-center__company strong{color:#f5dec1}
+.game-center .game-center__actions button{min-height:35px;padding:7px 12px;background:#17212b;border:1px solid #364552;color:#dce3e9}
+.game-center .game-center__actions .game-center__back{color:#f7dfb3;border-color:rgba(222,176,104,.48);background:rgba(180,123,45,.12)}
+.game-center .game-center__actions button:hover,.game-center .game-center__refresh:hover{border-color:#ddb56e;color:#fff1d7}
+.game-center .game-center__body{width:100%;padding:0 20px 24px}
+.game-center .game-center__hero{
+  position:relative;isolation:isolate;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;
+  min-height:174px;padding:25px clamp(18px,3vw,40px) 22px;overflow:hidden;
+  border:1px solid rgba(220,170,96,.22);border-top:0;border-radius:0 0 14px 14px;
+  background:#101821 url('/hub/game-info/hero.webp') center 56%/cover no-repeat;
+}
+.game-center .game-center__hero::before{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,rgba(7,12,19,.94) 0%,rgba(7,12,19,.83) 27%,rgba(7,12,19,.35) 66%,rgba(7,12,19,.13) 100%),linear-gradient(0deg,rgba(7,12,19,.7),transparent 75%)}
+.game-center .game-center__hero-copy{position:relative;max-width:650px}
+.game-center .game-center__eyebrow{display:block;color:#e8c18b;font-weight:800;font-size:10px;letter-spacing:.18em}
+.game-center .game-center__hero h1{font-size:clamp(29px,3vw,42px);line-height:1.15;letter-spacing:-.035em;color:#fff5e7;margin:12px 0 9px}
+.game-center .game-center__hero p{margin:0;color:#d6dce2;font-size:12px;line-height:1.65}
+.game-center .game-center__refresh{align-self:flex-end;white-space:nowrap;min-height:36px;padding:8px 12px;border:1px solid rgba(229,195,145,.55);border-radius:8px;background:rgba(12,20,28,.75);color:#f1d5a8;font-size:12px;font-weight:750;cursor:pointer}
+.game-center .axe-info{padding:13px 0 0;gap:12px}
+.game-center .axe-info-header{display:none}/* Same heading and refresh are in the standalone hero. */
+.game-center .axe-info-toolbar{padding:0 3px;gap:9px}
+.game-center .axe-info-toolbar>input{height:42px;padding:0 16px;border-radius:9px;border-color:#41505e;background:#151e29;color:#f3f6f8;font-size:12px}
+.game-center .axe-info-toolbar>input:focus-visible{outline:2px solid #d8b16e;outline-offset:2px}
+.game-center .axe-info-toolbar label{font-size:11px}
+.game-center .axe-info-tabs{grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;border:1px solid #343d48;border-radius:10px;padding:5px;background:#111922}
+.game-center .axe-info-tabs>button{border-radius:7px;min-height:43px;font-size:12px;color:#b4bdc6}
+.game-center .axe-info-tabs>button.is-active{background:rgba(195,148,71,.15);color:#f4d49b}
+.game-center .axe-info-tabs>button.is-active:after{left:15px;right:15px;bottom:2px}
+.game-center .axe-info-tab-icon{width:17px;height:17px;flex-basis:17px}
+.game-center .axe-info-subfilters{padding:10px 12px;border-color:#33414b;background:#121b24;border-radius:10px}
+.game-center .axe-info-subfilter__label{font-size:11px;color:#b5bec9}
+.game-center .axe-info-chips>button{min-height:32px;background:#17222d;border-radius:7px;font-size:11px}
+.game-center .axe-info-content{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:12px;align-items:stretch}
+.game-center .axe-info-list,.game-center .axe-info-detail{border-color:#34404b;border-radius:11px;background:#101820}
+.game-center .axe-info-list__heading{min-height:43px;padding:0 15px;color:#f0e7d9;font-size:12px}
+.game-center .axe-info-list__items{max-height:390px;padding:8px}
+.game-center .axe-info-row{min-height:47px;border:1px solid transparent;border-bottom-color:rgba(63,77,88,.33);border-radius:7px;padding:10px 12px;margin:1px 0}
+.game-center .axe-info-row strong{font-size:12px}
+.game-center .axe-info-row.is-active{border-color:rgba(218,174,103,.55);background:rgba(218,174,103,.10);box-shadow:inset 2px 0 #ddae67}
+.game-center .axe-info-detail{position:relative;isolation:isolate;min-height:340px;padding:0 18px 15px;overflow:hidden}
+.game-center .axe-info-detail::before{content:"";position:absolute;z-index:-2;top:0;left:0;right:0;height:153px;background-image:var(--game-detail-art);background-position:center 52%;background-size:cover;background-repeat:no-repeat}
+.game-center .axe-info-detail::after{content:"";position:absolute;z-index:-1;top:0;left:0;right:0;height:195px;background:linear-gradient(90deg,rgba(10,17,24,.93),rgba(10,17,24,.52) 67%,rgba(10,17,24,.25)),linear-gradient(0deg,#101820 5%,transparent 100%)}
+.game-center .axe-info-detail header{min-height:132px;padding:22px 0 15px;align-content:end;gap:7px;border-bottom:1px solid rgba(207,168,101,.24)}
+.game-center .axe-info-detail header span{color:#e1b97d;font-size:11px}
+.game-center .axe-info-detail header strong{max-width:90%;font-size:19px;color:#fff3df;line-height:1.35}
+.game-center .axe-info-detail dl{padding-top:4px}
+.game-center .axe-info-detail dl>div{padding:11px 2px;grid-template-columns:minmax(93px,30%) minmax(0,1fr)}
+.game-center .axe-info-detail dt{font-size:11px;color:#b3bfca}
+.game-center .axe-info-detail dd{font-size:12px;color:#f0f2f4}
+.game-center .axe-info-detail--empty>.axe-info-detail__eyebrow{height:132px;display:flex;align-items:flex-end;padding-bottom:14px;color:#e1b97d;font-size:11px;border-bottom:1px solid rgba(207,168,101,.24)}
+.game-center .axe-info-detail__placeholder{min-height:170px}
+.game-center .axe-info-detail__placeholder strong{color:#e8e0d4;font-size:12px}
+.game-center .axe-info-detail__placeholder p{font-size:11px}
+.game-center .game-center__context{margin:13px 3px 0;color:#8797a8;font-size:11px}
+.game-center button:focus-visible{outline:2px solid #f0ca89;outline-offset:2px}
+@media(min-width:761px){.runtime-app.game-center{width:min(1490px,calc(100vw - 42px));min-width:0;min-height:calc(100vh - 30px)}}
+@media(max-width:850px){.game-center .game-center__header{align-items:flex-start;flex-direction:column}.game-center .axe-info-content{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}}
+@media(max-width:760px){.game-center .game-center__body{padding:0 12px 26px}.game-center .game-center__hero{min-height:173px;padding:20px 16px;align-items:flex-start;flex-direction:column;gap:14px}.game-center .game-center__hero h1{font-size:29px}.game-center .game-center__hero p{font-size:11px}.game-center .game-center__refresh{min-height:31px}.game-center .axe-info-tabs{grid-template-columns:repeat(3,minmax(0,1fr))}.game-center .axe-info-content{grid-template-columns:minmax(0,1fr)}.game-center .axe-info-list__items{max-height:245px}.game-center .axe-info-detail{min-height:320px}}
+@media(max-width:420px){.game-center .axe-info-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.game-center .game-center__actions{gap:6px}.game-center .game-center__actions button{font-size:11px;padding:7px 9px}.game-center .axe-info-toolbar{flex-wrap:wrap}.game-center .axe-info-toolbar>input{flex-basis:100%}}
+@media(prefers-reduced-motion:reduce){.game-center .axe-info-tabs>button{transition:none}}

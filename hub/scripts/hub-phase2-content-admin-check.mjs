@@ -1,0 +1,23 @@
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { renderShell } from '../src/ui/render.js';
+const api=readFileSync(new URL('../src/lib/productApi.js',import.meta.url),'utf8');
+const main=readFileSync(new URL('../src/main.js',import.meta.url),'utf8');
+const render=readFileSync(new URL('../src/ui/render.js',import.meta.url),'utf8');
+assert.match(api,/supabase\.rpc\('lac_admin_list_content_settings'\)/);
+assert.match(api,/supabase\.rpc\('lac_admin_update_content_setting',\s*\{/);
+assert.match(main,/if\(action==='toggle-platform-content'\)/);
+assert.match(main,/if\(!state\.platformAdmin\).*?서비스 운영자 권한이 필요합니다/);
+assert.match(main,/if\(!\['is_published','is_free'\]\.includes\(field\)\)return/);
+assert.doesNotMatch(main,/lac_content_settings/); // never bypass the admin-only RPC with direct table writes
+assert.match(render,/실제 접근 차단·무료 이용권 판정/);
+const state={envReady:true,session:{user:{id:'test',user_metadata:{name:'테스트'}}},ready:true,page:'platform',companies:[{id:'company',name:'테스트'}],companyId:'company',memberships:[{user_id:'test',role:'owner',status:'active'}],platformAdmin:true,platformView:'contents',platformContentSettings:[{content_key:'company_management',display_name:'회사 관리',is_published:true,is_free:true},{content_key:'lac_build',display_name:'LAC BUILD',is_published:true,is_free:true},{content_key:'lac_cook',display_name:'LAC COOK',is_published:false,is_free:false}],platformContentError:'',platformSnapshot:[],notice:'',error:''};
+const root={innerHTML:''};
+renderShell(root,state);
+for(const key of ['company_management','lac_build','lac_cook'])assert.match(root.innerHTML,new RegExp(`data-content-key="${key}"`));
+assert.match(root.innerHTML,/data-field="is_published"/);
+assert.match(root.innerHTML,/data-field="is_free"/);
+assert.match(root.innerHTML,/실제 접근 차단/);
+state.platformAdmin=false;root.innerHTML='';renderShell(root,state);
+assert.doesNotMatch(root.innerHTML,/data-action="toggle-platform-content"/);
+console.log('HUB phase 2 content settings: PASS (owner-only UI, both flags, staged access, RPC-only writes).');

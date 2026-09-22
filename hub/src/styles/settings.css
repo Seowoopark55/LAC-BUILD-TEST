@@ -1,0 +1,207 @@
+/* AXE ONE 3.12 · Viewport Compact + Alignment
+   Wide overview anchors the page. Settings controls use fixed operational lanes,
+   and all save/action controls stay inside a normal laptop browser viewport. */
+.ops-settings-page{width:100%;margin:0}
+.ops-settings-page .page-header{min-height:78px;margin-bottom:16px}.ops-settings-page .page-header h1{margin-top:5px;font-size:calc((34px) * var(--lac-type-scale, 1))}.ops-settings-page .page-header p{margin-top:9px;font-size:calc((13px) * var(--lac-type-scale, 1))}.ops-settings-page .page-header__actions{padding-top:17px}
+
+.ops-settings-overview{width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:12px;overflow:hidden;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.ops-settings-overview article{display:grid;gap:4px;padding:13px 15px;border-right:1px solid var(--line-soft);min-width:0}.ops-settings-overview article:last-child{border-right:0}
+.ops-settings-overview span{color:#82909d;font-size:calc((9.8px) * var(--lac-type-scale, 1))}.ops-settings-overview strong{overflow:hidden;color:var(--ops-title);font-size:calc((18px) * var(--lac-type-scale, 1));line-height:1.2;text-overflow:ellipsis;white-space:nowrap}.ops-settings-overview small{color:#66727f;font-size:calc((8.8px) * var(--lac-type-scale, 1))}
+.ops-settings-overview .is-positive{color:var(--green)}.ops-settings-overview .is-warning{color:var(--amber)}
+.ops-settings-status{height:31px;display:flex;align-items:center;gap:6px;padding:0 11px;border:1px solid rgba(120,211,155,.17);border-radius:999px;background:rgba(120,211,155,.04);color:#8fd5a6;font-size:calc((10.2px) * var(--lac-type-scale, 1));font-weight:850}.ops-settings-status i{width:6px;height:6px;border-radius:50%;background:var(--green)}
+
+/* Category navigation + save action occupy one compact row. */
+.ops-settings-nav-row{width:min(680px,100%);display:flex;align-items:stretch;gap:8px;margin:0 auto 9px}
+.ops-settings-tabs{min-width:0;flex:1;display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:4px;border:1px solid var(--line);border-radius:10px;background:#0c1117}
+.ops-settings-tabs.has-cooking{grid-template-columns:repeat(3,minmax(0,1fr))}
+.ops-settings-tabs button{min-height:42px;display:grid;align-content:center;gap:1px;padding:5px 10px;border:1px solid transparent;border-radius:7px;background:transparent;text-align:left;cursor:pointer;transition:.14s ease}
+.ops-settings-tabs button strong{color:#9da7b1;font-size:calc((11.7px) * var(--lac-type-scale, 1));line-height:1.25}.ops-settings-tabs button span{color:#687480;font-size:calc((9px) * var(--lac-type-scale, 1))}
+.ops-settings-tabs button:hover{border-color:rgba(255,255,255,.08);background:rgba(255,255,255,.018)}
+.ops-settings-tabs button.is-active{border-color:rgba(228,178,75,.24);background:rgba(228,178,75,.075);box-shadow:inset 3px 0 rgba(228,178,75,.58)}
+.ops-settings-tabs button.is-active strong{color:#efd59e}.ops-settings-tabs button.is-active span{color:#9c8761}
+.ops-settings-save-action{flex:0 0 auto;min-width:118px;height:38px;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:0 14px;border:1px solid rgba(228,178,75,.36);border-radius:11px;background:linear-gradient(180deg,#111821 0%,#0c1218 100%);color:#f0cc7d;font-size:calc((11.3px) * var(--lac-type-scale, 1));font-weight:900;letter-spacing:-.01em;white-space:nowrap;cursor:pointer;box-shadow:inset 0 1px rgba(255,255,255,.04),0 4px 12px rgba(0,0,0,.12);transition:transform .12s ease,border-color .12s ease,background .12s ease,box-shadow .12s ease,color .12s ease}.ops-settings-save-action svg{width:14px;height:14px;stroke-width:2.15;color:#f0b84d;opacity:.95}.ops-settings-save-action:hover{border-color:rgba(237,188,84,.58);background:linear-gradient(180deg,#151e27 0%,#0e151c 100%);color:#ffe1a0;box-shadow:0 6px 14px rgba(191,132,26,.10),inset 0 1px rgba(255,255,255,.05);transform:translateY(-1px)}.ops-settings-save-action:active{background:linear-gradient(180deg,#0f151c 0%,#0b1117 100%);box-shadow:inset 0 2px 6px rgba(0,0,0,.22);transform:translateY(0)}
+.ops-settings-view{min-height:0}
+
+.ops-settings-board{overflow:hidden;border:1px solid var(--line);border-radius:11px;background:#0c1117}
+.ops-settings-basic{width:min(630px,100%);margin-left:auto;margin-right:auto}.ops-settings-modules{width:min(680px,100%);margin-left:auto;margin-right:auto}
+.ops-settings-board-head{min-height:45px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 11px;border-bottom:1px solid var(--line-soft);background:#0f151b}.ops-settings-board-head>div{display:grid;gap:2px}.ops-settings-board-head h2{margin:0;color:var(--ops-title);font-size:calc((14.5px) * var(--lac-type-scale, 1))}.ops-settings-board-head p{margin:0;color:var(--ops-sub);font-size:calc((10px) * var(--lac-type-scale, 1))}.ops-settings-board-head>span{color:#8a7f6f;font-size:calc((9.5px) * var(--lac-type-scale, 1))}.ops-settings-board-head>span strong{color:var(--ops-gold-bright);font-size:calc((11.7px) * var(--lac-type-scale, 1))}
+
+/* Basic info remains content-sized. */
+.ops-settings-row{min-height:57px;display:grid;grid-template-columns:205px max-content;align-items:center;justify-content:start;gap:14px;padding:8px 11px;border-bottom:1px solid var(--line-soft)}.ops-settings-row:last-child{border-bottom:0}.ops-settings-row>div:first-child{display:grid;gap:2px}.ops-settings-row>div:first-child strong{color:var(--ops-title);font-size:calc((12.3px) * var(--lac-type-scale, 1))}.ops-settings-row>div:first-child span{color:var(--ops-sub);font-size:calc((9.8px) * var(--lac-type-scale, 1))}.ops-settings-control{min-width:0;width:max-content}
+.ops-settings-control input,.ops-settings-control select,.ops-settings-channels select{height:32px;padding:0 28px 0 9px;border:1px solid #2a3540;border-radius:7px;background:#10161d;color:#d6dbe0;font-size:calc((11px) * var(--lac-type-scale, 1));outline:0}.ops-settings-control input{padding-right:9px}.ops-settings-control input:focus,.ops-settings-control select:focus,.ops-settings-channels select:focus{border-color:rgba(228,178,75,.45);box-shadow:0 0 0 2px rgba(228,178,75,.05)}
+.ops-settings-row--company .ops-settings-control input{width:270px}.ops-settings-row--role .ops-settings-control select{width:170px}.ops-settings-row--discord .ops-settings-control{width:270px}
+.ops-settings-discord{width:270px;height:32px;display:flex;align-items:center;gap:7px;padding:0 9px;border:1px solid #2a3540;border-radius:7px;background:#10161d}.ops-settings-discord i{width:7px;height:7px;border-radius:50%;background:var(--green)}.ops-settings-discord strong{min-width:0;overflow:hidden;color:var(--ops-copy);font-size:calc((11px) * var(--lac-type-scale, 1));text-overflow:ellipsis;white-space:nowrap}.ops-settings-discord button{margin-left:auto;border:0;background:transparent;color:var(--ops-gold);font-size:calc((9.8px) * var(--lac-type-scale, 1));font-weight:820;cursor:pointer}
+
+/* Feature rows have a fixed 3-lane contract: copy / channels / power.
+   AMMO no longer expands the middle lane or moves the power control. */
+.ops-settings-module-list{display:grid}
+.ops-settings-module{min-height:56px;display:grid;grid-template-columns:190px 330px 68px;align-items:center;gap:10px;padding:4px 10px;border-bottom:1px solid var(--line-soft)}.ops-settings-module:last-child{border-bottom:0}.ops-settings-module.is-enabled{box-shadow:inset 2px 0 rgba(228,178,75,.42)}
+.ops-settings-module-copy{display:grid;gap:2px;min-width:0}.ops-settings-module-copy>strong{overflow:hidden;color:var(--ops-title);font-size:calc((12.5px) * var(--lac-type-scale, 1));text-overflow:ellipsis;white-space:nowrap}.ops-settings-module-copy>small{overflow:hidden;color:var(--ops-sub);font-size:calc((9.6px) * var(--lac-type-scale, 1));text-overflow:ellipsis;white-space:nowrap}
+.ops-settings-channels{width:330px;display:flex;align-items:end;gap:6px;min-width:0}.ops-settings-channels label{display:grid;gap:2px;width:max-content;min-width:0}.ops-settings-channels span{color:#9b907c;font-size:calc((8.8px) * var(--lac-type-scale, 1))}.ops-settings-channels select{width:202px;height:30px;font-size:calc((10.5px) * var(--lac-type-scale, 1))}.ops-settings-module--channels-2 .ops-settings-channels label{width:158px}.ops-settings-module--channels-2 .ops-settings-channels select{width:158px}
+.ops-settings-no-channel{width:202px;height:30px;display:flex;align-items:center;padding:0 9px;border:1px dashed rgba(228,178,75,.12);border-radius:7px;color:#8f856f;font-size:calc((9.6px) * var(--lac-type-scale, 1))}
+
+/* Power control stays on one exact X-axis for every module. */
+.ops-power-toggle{justify-self:end;width:66px;height:30px;display:flex;align-items:center;justify-content:center;gap:5px;padding:0 7px;border:1px solid #3d4853;border-radius:999px;background:#111820;color:#747f89;cursor:pointer;transition:.15s ease;user-select:none}
+.ops-power-toggle input{position:absolute;opacity:0;pointer-events:none}.ops-power-toggle__icon{font-size:calc((14px) * var(--lac-type-scale, 1));line-height:1;font-weight:900}.ops-power-toggle__label{min-width:19px;font-size:calc((8.8px) * var(--lac-type-scale, 1));font-weight:900;letter-spacing:.03em}.ops-power-toggle__label:after{content:'OFF'}
+.ops-power-toggle:hover{border-color:#54616d;color:#aab3bb;background:#141c24}.ops-power-toggle:has(input:checked){border-color:rgba(228,178,75,.48);background:rgba(112,87,34,.38);color:#f0ba4d;box-shadow:0 0 0 2px rgba(228,178,75,.045),inset 0 0 16px rgba(228,178,75,.05)}
+.ops-power-toggle:has(input:checked) .ops-power-toggle__icon{text-shadow:0 0 9px rgba(240,186,77,.35)}.ops-power-toggle:has(input:checked) .ops-power-toggle__label:after{content:'ON'}.ops-power-toggle:focus-within{outline:2px solid rgba(228,178,75,.18);outline-offset:2px}
+
+/* Bridge note is absorbed into the feature board so it cannot push Save below viewport. */
+.ops-settings-module-foot{min-height:34px;display:flex;align-items:center;gap:8px;padding:6px 10px;border-top:1px solid rgba(228,178,75,.10);background:rgba(228,178,75,.018);white-space:nowrap;overflow:hidden}
+.ops-settings-module-foot strong{flex:0 0 auto;color:#d7b66f;font-size:calc((9.5px) * var(--lac-type-scale, 1))}.ops-settings-module-foot span{overflow:hidden;color:#77828d;font-size:calc((9px) * var(--lac-type-scale, 1));text-overflow:ellipsis}
+
+/* Vertical compact mode is based on browser viewport, not physical monitor pixels. */
+@media(max-height:940px) and (min-width:761px){
+  .ops-settings-page .page-header{min-height:70px;margin-bottom:10px}.ops-settings-page .page-header__actions{padding-top:12px}
+  .ops-settings-overview{margin-bottom:9px}.ops-settings-overview article{padding-top:10px;padding-bottom:10px}
+  .ops-settings-nav-row{margin-bottom:7px}
+}
+
+@media(max-width:760px){
+  .ops-settings-overview{grid-template-columns:1fr 1fr}.ops-settings-overview article:nth-child(2){border-right:0}.ops-settings-overview article:nth-child(-n+2){border-bottom:1px solid var(--line-soft)}
+  .ops-settings-nav-row{width:100%;align-items:stretch;flex-direction:column}.ops-settings-tabs{width:100%}.ops-settings-tabs button span{display:none}.ops-settings-save-action{flex-basis:36px;min-height:36px}
+  .ops-settings-basic,.ops-settings-modules{width:100%}
+  .ops-settings-row{grid-template-columns:1fr;gap:7px}.ops-settings-control,.ops-settings-row--discord .ops-settings-control{width:100%}.ops-settings-row--company .ops-settings-control input,.ops-settings-row--role .ops-settings-control select,.ops-settings-discord{width:min(100%,300px)}
+  .ops-settings-module{grid-template-columns:1fr 68px}.ops-settings-channels,.ops-settings-no-channel{grid-column:1/-1}.ops-power-toggle{grid-column:2;grid-row:1}.ops-settings-channels{width:100%;flex-wrap:wrap}.ops-settings-channels select,.ops-settings-module--channels-2 .ops-settings-channels select{width:170px}.ops-settings-module--channels-2 .ops-settings-channels label{width:170px}
+  .ops-settings-module-foot{white-space:normal;align-items:flex-start;flex-direction:column}
+}
+
+
+/* AXE ONE 3.15 · onboarding + safe Discord reconnect */
+.ops-onboarding-progress,.ops-onboarding-strip{width:min(680px,100%);margin:0 auto 9px;border:1px solid var(--line);border-radius:10px;background:#0c1117}
+.ops-onboarding-progress{min-height:46px;display:grid;grid-template-columns:180px 1fr;align-items:center;gap:10px;padding:7px 10px}.ops-onboarding-progress__copy{display:grid;gap:2px}.ops-onboarding-progress__copy strong{color:#dce2e8;font-size:calc((11px) * var(--lac-type-scale, 1))}.ops-onboarding-progress__copy span{color:#74808b;font-size:calc((8.8px) * var(--lac-type-scale, 1));line-height:1.35}
+.ops-onboarding-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}.ops-onboarding-steps>span{height:28px;display:flex;align-items:center;justify-content:center;gap:5px;border:1px solid #27313a;border-radius:7px;background:#0f151b;color:#68737d;font-size:calc((8.8px) * var(--lac-type-scale, 1));font-weight:800;white-space:nowrap}.ops-onboarding-steps b{width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:#171f27;color:#77838e;font-size:calc((8px) * var(--lac-type-scale, 1))}.ops-onboarding-steps>span.is-current{border-color:rgba(228,178,75,.34);background:rgba(228,178,75,.055);color:#e1c27f}.ops-onboarding-steps>span.is-current b{background:rgba(228,178,75,.16);color:#f0ba4d}.ops-onboarding-steps>span.is-done{border-color:rgba(120,211,155,.17);color:#8fcda4}.ops-onboarding-steps>span.is-done b{background:rgba(120,211,155,.10);color:#90d4a7}
+.ops-onboarding-strip{min-height:46px;display:flex;align-items:center;gap:10px;padding:8px 11px}.ops-onboarding-strip>div:not(.ops-onboarding-spinner){display:grid;gap:2px}.ops-onboarding-strip strong{color:#e2c27c;font-size:calc((10.8px) * var(--lac-type-scale, 1))}.ops-onboarding-strip span{color:#7d8791;font-size:calc((9px) * var(--lac-type-scale, 1))}.ops-onboarding-strip.is-error{border-color:rgba(224,92,92,.28);background:rgba(224,92,92,.035)}.ops-onboarding-strip.is-error strong{color:#e79898}
+.ops-onboarding-spinner{width:16px;height:16px;flex:0 0 auto;border:2px solid rgba(228,178,75,.17);border-top-color:#e4b24b;border-radius:50%;animation:ops-onboarding-spin .9s linear infinite}@keyframes ops-onboarding-spin{to{transform:rotate(360deg)}}
+.ops-settings-save-action:disabled{opacity:.45;cursor:not-allowed;transform:none!important;box-shadow:none!important}.ops-settings-control input:disabled,.ops-settings-control select:disabled{opacity:.55;cursor:not-allowed}.ops-settings-discord.is-disconnected i{background:#596571}.ops-settings-discord.is-busy i{background:#e4b24b;box-shadow:0 0 8px rgba(228,178,75,.24)}.ops-settings-discord button:disabled{color:#6e7780;cursor:not-allowed}
+.runtime-reconnect-form{gap:10px}.runtime-reconnect-summary,.runtime-reconnect-warning,.runtime-reconnect-safe{grid-column:1/-1;display:grid;gap:4px;padding:10px 11px;border:1px solid var(--line);border-radius:9px;background:#0d1319}.runtime-reconnect-summary span,.runtime-reconnect-warning strong,.runtime-reconnect-safe strong{color:#8f9aa4;font-size:calc((9px) * var(--lac-type-scale, 1))}.runtime-reconnect-summary strong{color:#e7c77f;font-size:calc((13px) * var(--lac-type-scale, 1))}.runtime-reconnect-warning{border-color:rgba(224,92,92,.20);background:rgba(224,92,92,.025)}.runtime-reconnect-warning strong{color:#df9696}.runtime-reconnect-safe{border-color:rgba(120,211,155,.16);background:rgba(120,211,155,.02)}.runtime-reconnect-safe strong{color:#8ecda4}.runtime-reconnect-warning p,.runtime-reconnect-safe p{margin:0;color:#a4adb5;font-size:calc((9.6px) * var(--lac-type-scale, 1));line-height:1.55}.runtime-reconnect-confirm{display:flex!important;grid-column:1/-1;align-items:flex-start;gap:8px;padding:9px 10px;border:1px solid rgba(228,178,75,.16);border-radius:8px;background:rgba(228,178,75,.025)}.runtime-reconnect-confirm input{width:14px!important;height:14px!important;flex:0 0 auto;margin:1px 0 0!important;accent-color:#d5a43f}.runtime-reconnect-confirm span{color:#c4c9ce;font-size:calc((9.6px) * var(--lac-type-scale, 1));line-height:1.45}
+@media(max-width:760px){.ops-onboarding-progress{grid-template-columns:1fr}.ops-onboarding-steps{grid-template-columns:1fr 1fr}.ops-onboarding-steps>span{justify-content:flex-start;padding:0 8px}}
+
+.ops-settings-module.is-disabled{opacity:.52}.ops-settings-module.is-disabled .runtime-power{cursor:not-allowed}
+
+/* Company-scoped cooking order menu · compact operational layout */
+.ops-cooking-settings{width:min(680px,100%);margin:0 auto}
+.ops-cooking-guide-card{margin-bottom:8px;border:1px solid var(--line);border-radius:10px;background:var(--panel);overflow:hidden}
+.ops-cooking-guide-head{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:38px;padding:6px 9px;border-bottom:1px solid var(--line-soft)}
+.ops-cooking-guide-head>div{display:flex;align-items:baseline;gap:8px;min-width:0}.ops-cooking-guide-head strong{font-size:calc((11.3px) * var(--lac-type-scale, 1));color:var(--text);white-space:nowrap}.ops-cooking-guide-head span{overflow:hidden;font-size:calc((8.8px) * var(--lac-type-scale, 1));color:var(--muted);text-overflow:ellipsis;white-space:nowrap}
+.ops-compact-save,.ops-cooking-add{display:inline-flex;align-items:center;justify-content:center;gap:5px;height:28px;padding:0 9px;border:1px solid rgba(228,178,75,.38);border-radius:7px;background:rgba(228,178,75,.08);color:var(--warning);font-size:calc((9.5px) * var(--lac-type-scale, 1));font-weight:800;white-space:nowrap}.ops-compact-save svg,.ops-cooking-add svg{width:12px;height:12px}.ops-compact-save:hover,.ops-cooking-add:hover{background:rgba(228,178,75,.14)}.ops-compact-save:disabled,.ops-cooking-add:disabled{opacity:.45;cursor:not-allowed}
+.ops-cooking-guide-grid{display:grid;grid-template-columns:220px minmax(0,1fr);gap:8px;padding:7px 9px}.ops-cooking-guide-grid label{display:grid;gap:3px}.ops-cooking-guide-grid label>span{font-size:calc((8.8px) * var(--lac-type-scale, 1));color:#aab3bc}.ops-cooking-guide-grid input,.ops-cooking-guide-grid textarea{width:100%;height:30px;min-height:30px;border:1px solid #29333d;border-radius:7px;background:#0d1217;color:var(--text);font:inherit;font-size:calc((10px) * var(--lac-type-scale, 1));padding:5px 8px;outline:none}.ops-cooking-guide-grid textarea{resize:vertical;line-height:1.35}.ops-cooking-guide-grid input:focus,.ops-cooking-guide-grid textarea:focus{border-color:rgba(228,178,75,.46);box-shadow:0 0 0 2px rgba(228,178,75,.045)}
+.ops-cooking-menu-board{overflow:hidden}.ops-cooking-menu-head{min-height:40px!important;padding:6px 9px!important}.ops-cooking-menu-head h2{font-size:calc((13px) * var(--lac-type-scale, 1))}.ops-cooking-menu-head p{font-size:calc((9px) * var(--lac-type-scale, 1))}.ops-cooking-menu-tools{display:flex;align-items:center;gap:7px}.ops-cooking-menu-count{font-size:calc((9px) * var(--lac-type-scale, 1));color:var(--muted);white-space:nowrap}.ops-cooking-menu-count strong{color:var(--warning);font-size:calc((11px) * var(--lac-type-scale, 1))}
+.ops-cooking-menu-list{display:grid}
+.ops-cooking-menu-row{display:grid;grid-template-columns:minmax(0,1fr) 92px 70px 52px;gap:8px;align-items:center;min-height:43px;padding:6px 9px;border-bottom:1px solid var(--line-soft);transition:.15s ease}.ops-cooking-menu-row:last-child{border-bottom:0}.ops-cooking-menu-row.is-disabled{opacity:.52}.ops-cooking-menu-main{min-width:0;display:grid;gap:2px}.ops-cooking-menu-main>div{min-width:0;display:flex;align-items:center;gap:6px}.ops-cooking-menu-main strong{min-width:0;overflow:hidden;color:var(--text);font-size:calc((11px) * var(--lac-type-scale, 1));text-overflow:ellipsis;white-space:nowrap}.ops-cooking-menu-main small{overflow:hidden;color:var(--muted);font-size:calc((8.4px) * var(--lac-type-scale, 1));line-height:1.2;text-overflow:ellipsis;white-space:nowrap}.ops-cooking-order-badge{height:18px;display:inline-flex;align-items:center;padding:0 5px;border:1px solid rgba(255,255,255,.07);border-radius:999px;background:#111820;color:#78838d;font-size:calc((7.7px) * var(--lac-type-scale, 1));font-weight:800;white-space:nowrap}.ops-cooking-menu-price{display:flex;align-items:center;justify-content:flex-end}.ops-cooking-menu-price strong{color:#77e7b2;font-size:calc((10.5px) * var(--lac-type-scale, 1));white-space:nowrap}.ops-cooking-menu-price em{margin-left:2px;color:#718078;font-size:calc((7.6px) * var(--lac-type-scale, 1));font-style:normal;font-weight:750}.ops-cooking-menu-row .runtime-power{justify-self:start;min-height:26px!important;height:26px!important;padding-left:7px!important;padding-right:7px!important}.ops-cooking-menu-row .ops-mgmt-action{min-height:26px;padding:0 7px;font-size:calc((8.8px) * var(--lac-type-scale, 1))}.ops-cooking-menu-empty{display:flex;flex-direction:column;gap:3px;align-items:center;justify-content:center;min-height:80px;color:var(--muted)}.ops-cooking-menu-empty strong{color:var(--text);font-size:calc((11px) * var(--lac-type-scale, 1))}.ops-cooking-menu-empty span{font-size:calc((9px) * var(--lac-type-scale, 1))}
+.ops-cooking-settings .ops-settings-module-foot{min-height:30px;padding:5px 9px}
+@media (max-width:900px){.ops-cooking-guide-grid{grid-template-columns:1fr}.ops-cooking-guide-head{align-items:flex-start}.ops-cooking-guide-head>div{display:grid;gap:2px}.ops-cooking-guide-head span{white-space:normal}.ops-cooking-menu-row{grid-template-columns:minmax(0,1fr) 82px 64px 50px}.ops-cooking-menu-tools{gap:5px}}
+@media (max-width:560px){.ops-cooking-menu-row{grid-template-columns:minmax(0,1fr) auto auto;gap:6px}.ops-cooking-menu-price{justify-content:flex-start;grid-column:1;grid-row:2}.ops-cooking-menu-row .runtime-power{grid-column:2;grid-row:1 / span 2}.ops-cooking-menu-row .ops-mgmt-action{grid-column:3;grid-row:1 / span 2}.ops-cooking-menu-main small{white-space:normal}}
+@media(max-width:760px){.ops-settings-tabs.has-cooking{grid-template-columns:repeat(3,minmax(0,1fr))}.ops-cooking-settings{width:100%}}
+
+
+.ops-settings-row--branding .ops-settings-control{width:370px}.ops-branding-control{display:flex;align-items:center;gap:7px;width:100%}.ops-branding-control input[type=file]{width:270px;height:34px;padding:5px 7px;font-size:calc((9px) * var(--lac-type-scale, 1))}.ops-branding-control button{height:32px;padding:0 9px;border:1px solid rgba(255,255,255,.1);border-radius:7px;background:#0c1116;color:#9ea5ac;font-size:calc((9px) * var(--lac-type-scale, 1));font-weight:800;white-space:nowrap}.ops-branding-control button:hover{border-color:rgba(228,178,75,.24);color:#e0c486}
+@media(max-width:700px){.ops-settings-row--branding .ops-settings-control,.ops-branding-control{width:100%}.ops-branding-control{align-items:stretch;flex-direction:column}.ops-branding-control input[type=file]{width:100%}}
+
+
+/* AXE ONE 3.17.8 · Company Settings app-shell integration
+   The settings page now begins directly under the global header and follows
+   the same left-anchored app composition as the operational pages. */
+@media(min-width:761px){
+  .main--settings .ops-settings-page{
+    width:680px;
+    max-width:100%;
+    margin-left:0;
+    margin-right:auto;
+  }
+  .main--settings .ops-settings-page .page-header{
+    min-height:0;
+    margin-bottom:10px;
+  }
+  .main--settings .ops-settings-page .page-header h1{
+    margin:6px 0 0;
+    font-size:calc((32px) * var(--lac-type-scale, 1));
+    line-height:1.05;
+    letter-spacing:-.035em;
+  }
+  .main--settings .ops-settings-page .page-header p{
+    margin:7px 0 0;
+    font-size:calc((12.5px) * var(--lac-type-scale, 1));
+    line-height:1.5;
+  }
+  .main--settings .ops-settings-overview,
+  .main--settings .ops-settings-nav-row,
+  .main--settings .ops-onboarding-progress,
+  .main--settings .ops-onboarding-strip,
+  .main--settings .ops-settings-modules,
+  .main--settings .ops-cooking-settings{
+    width:680px;
+    max-width:100%;
+    margin-left:0;
+    margin-right:auto;
+  }
+  .main--settings .ops-settings-basic{
+    width:630px;
+    max-width:100%;
+    margin-left:0;
+    margin-right:auto;
+  }
+  .main--settings .ops-settings-overview{
+    margin-bottom:10px;
+  }
+  .main--settings .ops-settings-overview article{
+    gap:4px;
+    padding:12px 14px;
+  }
+  .main--settings .ops-settings-overview span{font-size:calc((8.5px) * var(--lac-type-scale, 1))}
+  .main--settings .ops-settings-overview strong{font-size:calc((17px) * var(--lac-type-scale, 1))}
+  .main--settings .ops-settings-overview small{font-size:calc((7.8px) * var(--lac-type-scale, 1))}
+}
+
+
+/* AXE ONE 3.23.5 · Cooking list stays compact as menu count grows */
+.ops-cooking-filterbar{min-height:40px;display:flex;align-items:center;gap:6px;padding:5px 9px;border-bottom:1px solid var(--line-soft);background:#0f151b}.ops-cooking-filterbar .ops-mgmt-search{width:min(240px,100%)}.ops-cooking-filterbar>span{margin-left:auto;color:#707b85;font-size:calc((8.6px) * var(--lac-type-scale, 1));white-space:nowrap}
+@media(max-width:760px){.ops-cooking-filterbar{align-items:stretch;flex-wrap:wrap}.ops-cooking-filterbar .ops-mgmt-search{width:100%}.ops-cooking-filterbar>span{margin-left:0}}
+
+/* AXE ONE 3.26.9 · settings copy cleanup */
+.ops-settings-page .page-header.page-header--compact{min-height:56px;margin-bottom:12px}
+.ops-settings-overview article{gap:3px;padding-top:14px;padding-bottom:14px}
+.ops-settings-tabs button{min-height:38px;display:flex;align-items:center}
+.ops-settings-tabs button strong{font-size:calc((11.7px) * var(--lac-type-scale, 1))}
+.ops-settings-row{min-height:50px}
+.ops-settings-row>div:first-child{gap:0}
+
+/* AXE ONE 3.26.17 · Cooking menu follows the FUND ledger table standard. */
+.ops-cooking-settings{width:min(636px,100%);margin:0 auto 0 0}
+.ops-cooking-menu-columns,.ops-cooking-menu-row{
+  display:grid;
+  grid-template-columns:minmax(105px,1fr) minmax(125px,1.15fr) 78px 46px 68px 52px;
+  gap:4px;
+  align-items:center;
+  padding-left:8px;
+  padding-right:8px;
+}
+.ops-cooking-menu-columns{height:27px;border-bottom:1px solid var(--line-soft);background:rgba(255,255,255,.006);color:#68747f;font-size:calc((8.5px) * var(--lac-type-scale, 1));font-weight:750}
+.ops-cooking-menu-columns>span,.ops-cooking-menu-cell{min-width:0;width:100%;text-align:center}
+.ops-cooking-menu-columns>span{display:flex;align-items:center;justify-content:center}
+.ops-cooking-menu-row{min-height:40px;padding-top:4px;padding-bottom:4px}
+.ops-cooking-menu-cell{color:#aab3bc;font-size:calc((8.9px) * var(--lac-type-scale, 1));font-weight:700}
+.ops-cooking-menu-cell.is-center,.ops-cooking-menu-price{display:flex;align-items:center;justify-content:center}
+.ops-cooking-menu-name strong,.ops-cooking-menu-detail{display:block;width:100%;min-width:0;overflow:hidden;text-align:center;text-overflow:ellipsis;white-space:nowrap}
+.ops-cooking-menu-name strong{color:var(--text);font-size:calc((10.2px) * var(--lac-type-scale, 1))}
+.ops-cooking-menu-detail.is-muted{color:#65717c}.ops-cooking-menu-price strong{color:#77e7b2;font-size:calc((9.8px) * var(--lac-type-scale, 1))}.ops-cooking-menu-order{text-align:center;font-variant-numeric:tabular-nums}
+.ops-cooking-order-badge{display:none}
+.ops-cooking-menu-row .runtime-power{min-height:24px!important;height:24px!important;padding-left:6px!important;padding-right:6px!important;font-size:calc((8.1px) * var(--lac-type-scale, 1)) !important}
+.ops-cooking-menu-row .ops-mgmt-action{min-width:42px;height:25px;padding:0 6px;font-size:calc((8.4px) * var(--lac-type-scale, 1))}
+
+@media(max-width:760px){
+  .ops-cooking-settings{width:100%}
+  .ops-cooking-menu-columns{display:none}
+  .ops-cooking-menu-row{grid-template-columns:minmax(0,1fr) auto;gap:5px 10px;padding:9px 10px}
+  .ops-cooking-menu-cell[data-label]:not(:nth-last-child(-n+2)){display:grid;grid-template-columns:74px minmax(0,1fr);align-items:center;gap:8px;grid-column:1;text-align:left}
+  .ops-cooking-menu-cell[data-label]:not(:nth-last-child(-n+2))::before{content:attr(data-label);color:#66727d;font-size:calc((8px) * var(--lac-type-scale, 1));font-weight:800}
+  .ops-cooking-menu-row>.ops-cooking-menu-cell:nth-last-child(2){grid-column:2;grid-row:1 / span 2}
+  .ops-cooking-menu-row>.ops-cooking-menu-cell:last-child{grid-column:2;grid-row:3 / span 2}
+  .ops-cooking-menu-name strong,.ops-cooking-menu-detail{text-align:left}
+  .ops-cooking-menu-price{justify-content:flex-start}.ops-cooking-menu-order{text-align:left}
+}
+
+/* AI channel: standalone WEB setting, not a live module until AI response is wired. */
+.ops-settings-ai-status{justify-self:center;color:#d7b66f;font-size:calc((10px) * var(--lac-type-scale, 1));white-space:nowrap}
+.ops-settings-ai-row .ops-settings-module-copy small{white-space:normal;line-height:1.25}
+@media(max-width:700px){.ops-settings-ai-row .ops-settings-ai-status{grid-column:2;grid-row:1}}

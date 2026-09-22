@@ -1,0 +1,62 @@
+:root{
+  --bg:#090b0f;
+  --header:#0a0d11;
+  --sidebar:#0f141a;
+  --surface:#11171e;
+  --surface-raised:#131a22;
+  --surface-input:#0c1218;
+  --line:#27313c;
+  --line-soft:#1d2630;
+  --text:#f1f4f7;
+  --text-2:#b7c0ca;
+  --muted:#8a96a3;
+  --sub:#66727f;
+  --gold:#e4b24b;
+  --gold-strong:#f0c360;
+  --gold-soft:rgba(228,178,75,.10);
+  --green:#78d39b;
+  --green-soft:rgba(120,211,155,.09);
+  --red:#ef817c;
+  --red-soft:rgba(239,129,124,.09);
+  --amber:#e8b65d;
+  --amber-soft:rgba(232,182,93,.09);
+  --blue:#8db5ff;
+
+  /* 3.9 visual language: AXE NET ledger becomes the readability baseline. */
+  --ops-title:#e8e4dc;
+  --ops-copy:#d7d2c8;
+  --ops-sub:#777c83;
+  --ops-meta:#6f757c;
+  --ops-gold:#d4b46b;
+  --ops-gold-bright:#f0c360;
+  /* Layout Studio tokens; values match this version's normal operational table defaults. */
+  --ops-table-header-font-size:calc((8.5px) * var(--lac-type-scale, 1));
+  --ops-table-primary-font-size:calc((10.2px) * var(--lac-type-scale, 1));
+  --ops-table-secondary-font-size:calc((9px) * var(--lac-type-scale, 1));
+  --ops-table-control-font-size:calc((9.6px) * var(--lac-type-scale, 1));
+  --ops-table-status-font-size:calc((8.3px) * var(--lac-type-scale, 1));
+  --ops-table-action-font-size:calc((8.4px) * var(--lac-type-scale, 1));
+  --ops-table-header-height:27px;
+  --ops-table-row-height:40px;
+  --ops-table-gap:4px;
+  --ops-table-cell-pad-inline:8px;
+  --ops-rail-standard:636px;
+  --ops-table-action-min-width:42px;
+  --ops-table-action-pad-inline:6px;
+  --ops-font-primary:12.5px;
+  --ops-font-secondary:10.5px;
+  --ops-font-support:9.5px;
+  --ops-font-control:10.8px;
+  --radius:12px;
+  --radius-sm:8px;
+  --shadow:0 22px 60px rgba(0,0,0,.22);
+
+  /* 3.5 layout contract: narrower operations console with wider outer margins. */
+  --shell-max:1020px;
+  --shell-gutter:48px;
+  --sidebar-width:220px;
+  --shell-gap:18px;
+
+  font-family:Inter,Pretendard,"Noto Sans KR",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:dark;
+}
