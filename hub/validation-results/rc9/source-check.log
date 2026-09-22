@@ -1,0 +1,641 @@
+
+> axe-product-staging@1.7.41-web-ui.79 check
+> node scripts/source-check.mjs && node scripts/integrated-ui-check.mjs && node scripts/onboarding-catalog-check.mjs && node scripts/operations-ux-check.mjs && node scripts/member-identity-ux-check.mjs && node scripts/dense-ops-system-check.mjs && node scripts/content-fit-density-check.mjs && node scripts/generated-ambient-shell-check.mjs && node scripts/guided-setup-typography-check.mjs && node scripts/live-guided-setup-check.mjs && node scripts/session-auth-privacy-check.mjs && node scripts/operations-row-actions-check.mjs && node scripts/platform-subscription-evidence-check.mjs && node scripts/platform-shell-balance-check.mjs && node scripts/content-offset-plan-check.mjs && node scripts/discord-permission-reapproval-check.mjs && node scripts/modbook-channel-guided-check.mjs && node scripts/discord-upfront-permissions-check.mjs && node scripts/dashboard-operations-check.mjs && node scripts/dashboard-readability-check.mjs && node scripts/dashboard-copy-cleanup-check.mjs && node scripts/interface-copy-cleanup-check.mjs && node scripts/account-lookup-owner-shell-check.mjs && node scripts/questions-board-check.mjs && node scripts/scale-safe-lists-check.mjs && node scripts/pinball-module-check.mjs && node scripts/suggestions-board-check.mjs && node scripts/first-run-onboarding-check.mjs && node scripts/test-center-check.mjs && node scripts/onboarding-flow-integrity-check.mjs && node scripts/company-delete-platform-scale-check.mjs && node scripts/axe-one-brand-check.mjs && node scripts/list-visual-cleanup-check.mjs && node scripts/fund-ledger-axis-specificity-check.mjs && node scripts/fund-ledger-alignment-check.mjs && node scripts/ops-table-fund-standard-check.mjs && node scripts/ops-density-balance-check.mjs && node scripts/member-account-balance-check.mjs
+
+AXE ONE SOURCE CHECK: PASS
+Checked 28 source files.
+ - axe_product schema lock: PASS
+ - no NEW AXE NET / HUB app-table reference: PASS
+ - no server master key dependency: PASS
+ - Discord OAuth API routes: PASS
+ - Discord catalog/mapping integration: PASS
+AXE ONE INTEGRATED UI CHECK: PASS
+73/73 checks passed.
+ - WEB bridge helper: getFundTreasurySnapshot: PASS
+ - WEB bridge helper: saveFundLedgerEntry: PASS
+ - WEB bridge helper: cancelFundLedgerEntry: PASS
+ - WEB bridge helper: getWebAssetsSnapshot: PASS
+ - WEB bridge helper: saveWebAsset: PASS
+ - WEB bridge helper: manageWebAsset: PASS
+ - WEB bridge helper: getWebAccountsSnapshot: PASS
+ - WEB bridge helper: submitWebAccountRequest: PASS
+ - WEB bridge helper: reviewWebAccountRequest: PASS
+ - WEB bridge helper: submitProductFeedback: PASS
+ - RPC binding: fund_admin_get_treasury_snapshot: PASS
+ - RPC binding: fund_admin_save_ledger_entry: PASS
+ - RPC binding: fund_admin_cancel_ledger_entry: PASS
+ - RPC binding: web_assets_admin_snapshot: PASS
+ - RPC binding: web_assets_admin_save: PASS
+ - RPC binding: web_assets_admin_manage: PASS
+ - RPC binding: web_accounts_admin_snapshot: PASS
+ - RPC binding: web_accounts_submit_request: PASS
+ - RPC binding: web_accounts_review_request: PASS
+ - RPC binding: submit_product_feedback: PASS
+ - axe_product schema lock: PASS
+ - No browser BOT runtime RPC usage: PASS
+ - No raw fund ledger browser write: PASS
+ - No raw company asset browser write: PASS
+ - No raw member account browser write: PASS
+ - Accepted sidebar group label: PASS
+ - Sidebar/page label: 공금 관리: PASS
+ - Sidebar/page label: 멤버 관리: PASS
+ - Sidebar/page label: 자산 관리: PASS
+ - Sidebar/page label: 계좌 관리: PASS
+ - Sidebar/page label: 회사 설정: PASS
+ - Sidebar/page label: 질문게시판: PASS
+ - Sidebar/page label: 건의게시판: PASS
+ - Boxed AXE header mark removed: PASS
+ - Legacy feedback modal removed: PASS
+ - Suggestion board first-class route: PASS
+ - Mandatory ledger cancellation reason: PASS
+ - Fund monthly selector: PASS
+ - Fund weekly tab always reloads live status: PASS
+ - Fund refresh reloads weekly status when active: PASS
+ - Fund weekly RPC skips nonexistent 5th week: PASS
+ - Approved weekly payment renders as weekly fund, never manual extra income: PASS
+ - Fund dense ledger lane structure: PASS
+ - Settings basic/module tabs: PASS
+ - Power-style module controls: PASS
+ - No onboarding flash while company list loads: PASS
+ - Stable custom company picker: PASS
+ - Asset compact mode contract: PASS
+ - Fund settings compact runtime override: PASS
+ - Customer settings hide internal code badge: PASS
+ - Compact save action visual: PASS
+ - Onboarding status RPC binding: PASS
+ - Reconnect request RPC binding: PASS
+ - Reconnect confirmation modal: PASS
+ - Reconnect poll lifecycle: PASS
+ - New company enters settings onboarding: PASS
+ - Onboarding role forward navigation auto-saves: PASS
+ - Onboarding role validation: PASS
+ - Onboarding dynamic save CTA: PASS
+ - Onboarding save guidance copy: PASS
+ - Onboarding completion notice: PASS
+ - BOT bridge remains connected-state aware without redundant footer copy: PASS
+ - Prototype CSS system imported: PASS
+ - Cooking menu settings tab: PASS
+ - Cooking menu modal: PASS
+ - Cooking menu direct RLS CRUD API: PASS
+ - Cooking menu state wiring: PASS
+ - Cooking menu avoids hard delete: PASS
+ - Cooking Discord guide direct RLS config API: PASS
+ - Cooking Discord guide state wiring: PASS
+ - Cooking compact settings UX: PASS
+ - Cooking guide SET baseline field removed: PASS
+ - Cooking menu modal ignores backdrop click: PASS
+PASS web patch version
+PASS catalog readiness polling exists
+PASS poll waits for DB catalog readiness
+PASS role flow guards catalog readiness
+PASS module navigation restarts readiness poll
+PASS pending catalog UX is rendered
+PASS settings derive catalog pending from DB status
+PASS save is disabled while role catalog is pending
+PASS module tab is disabled while catalog is pending
+PASS role selects do not look empty while syncing
+AXE ONE WEB onboarding catalog readiness check: PASS
+PASS canonical company name comes from companies.name
+PASS member list hides Discord numeric ID
+PASS actual employment date UX exists
+PASS company settings edits canonical company name only
+PASS company banner registration UI removed
+PASS fund ledger uses automatic registrant UX
+PASS asset legacy/internal ID is hidden
+PASS asset status dropdown exists
+PASS unassigned asset exposes assign action
+PASS hidden legacy ID is preserved on asset edit
+PASS member employment date is persisted
+PASS canonical company name RPC is used
+PASS company banner mutation wiring removed from web
+PASS company name admin RPC binding exists
+PASS legacy branding storage binding left untouched for compatibility
+PASS account/header and clean Discord-only sidebar footer layout present
+AXE ONE OPERATIONS UX CHECK: PASS · DATABASE 1.7.48 is a separate apply prerequisite
+PASS customer UI no longer exposes PRODUCT STAGING badge
+PASS sidebar refresh button removed
+PASS member detail separates Discord display name and alias
+PASS alias fallback UX is explicit
+PASS membership identity layers are loaded
+PASS member alias mutation is wired
+PASS member form persists alias
+PASS browser form history suppression is applied
+PASS fund free-text category disables browser autocomplete
+PASS browser title is customer-facing
+PASS member detail uses aligned 3-column role/status/hire row plus memo
+PASS member list uses fixed dense identity/hire/status/manage lanes
+PASS member memo is loaded and writable
+PASS member form persists memo
+AXE ONE MEMBER IDENTITY UX CHECK: PASS
+PASS settings-scale workspace
+PASS single compact board contract
+PASS member fixed lanes
+PASS asset fixed lanes
+PASS account fixed lanes
+PASS returns fixed lanes
+PASS no semantic management tables
+PASS fund dense lane board
+PASS fund no semantic table dependency
+PASS company settings untouched
+PASS operational desktop row density 40px
+PASS standard font weights
+dense operations system check: 12/12 PASS
+PASS - standard operational rail token remains 636px
+PASS - fund ledger uses standard reference rail
+PASS - members use standard FUND reference rail
+PASS - assets use standard FUND reference rail
+PASS - accounts use standard FUND reference rail
+PASS - member lanes include role column
+PASS - asset lanes include acquisition column
+PASS - account lanes include role column
+PASS - cooking uses explicit six-column lane
+PASS - platform company table uses explicit eight-column lane
+PASS - header identity is aligned inside content rail
+PASS - settings identity uses settings rail
+PASS - runtime app carries current page class
+PASS - settings uses compact 680px left rail
+PASS - fund subviews are left anchored
+PASS - mobile keeps full width fallback
+Content-fit density: 16/16 PASS
+PASS  marker exists
+PASS  generated image used
+PASS  cover background used
+PASS  central app width preserved
+PASS  desktop centered margin
+PASS  body overlay exists
+PASS  company banner upload removed
+PASS  mobile ambient disabled
+PASS  old staggered pattern inactive
+PASS  old diamond tile inactive
+Generated Ambient Shell: 10/10 PASS
+PASS  marker exists
+PASS  hero title enlarged
+PASS  body copy enlarged
+PASS  rail labels enlarged
+PASS  field labels enlarged
+PASS  select text enlarged
+PASS  module titles enlarged
+PASS  module descriptions enlarged
+PASS  buttons enlarged
+PASS  mobile title preserved
+Guided Setup Typography: 10/10 PASS
+PASS live setup launcher and renderer
+PASS settings launches live guide, not preview
+PASS role step saves real config
+PASS module step saves real modules
+PASS quick channel creation wired
+PASS channel API rechecks company admin and guild
+PASS duplicate channel names blocked before creation
+PASS Discord invite requests shared least-privilege baseline
+PASS role-filter member loading wired
+PASS bulk member registration uses server endpoint
+PASS member register endpoint rechecks company admin and guild
+PASS member IDs are revalidated against Discord role server-side
+PASS member inserts keep user token and DB RLS
+PASS member endpoint supports role filtering and intent guidance
+PASS new company opens live guide automatically
+Live Guided Setup: 15/15 PASS
+PASS Supabase session persistence enabled
+PASS foreground session recovery installed
+PASS network return can refresh session
+PASS visible app session health check installed
+PASS transient signed-out event is distinguished from manual logout
+PASS custom Discord auth provider is selectable
+PASS custom Discord login requests identify only
+PASS built-in email scope limitation documented
+PASS email-optional custom provider deployment documented
+PASS unverified Discord subject mapping is not presented as guaranteed
+Session/Auth Privacy: 10/10 PASS
+PASS member header/value axes centered
+PASS asset header/value axes centered
+PASS account header/value axes centered
+PASS fund linked entries have active edit control
+PASS fund correction modal exists
+PASS fund correction submit creates delta entry
+PASS account own row has edit action
+PASS account pending row has review action
+PASS account other row has detail action
+PASS account row action routed
+Operations Row Actions: 10/10 PASS
+PASS  platform admin RPC exists
+PASS  platform owner entry is account-menu only
+PASS  subscription management modal exists
+PASS  subscription update wired
+PASS  expired/paused company lock rendered
+PASS  fund evidence upload uses private bucket helper
+PASS  clipboard paste wired
+PASS  file picker wired
+PASS  ledger evidence table migration included
+PASS  platform admins table migration included
+PASS  new company trial trigger included
+PASS  platform styling included
+Platform Subscription + Fund Evidence: 12/12 PASS
+PASS  Korean plan labels
+PASS  subscription modal Korean plans
+PASS  platform admin hidden-company filter
+PASS  platform refresh rehydrates companies
+PASS  platform save reapplies visibility
+PASS  header brand centered
+PASS  account pushed right
+PASS  operational content final desktop offset
+PASS  medium desktop final offset
+PASS  small desktop final offset
+Platform Shell Balance: 10/10 PASS
+PASS  unlimited plan label simplified
+PASS  legacy label removed from UI
+PASS  legacy rows normalize to unlimited
+PASS  unlimited option exists
+PASS  desktop content lower
+PASS  desktop content farther right
+PASS  mid desktop content right shift
+PASS  mid desktop lower shift
+PASS  small desktop restrained shift
+PASS  content offset marker exists
+Content Offset + Plan Cleanup: 10/10 PASS
+PASS · reapproval endpoint exists
+PASS · reapproval accepts canonical UUID company ids
+PASS · reapproval uses shared least-privilege baseline
+PASS · reapproval locks connected guild
+PASS · callback rejects guild mismatch
+PASS · client preserves API status
+PASS · client exposes permission reapproval
+PASS · guided setup catches manage channels 403
+PASS · guided setup resumes at channel step
+PASS · inline reapproval action exists
+PASS · direct-channel fallback remains available
+PASS · permission recovery UI styled
+Discord Permission Reapproval: 12/12 PASS
+PASS company settings expose modbook channel
+PASS guided setup restores saved modbook channel
+PASS guided quick channel plan persists modbook binding
+PASS guided channel binding supports modbook
+PASS live guided setup renders modbook channel
+PASS preview direct setup renders modbook channel
+PASS module settings save channel_id
+Modbook Channel Guided Setup: 7/7 PASS
+PASS · baseline permission bitfield is defined
+PASS · administrator permission is explicitly excluded
+PASS · initial Discord connect uses baseline permissions
+PASS · reapproval restores the same baseline permissions
+PASS · initial guide explains one-time permission approval
+PASS · guide lists channel and message permissions
+PASS · guide explicitly says no administrator permission
+PASS · connect CTA describes server/bot/permission flow
+PASS · settings disconnected copy describes upfront approval
+PASS · permission disclosure styling exists
+Discord Upfront Permissions: 10/10 PASS
+PASS current web package version
+PASS dashboard is a valid route
+PASS dashboard is default route
+PASS setup completion lands on dashboard
+PASS sidebar dashboard entry
+PASS dashboard renderer wired
+PASS attention queue uses live snapshots
+PASS dashboard does not invent BOT runtime data
+PASS quick actions reuse existing operations
+PASS dashboard jump controller
+PASS dashboard refresh reuses refreshAll
+PASS dashboard responsive styling
+PASS one-glance dashboard removes support boards from quick-action cards
+PASS quick action settings is compact header link
+PASS recent activity is bounded to four rows
+PASS attention uses compact two-column desktop grid
+PASS dashboard desktop padding stays compact
+PASS desktop dashboard uses one aligned two-column matrix
+PASS dashboard fills the available command-center canvas
+PASS sparse recent activity gains a compact operational digest
+PASS dashboard panels stretch to the same row height
+PASS attention queue is bounded to four visible cards
+PASS all-clear state uses compact operational summary
+PASS quick action panel has no redundant support footer
+PASS dashboard expands across the active content rail
+Dashboard operations: 25/25 PASS
+PASS current web package version
+PASS dashboard hero description is readable
+PASS dashboard refresh is at least 10px
+PASS metric labels increased
+PASS metric values remain prominent
+PASS metric helper text removed
+PASS panel titles increased to 14px
+PASS panel eyebrow increased
+PASS attention title increased
+PASS attention metadata increased
+PASS quick action title remains prominent
+PASS quick action helper text removed
+PASS activity title increased
+PASS activity metadata increased
+PASS activity timestamp increased
+PASS snapshot labels increased
+PASS system connection title increased
+PASS system connection helper removed
+PASS module labels increased
+PASS module chips increased
+PASS desktop one-glance grid retained
+PASS dashboard still has no nested list scrollbar
+Dashboard readability: 22/22 PASS
+PASS web package version
+PASS dashboard metrics have label and value only
+PASS metric markup no helper small
+PASS all-clear duplicate helper removed
+PASS quick action helpers removed
+PASS activity redundant footer removed
+PASS operations redundant helper copy removed
+PASS dashboard no longer repeats guild name below connected state
+PASS meaningful activity metadata retained
+PASS action-item descriptions retained
+PASS hero operational status retained
+PASS metrics vertically tightened
+Dashboard copy cleanup: 12/12 PASS
+PASS web package version
+PASS compact page header supported
+PASS operational page header descriptions removed
+PASS management summary helper lines removed
+PASS fund top copy cleaned
+PASS fund subview redundant descriptions removed
+PASS fund fee remains meaningful data
+PASS member redundant row and workflow helper removed
+PASS asset redundant holder helper removed
+PASS account redundant workflow copy removed
+PASS settings overview helper smalls removed
+PASS settings tab subtitles removed
+PASS basic setting row microcopy removed
+PASS meaningful module descriptions retained
+PASS state-critical onboarding guidance retained
+PASS suggestion privacy notice retained
+PASS clean density css present
+Interface copy cleanup: 17/17 PASS
+PASS home banner no dashboard tooltip
+PASS service management removed from sidebar
+PASS platform still hard gated
+PASS platform menu owner only
+PASS account menu state
+PASS owner gate action
+PASS assets account lookup setting
+PASS guided setup account lookup
+PASS guided setup keeps account lookup channel
+PASS account dropdown styling
+ACCOUNT LOOKUP + OWNER SHELL: 10/10 PASS
+PASS · questions page is a first-class route
+PASS · support nav uses question board
+PASS · legacy usage guide launcher removed
+PASS · question board is available to active members
+PASS · question board creates questions on site
+PASS · question thread supports platform answer and author follow-up
+PASS · only platform owner path can answer
+PASS · my questions scope exists
+PASS · question creation closes without reopening detail
+PASS · question list is bounded and paged
+PASS · other company members get read-only FAQ view
+PASS · support remains available even when subscription is blocked
+PASS · question state is stored in axe_product DB
+PASS · platform owner has global support queue
+PASS · platform dashboard surfaces unanswered support
+PASS · site unread badge exists
+PASS · Discord is notification only
+PASS · guided setup does not create a question forum
+PASS · guided channel API creates regular text channels only
+PASS · Manage Threads was removed again
+PASS · question board styling exists
+PASS · platform support styling exists
+PASS · question delete is author/platform controlled
+PASS · question image upload exists
+PASS · question clipboard paste exists
+PASS · question drag and drop exists
+PASS · support attachment bucket is private and restricted
+PASS · question attachment opens inside app lightbox
+PASS · question lightbox has explicit close affordances
+PASS · question lightbox renders above runtime modal
+PASS · question attachments no longer force a new tab
+Native Question Board: 31/31 PASS
+PASS shared page-size contract
+PASS shared pager renderer
+PASS fund ledger bounded
+PASS members bounded
+PASS assets bounded
+PASS accounts bounded
+PASS cooking search filter pager
+PASS questions scope/status pager
+PASS fund review bounded
+PASS platform companies bounded
+PASS filters reset pages
+PASS pager action routing
+PASS no nested list scrollbar
+PASS cooking scale styling
+PASS question scale styling
+PASS weekly fund viewport bounded
+Scale-safe lists: 16/16 PASS
+PASS · module UI
+PASS · module order
+PASS · guided quick channel
+PASS · guided direct channel
+PASS · channel binding
+PASS · preview module
+PASS · preview channel
+PASS · channel API capacity 8
+PASS · module catalog SQL
+PASS · sessions table
+PASS · participants table
+PASS · host max 2
+PASS · rolling spam limit
+PASS · company max 8
+PASS · 24h expiry
+PASS · generic/modbook kind
+PASS · idempotent key
+PASS · race-safe company create lock
+PASS · future module row self-heal
+PASS · module off/channel move retires sessions
+PINBALL MODULE CHECK · 20/20 PASS
+PRIVATE SUGGESTION BOARD: 23/23 PASS
+ - suggestions route is valid and sidebar nav exists: PASS
+ - legacy feedback modal/contact UI removed: PASS
+ - customer list is author-scoped in SQL: PASS
+ - detail blocks same-company non-author: PASS
+ - platform global suggestion queue exists: PASS
+ - platform-only answer/status path exists: PASS
+ - author follow-up reopens pending: PASS
+ - customer unread badge and dashboard notice exist: PASS
+ - private image bucket and attachment RPCs exist: PASS
+ - upload paste drop inputs wired: PASS
+ - shared in-app image lightbox used: PASS
+ - platform replies upload into suggestion company tenant: PASS
+ - author or platform delete path exists: PASS
+ - category and status filters exist: PASS
+ - board is bounded to five rows per page: PASS
+ - Discord is notification-only and linked id is automatic: PASS
+ - creation closes and does not auto-open thread: PASS
+ - suggestions remain accessible before subscription lock: PASS
+ - platform dashboard counts private suggestions: PASS
+ - private board copy is explicit: PASS
+ - DB creation has duplicate and spam guards: PASS
+ - direct authenticated table access is revoked: PASS
+ - suggestion queue styles are restrained/reused: PASS
+PASS current package version
+PASS first-run explains unresolved membership instead of assuming brand-new user
+PASS first-run exposes new company registration path
+PASS first-run exposes member registration wait path
+PASS member path is blocked until company-side registration
+PASS member path can re-check registration
+PASS member path shows and copies Discord registration identity
+PASS first-run has no invite-code join form
+PASS first-run does not search or enumerate companies
+PASS member page keeps registration-first action without redundant explainer
+PASS member page no longer exposes join-code action
+PASS slug is hidden from company UI
+PASS company create generates internal slug automatically
+PASS client has membership claim RPC
+PASS refresh claims pre-registered Discord membership before company list
+PASS manual registration check also claims before listing companies
+PASS successful registration check lands dashboard
+PASS unregistered member remains blocked with clear error
+PASS company create starts Guided Setup automatically
+PASS only owner auto-resumes unfinished initial setup
+PASS registered non-owner is not forced into setup
+PASS SQL identifies authenticated Discord identity
+PASS SQL claims only unowned active placeholder membership
+PASS SQL supports pre-login Discord member placeholders
+PASS SQL prevents duplicate company membership claim
+PASS claim RPC is authenticated-only
+PASS first-run layout stays two-path and responsive
+PASS waiting card has visible blocked-state treatment
+First-run registration gate: 28/28 PASS
+PASS web package version
+PASS platform account menu has test center
+PASS test center is platform owner only
+PASS test center state exists
+PASS test center modal renderer
+PASS first-run uses shared component
+PASS member waiting scenario
+PASS member registered scenario
+PASS new owner scenario
+PASS setup resume scenario
+PASS setup complete scenario
+PASS test company form is isolated
+PASS test member check stays local
+PASS guided preview returns to test center
+PASS safe mode copy text
+PASS test center safe banner
+PASS test center CSS
+PASS no join code input in center
+Test Center: 18/18 PASS
+PASS 3.26.3 web package version
+PASS company slug remains internal and automatic
+PASS company create keeps a stable pending attempt
+PASS company create retries recover by the same slug before another insert
+PASS company create accepts scalar/object/array RPC result shapes
+PASS company create verifies canonical company row after RPC
+PASS ambiguous old company result error removed
+PASS company create success message is customer-readable
+PASS company create unresolved state gives recovery instruction
+PASS guided setup uses one shared resume resolver
+PASS resume resolver checks Discord connection/catalog prerequisite
+PASS resume resolver checks role prerequisite
+PASS automatic owner resume uses shared resolver
+PASS manual setup open uses shared resolver
+PASS OAuth setup resume uses shared resolver
+PASS unfinished setup auto-resume remains owner-only
+PASS live module order includes modbook and pinball
+PASS test preview derives module cards from live module definitions
+PASS test preview step uses the shared preview module list
+PASS test preview can toggle newly added shared modules
+PASS test preview channel plan also includes modbook and pinball
+PASS first-run stays registration-gated with no company search/join code
+PASS registration verification still claims before company listing
+PASS server re-verifies selected Discord members before registration
+PASS inactive historical members are not silently reactivated
+PASS test center remains non-writing for member registration check
+PASS existing non-owner does not see additional company action
+PASS direct member registration is available to company admins
+PASS direct member registration revalidates company admin server-side
+PASS direct member registration verifies actual Discord guild membership
+PASS direct member registration fails clearly when Discord is not connected
+PASS direct member registration never grants owner role
+PASS direct member registration preserves inactive historical state
+PASS guided setup launcher is owner-only
+PASS guided setup mutations are owner-only
+PASS company creation verifies owner membership before setup
+Onboarding flow integrity: 36/36 PASS
+PASS - platform delete RPC API
+PASS - platform-only delete gate
+PASS - exact name confirmation
+PASS - irreversible warning
+PASS - discord cleanup warning
+PASS - service management tabs
+PASS - bounded platform page size
+PASS - platform tab state
+PASS - delete audit table
+PASS - delete function security definer
+PASS - delete company parent row
+PASS - authenticated grant only
+PASS - scale CSS
+PASS - platform owner survives zero companies
+RESULT 14/14
+AXE ONE BRAND CHECK: PASS
+PASS web package version
+PASS single-page range footer remains hidden
+PASS members expose role as a dedicated column
+PASS assets expose acquisition method as a dedicated column
+PASS returns use six explicit columns
+PASS accounts expose role as a dedicated column without duplicate Discord identity
+PASS member and asset metadata pills are retired
+PASS fund ledger exposes account and type columns
+PASS fund ledger no longer renders inline metadata pills
+PASS fund ledger type does not repeat income or expense direction
+PASS fund weekly view exposes role column
+PASS fund review uses explicit column header
+PASS cooking uses explicit column header
+PASS cooking order badge is retired
+PASS platform company data has dedicated columns
+PASS core operational boards follow 636px fund reference rail
+PASS mobile operational rows expose labels
+Column structure cleanup: 17/17 PASS
+PASS 636px standard rail token value preserved
+PASS FUND ledger uses standard rail token
+PASS header and row keep one identical 8-column grid
+PASS semantic center-axis selector exists
+PASS legacy nth-child axis patch retired
+PASS source index still uses Vite entrypoint
+PASS main still imports source stylesheet
+PASS stylesheet still imports fund.css
+FUND LEDGER AXIS SPECIFICITY CHECK PASS (8/8)
+PASS web package version
+PASS ledger keeps eight semantic columns
+PASS ledger header and row share one compact eight-column grid
+PASS fund ledger returns to 636px reference rail
+PASS fund summary and ledger share the same rail rule
+PASS ledger row uses 40px shared density token
+PASS all ledger headers and values share one center axis
+PASS money is centered under its header
+FUND ledger alignment: 8/8 PASS
+PASS version
+PASS ledger direction redundancy removed
+PASS standard rail token is 636px
+PASS members standard rail
+PASS assets standard rail
+PASS accounts standard rail
+PASS management header/body same center-axis rule
+PASS shared table density tokens
+PASS management compact rows
+PASS cooking current 680 rail is explicit
+PASS cooking header/body center axes
+PASS fund weekly standard rail
+PASS fund review center axes
+PASS platform company keeps 8-column wide rail but centered axes
+OPS TABLE FUND STANDARD: 14/14 PASS
+PASS version
+PASS member table adds useful Discord identity column
+PASS asset table surfaces existing memo field
+PASS account table keeps only account-relevant columns
+PASS asset search includes surfaced memo
+PASS member name-discord-role centers are balanced
+PASS asset columns use balanced fractional distribution
+PASS account columns use focused five-lane distribution
+PASS operational rail remains 636px
+PASS mobile action lane spans expanded fields
+OPS DENSITY BALANCE: 10/10 PASS
+PASS version
+PASS member keeps Discord identity
+PASS member name and role tracks are equal around Discord
+PASS account removes Discord display column
+PASS account search copy matches visible data
+PASS account five-lane grid
+MEMBER / ACCOUNT BALANCE: 6/6 PASS

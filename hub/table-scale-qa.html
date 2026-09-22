@@ -1,0 +1,7 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><link rel="stylesheet" href="./src/styles.css"><body>
+<div class="runtime-app"><main class="main--fund"><div class="page-header"><h1 id="title">공금내역</h1></div><div class="axe-fund-ledger"><div class="axe-fund-ledger-columns"><span id="header">날짜</span><span>이름</span></div><div class="axe-fund-ledger-row"><div class="axe-fund-ledger-date"><strong id="date">2026.09.11</strong></div><div class="axe-fund-ledger-person"><strong id="name">영포티</strong></div><div class="axe-fund-ledger-money" id="amount">+20,000원</div><div class="axe-fund-ledger-action"><button class="axe-fund-history-action" id="button">수정</button></div></div></div></main></div>
+<pre id="out">WAIT</pre><script type="module">
+import {applyLayoutStudioProfile} from './src/ui/layoutStudio.js';
+function measure(){return Object.fromEntries(['title','header','date','name','amount','button'].map(x=>[x,getComputedStyle(document.getElementById(x)).fontSize]));}
+applyLayoutStudioProfile({fontScale:100});const original=measure();applyLayoutStudioProfile({fontScale:140});const enlarged=measure();applyLayoutStudioProfile({fontScale:100});const restored=measure();document.getElementById('out').textContent=JSON.stringify({original,enlarged,restored,onlyTable:original.title===enlarged.title,allTableLarger:['header','date','name','amount','button'].every(k=>parseFloat(enlarged[k])>parseFloat(original[k])),restores:Object.keys(original).every(k=>original[k]===restored[k])});
+</script></body></html>

@@ -1,0 +1,5 @@
+
+> axe-product-staging@1.7.41-web-ui.79 validate:build
+> node scripts/validation/build.mjs
+
+build: NOT RUN

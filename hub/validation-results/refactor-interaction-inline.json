@@ -1,0 +1,30 @@
+{
+  "status": "PASS_WITH_KNOWN_DEFECT",
+  "checks": [
+    {
+      "name": "search focus/cursor",
+      "ok": true
+    },
+    {
+      "name": "filter + pagination",
+      "ok": true
+    },
+    {
+      "name": "dropdown open/close",
+      "ok": true
+    },
+    {
+      "name": "modal draft survives notice rerender (expected existing FAIL)",
+      "ok": false
+    },
+    {
+      "name": "select value survives rerender",
+      "ok": true
+    },
+    {
+      "name": "mocked member save",
+      "ok": true
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,32 @@
+{
+  "originalStage2": {
+    "cssFiles": 12,
+    "lines": 2665,
+    "important": 122,
+    "nth": 70,
+    "media": 83,
+    "selectorOccurrences": 2777,
+    "repeatedExactSelectors": 560,
+    "duplicateSelectorExcess": 789
+  },
+  "refactorRc": {
+    "cssFiles": 12,
+    "lines": 2309,
+    "important": 94,
+    "nth": 36,
+    "media": 73,
+    "selectorOccurrences": 2507,
+    "repeatedExactSelectors": 512,
+    "duplicateSelectorExcess": 652
+  },
+  "delta": {
+    "cssFiles": 0,
+    "lines": -356,
+    "important": -28,
+    "nth": -34,
+    "media": -10,
+    "selectorOccurrences": -270,
+    "repeatedExactSelectors": -48,
+    "duplicateSelectorExcess": -137
+  }
+}

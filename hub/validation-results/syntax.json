@@ -1,0 +1,285 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "src/lib/productApi.js",
+      "ok": true
+    },
+    {
+      "name": "src/lib/supabase.js",
+      "ok": true
+    },
+    {
+      "name": "src/main.js",
+      "ok": true
+    },
+    {
+      "name": "src/ui/infoPage.js",
+      "ok": true
+    },
+    {
+      "name": "src/ui/layoutStudio.js",
+      "ok": true
+    },
+    {
+      "name": "src/ui/render.js",
+      "ok": true
+    },
+    {
+      "name": "scripts/access-gate-invite-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/account-lookup-owner-shell-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/axe-one-brand-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/company-delete-platform-scale-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/content-fit-density-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/content-offset-plan-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/dashboard-copy-cleanup-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/dashboard-operations-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/dashboard-readability-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/dense-ops-system-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/discord-permission-reapproval-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/discord-upfront-permissions-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/first-run-onboarding-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/fund-ledger-alignment-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/fund-ledger-axis-specificity-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/generated-ambient-shell-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/guided-setup-category-layout-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/guided-setup-typography-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/info-catalog-stage1-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/info-catalog-stage10-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/info-catalog-stage2-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/info-catalog-stage3-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/info-catalog-stage4-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/info-catalog-stage5-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/info-catalog-stage6-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/info-catalog-stage7-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/info-catalog-stage8-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/info-catalog-stage9-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/info-stage6-preview.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/integrated-ui-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/interface-copy-cleanup-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/layout-studio-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/list-visual-cleanup-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/live-guided-setup-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/member-account-balance-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/member-identity-ux-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/modbook-channel-guided-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/onboarding-catalog-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/onboarding-flow-integrity-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/operations-row-actions-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/operations-ux-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/ops-density-balance-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/ops-table-fund-standard-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/pinball-module-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/platform-shell-balance-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/platform-subscription-evidence-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/questions-board-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/scale-safe-lists-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/session-auth-privacy-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/source-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/suggestions-board-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/test-center-check.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/validation/assets.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/validation/browser.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/validation/build.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/validation/common.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/validation/dom.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/validation/negative-controls.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/validation/refactor-change-inventory.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/validation/run.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/validation/server.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/validation/setup-linux.mjs",
+      "ok": true
+    },
+    {
+      "name": "scripts/validation/static.mjs",
+      "ok": true
+    },
+    {
+      "name": "tests/validation/fixtures.mjs",
+      "ok": true
+    }
+  ]
+}

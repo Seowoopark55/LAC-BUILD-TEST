@@ -1,0 +1,5 @@
+
+> axe-product-staging@1.7.41-web-ui.79 build
+> vite build
+
+sh: 1: vite: not found

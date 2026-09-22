@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "healthy source graph",
+      "ok": true
+    },
+    {
+      "name": "missing src/styles.css detected",
+      "ok": true
+    },
+    {
+      "name": "missing src/styles/child.css detected",
+      "ok": true
+    },
+    {
+      "name": "missing public/brand/test.png detected",
+      "ok": true
+    },
+    {
+      "name": "missing hashed CSS detected",
+      "ok": true
+    },
+    {
+      "name": "healthy production graph",
+      "ok": true
+    },
+    {
+      "name": "missing hashed JS detected",
+      "ok": true
+    },
+    {
+      "name": "2px displacement detected by visual policy",
+      "ok": true,
+      "differentPixels": 160,
+      "allowedPixels": 4
+    }
+  ]
+}

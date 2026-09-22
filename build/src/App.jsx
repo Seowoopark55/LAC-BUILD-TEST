@@ -3759,7 +3759,7 @@ export default function App() {
 
     setLoginPrivacyModal(false);
 
-    // Pilot only: never return to the independently deployed BUILD when signing in here.
+    // Return to the BUILD path under this origin, sharing the HUB Supabase session.
     const redirectTo = `${window.location.origin}/build/`;
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "discord",

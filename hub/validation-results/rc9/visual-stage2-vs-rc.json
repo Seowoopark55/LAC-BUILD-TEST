@@ -1,0 +1,427 @@
+{
+  "status": "PASS",
+  "count": 42,
+  "comparisons": [
+    {
+      "sameSize": true,
+      "size": [
+        1440,
+        1018
+      ],
+      "differentPixels": 0,
+      "name": "dashboard",
+      "mode": "desktop"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        1440,
+        1018
+      ],
+      "differentPixels": 0,
+      "name": "fund",
+      "mode": "desktop"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        1440,
+        1018
+      ],
+      "differentPixels": 0,
+      "name": "weekly",
+      "mode": "desktop"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        1440,
+        1018
+      ],
+      "differentPixels": 0,
+      "name": "review",
+      "mode": "desktop"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        1440,
+        1018
+      ],
+      "differentPixels": 0,
+      "name": "members",
+      "mode": "desktop"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        1440,
+        1018
+      ],
+      "differentPixels": 0,
+      "name": "assets",
+      "mode": "desktop"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        1440,
+        1018
+      ],
+      "differentPixels": 0,
+      "name": "returns",
+      "mode": "desktop"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        1440,
+        1018
+      ],
+      "differentPixels": 0,
+      "name": "accounts",
+      "mode": "desktop"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        1440,
+        1121
+      ],
+      "differentPixels": 0,
+      "name": "cooking",
+      "mode": "desktop"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        1440,
+        1018
+      ],
+      "differentPixels": 0,
+      "name": "settings",
+      "mode": "desktop"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        1440,
+        1018
+      ],
+      "differentPixels": 0,
+      "name": "modules",
+      "mode": "desktop"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        1440,
+        1018
+      ],
+      "differentPixels": 0,
+      "name": "platform",
+      "mode": "desktop"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        1440,
+        1018
+      ],
+      "differentPixels": 0,
+      "name": "modal",
+      "mode": "desktop"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        1440,
+        1018
+      ],
+      "differentPixels": 0,
+      "name": "empty-members",
+      "mode": "desktop"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        1440,
+        1018
+      ],
+      "differentPixels": 0,
+      "name": "empty-fund",
+      "mode": "desktop"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        1440,
+        1018
+      ],
+      "differentPixels": 0,
+      "name": "empty-assets",
+      "mode": "desktop"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        1440,
+        1018
+      ],
+      "differentPixels": 0,
+      "name": "empty-accounts",
+      "mode": "desktop"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        1440,
+        1018
+      ],
+      "differentPixels": 0,
+      "name": "empty-cooking",
+      "mode": "desktop"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        1440,
+        1018
+      ],
+      "differentPixels": 0,
+      "name": "empty-platform",
+      "mode": "desktop"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        1440,
+        1018
+      ],
+      "differentPixels": 0,
+      "name": "questions",
+      "mode": "desktop"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        1440,
+        1018
+      ],
+      "differentPixels": 0,
+      "name": "suggestions",
+      "mode": "desktop"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        390,
+        1248
+      ],
+      "differentPixels": 0,
+      "name": "dashboard",
+      "mode": "mobile"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        390,
+        2066
+      ],
+      "differentPixels": 0,
+      "name": "fund",
+      "mode": "mobile"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        390,
+        1020
+      ],
+      "differentPixels": 0,
+      "name": "weekly",
+      "mode": "mobile"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        390,
+        844
+      ],
+      "differentPixels": 0,
+      "name": "review",
+      "mode": "mobile"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        390,
+        1753
+      ],
+      "differentPixels": 0,
+      "name": "members",
+      "mode": "mobile"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        390,
+        1856
+      ],
+      "differentPixels": 0,
+      "name": "assets",
+      "mode": "mobile"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        390,
+        1798
+      ],
+      "differentPixels": 0,
+      "name": "returns",
+      "mode": "mobile"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        390,
+        1512
+      ],
+      "differentPixels": 0,
+      "name": "accounts",
+      "mode": "mobile"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        390,
+        1833
+      ],
+      "differentPixels": 0,
+      "name": "cooking",
+      "mode": "mobile"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        390,
+        1058
+      ],
+      "differentPixels": 0,
+      "name": "settings",
+      "mode": "mobile"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        390,
+        1498
+      ],
+      "differentPixels": 0,
+      "name": "modules",
+      "mode": "mobile"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        390,
+        1527
+      ],
+      "differentPixels": 0,
+      "name": "platform",
+      "mode": "mobile"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        390,
+        1753
+      ],
+      "differentPixels": 0,
+      "name": "modal",
+      "mode": "mobile"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        390,
+        844
+      ],
+      "differentPixels": 0,
+      "name": "empty-members",
+      "mode": "mobile"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        390,
+        844
+      ],
+      "differentPixels": 0,
+      "name": "empty-fund",
+      "mode": "mobile"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        390,
+        844
+      ],
+      "differentPixels": 0,
+      "name": "empty-assets",
+      "mode": "mobile"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        390,
+        844
+      ],
+      "differentPixels": 0,
+      "name": "empty-accounts",
+      "mode": "mobile"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        390,
+        1055
+      ],
+      "differentPixels": 0,
+      "name": "empty-cooking",
+      "mode": "mobile"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        390,
+        844
+      ],
+      "differentPixels": 0,
+      "name": "empty-platform",
+      "mode": "mobile"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        390,
+        937
+      ],
+      "differentPixels": 0,
+      "name": "questions",
+      "mode": "mobile"
+    },
+    {
+      "sameSize": true,
+      "size": [
+        390,
+        923
+      ],
+      "differentPixels": 0,
+      "name": "suggestions",
+      "mode": "mobile"
+    }
+  ],
+  "errors": []
+}

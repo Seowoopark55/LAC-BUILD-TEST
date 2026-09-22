@@ -1,0 +1,41 @@
+
+    
+    
+    <div class="runtime-app runtime-app--assets">
+    <header class="global-header"><div class="global-header__inner">
+      <button type="button" class="global-home-zone" data-action="go-dashboard" aria-label="홈으로 이동">
+        <span class="product-brand product-brand--home"><span class="product-brand__copy"><strong>AXE ONE</strong><small>OPERATIONS CONSOLE</small></span></span>
+      </button>
+      <div class="global-account runtime-account-picker ">
+        <button type="button" class="runtime-account-trigger" data-action="toggle-account-menu" aria-expanded="false" aria-haspopup="menu">
+          <span class="runtime-account-trigger__identity"><strong>테스트멤버00</strong><em>OWNER</em></span><b>⌄</b>
+        </button>
+        
+      </div>
+    </div></header>
+    <div class="workspace-shell">
+      <aside class="sidebar">
+        <section class="company-switcher"><span class="overline">현재 회사</span>
+          <div class="runtime-company-picker ">
+            <button type="button" class="runtime-company-trigger" data-action="toggle-company-menu" aria-expanded="false" aria-haspopup="listbox">
+              <span><strong>AXE 검증 회사</strong></span><b>⌄</b>
+            </button>
+            
+          </div>
+          <div class="company-quick-actions company-quick-actions--single"><button class="accent-action" data-action="open-create-company">+ 새 회사</button></div>
+        </section>
+        <nav class="sidebar-nav"><span class="sidebar-nav__label">회사 운영</span>
+          <button class="nav-item " data-page="dashboard"><span class="nav-item__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span><span>대시보드</span></button><button class="nav-item " data-page="fund"><span class="nav-item__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3v18M3 7h8M4 11h7M6 7v8M3 15h8"/></svg></span><span>공금 관리</span></button><button class="nav-item " data-page="members"><span class="nav-item__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span>멤버 관리</span></button><button class="nav-item is-active" data-page="assets"><span class="nav-item__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M8 6V4h8v2M3 10h18"/></svg></span><span>자산 관리</span></button><button class="nav-item " data-page="accounts"><span class="nav-item__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18M7 14h4"/></svg></span><span>계좌 관리</span></button>
+          <span class="sidebar-nav__label spaced">설정</span><button class="nav-item " data-page="settings"><span class="nav-item__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21h-4v-.1A1.7 1.7 0 0 0 8 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 3.6 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H2v-4h.1A1.7 1.7 0 0 0 3.6 8a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 8 3.6a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V2h4v.1A1.7 1.7 0 0 0 15 3.6a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 20.4 8a1.7 1.7 0 0 0 .6 1 1.7 1.7 0 0 0 1.1.4h.1v4h-.1a1.7 1.7 0 0 0-1.7 1.6z"/></svg></span><span>회사 설정</span></button>
+          <span class="sidebar-nav__label spaced">지원</span><button class="nav-item " data-page="questions"><span class="nav-item__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 8h8M8 12h6"/></svg></span><span>질문게시판</span></button><button class="nav-item " data-page="suggestions"><span class="nav-item__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 9h8M8 13h5"/></svg></span><span>건의게시판</span></button>
+        </nav>
+        <footer class="sidebar-footer">
+          <div class="connection-status "><i></i><div><strong>Discord 연결됨</strong><small>검증 서버</small></div></div>
+        </footer>
+      </aside>
+      <main class="main main--assets"><div class="ops-mgmt-page ops-mgmt-page--assets is-assets"><header class="page-header page-header--compact"><div><span class="page-eyebrow">ASSETS</span><h1>자산 관리</h1></div></header><section class="ops-mgmt-summary ops-mgmt-summary--clean"><article><span>전체 자산</span><strong class="">0개</strong></article><article><span>사용 중</span><strong class="is-positive">0개</strong></article><article><span>미배정</span><strong class="is-warning">0개</strong></article><article><span>반납 기록</span><strong class="">0건</strong></article></section><div class="ops-mgmt-tabs-row"><div class="ops-dense-tabs"><button class="is-active" data-asset-tab="assets">자산 현황</button><button class="" data-asset-tab="returns">반납 내역</button></div><button class="ops-action-primary" data-action="open-asset"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>자산 추가</span></button></div><section class="ops-mgmt-board"><div class="ops-mgmt-toolbar"><div class="ops-mgmt-filters"><label class="ops-mgmt-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input data-asset-query value="" placeholder="자산 검색"></label><select class="ops-mgmt-select" data-asset-category><option value="">분류 전체</option></select><select class="ops-mgmt-select" data-asset-status><option value="">상태 전체</option><option >사용중</option><option >미배정</option></select></div></div><div class="ops-lane-head ops-lane-head--asset"><span>보유자</span><span>자산</span><span>취득 방식</span><span>분류</span><span>메모</span><span>상태</span><span>관리</span></div><div class="ops-mgmt-list"><div class="ops-mgmt-empty">조건에 맞는 자산이 없습니다.</div></div></section></div></main>
+    </div>
+    
+    
+  </div>
+  

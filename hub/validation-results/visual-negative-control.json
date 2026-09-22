@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "test": "2px displacement of 40px square exceeds 4-pixel noise budget",
+  "differentPixels": 160,
+  "allowedPixels": 4
+}

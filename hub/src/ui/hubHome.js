@@ -6,7 +6,7 @@ function esc(value) {
     .replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#039;');
 }
 
-// ISOLATED PILOT ONLY: same-origin LAC BUILD entry; do not publish as production yet.
+// HUB and BUILD are served under the same origin; keep the independent BUILD deployment unchanged.
 const BUILD_PUBLIC_URL = '/build/';
 const ASSETS = '/hub/';
 const chevron = '<svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -79,7 +79,7 @@ export function renderHubHome(state) {
         <div class="hub-features">
           ${contentCard({title:HUB_CONTENT.company.name,description:HUB_CONTENT.company.description,image:'company.webp',tag:current?'이용 가능':'회사 선택 필요',tagType:current?'available':'neutral',action:companyAction})}
           ${contentCard({title:'게임 정보',description:'게임과 관련된 정보와 자료를 확인하세요.',image:'game.webp',tag:current?'회사 멤버 이용':'회사 선택 필요',tagType:current?'available':'neutral',action:current?'open-hub-game-info':'open-company-start',footnote:current?'기존 회사별 정보 권한 유지':'현재 회사 가입 후 이용'})}
-          ${contentCard({title:HUB_CONTENT.build.name,description:HUB_CONTENT.build.description,image:'build.webp',tag:'무료',tagType:'free',href:BUILD_PUBLIC_URL,footnote:'통합 경로 시험용 · 기존 기능 유지'})}
+          ${contentCard({title:HUB_CONTENT.build.name,description:HUB_CONTENT.build.description,image:'build.webp',tag:'무료',tagType:'free',href:BUILD_PUBLIC_URL,footnote:'HUB에서 바로 이용 · 무료'})}
           ${contentCard({title:HUB_CONTENT.cook.name,description:HUB_CONTENT.cook.description,image:'cook.webp',tag:'통합 예정',tagType:'neutral',disabled:true,footnote:'서비스 준비 중'})}
         </div>
       </section>

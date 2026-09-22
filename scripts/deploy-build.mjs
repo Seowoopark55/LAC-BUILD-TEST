@@ -1,4 +1,4 @@
-// Root entrypoint for the TEST Vercel project only. Install root dependencies first.
+// Root entrypoint for the same-origin integration Vercel project. Install root dependencies first.
 import { execFileSync } from 'node:child_process';
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
@@ -20,4 +20,4 @@ cpSync(from, to, { recursive: true, force: true });
 const html = readFileSync(resolve(to, 'index.html'), 'utf8');
 if (!html.includes('/build/assets/')) throw new Error('BUILD assets are not under /build/assets/.');
 if (!existsSync(resolve(root, 'hub/dist/index.html'))) throw new Error('HUB index.html missing.');
-console.log('PASS: TEST build assembled at hub/dist (HUB / + BUILD /build/).');
+console.log('PASS: unified build assembled at hub/dist (HUB / + BUILD /build/).');

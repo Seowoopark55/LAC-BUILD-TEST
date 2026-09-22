@@ -14,5 +14,5 @@ const rootPkg=JSON.parse(read('package.json'));
 for(const name of ['vite','@vitejs/plugin-react','react','react-dom','@supabase/supabase-js']) assert.ok(rootPkg.dependencies?.[name] || rootPkg.devDependencies?.[name]);
 assert.ok(read('scripts/deploy-build.mjs').includes('build/dist'));
 for(const part of ['hub','build']) assert.ok(!existsSync(resolve(root,part,'node_modules')));
-console.log('PASS: TEST repo has root Vercel config, root dependencies, copied serverless routes, and isolated build output.');
+console.log('PASS: unified repo has root Vercel config, root dependencies, copied serverless routes, and isolated build output.');
 console.log('NOTE: This does NOT prove npm install, Vite build on Vercel, Discord OAuth, or live auth.');

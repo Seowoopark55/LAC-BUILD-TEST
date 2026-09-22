@@ -1,0 +1,5 @@
+
+> axe-product-staging@1.7.41-web-ui.79 validate:assets
+> node scripts/validation/assets.mjs
+
+source-assets: PASS

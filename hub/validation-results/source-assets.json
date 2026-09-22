@@ -1,0 +1,140 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "entry -> index.html",
+      "ok": true
+    },
+    {
+      "name": "index.html -> public/icons/lac-one.svg",
+      "ok": true
+    },
+    {
+      "name": "index.html -> src/main.js",
+      "ok": true
+    },
+    {
+      "name": "src/main.js -> src/styles.css",
+      "ok": true
+    },
+    {
+      "name": "src/styles.css -> src/styles/tokens.css",
+      "ok": true
+    },
+    {
+      "name": "src/styles.css -> src/styles/base.css",
+      "ok": true
+    },
+    {
+      "name": "src/styles.css -> src/styles/layout.css",
+      "ok": true
+    },
+    {
+      "name": "src/styles.css -> src/styles/components.css",
+      "ok": true
+    },
+    {
+      "name": "src/styles.css -> src/styles/pages.css",
+      "ok": true
+    },
+    {
+      "name": "src/styles.css -> src/styles/fund.css",
+      "ok": true
+    },
+    {
+      "name": "src/styles.css -> src/styles/management.css",
+      "ok": true
+    },
+    {
+      "name": "src/styles.css -> src/styles/settings.css",
+      "ok": true
+    },
+    {
+      "name": "src/styles.css -> src/styles/overlays.css",
+      "ok": true
+    },
+    {
+      "name": "src/styles.css -> src/styles/responsive.css",
+      "ok": true
+    },
+    {
+      "name": "src/styles.css -> src/styles/brand-skin.css",
+      "ok": true
+    },
+    {
+      "name": "src/styles.css -> src/styles/info.css",
+      "ok": true
+    },
+    {
+      "name": "src/main.js -> src/lib/supabase.js",
+      "ok": true
+    },
+    {
+      "name": "src/main.js -> src/lib/productApi.js",
+      "ok": true
+    },
+    {
+      "name": "src/main.js -> src/ui/render.js",
+      "ok": true
+    },
+    {
+      "name": "src/ui/render.js -> src/ui/infoPage.js",
+      "ok": true
+    },
+    {
+      "name": "reachable stylesheet exists",
+      "ok": true
+    },
+    {
+      "name": "reachable JavaScript exists",
+      "ok": true
+    }
+  ],
+  "styles": [
+    "src/styles.css",
+    "src/styles/tokens.css",
+    "src/styles/base.css",
+    "src/styles/layout.css",
+    "src/styles/components.css",
+    "src/styles/pages.css",
+    "src/styles/fund.css",
+    "src/styles/management.css",
+    "src/styles/settings.css",
+    "src/styles/overlays.css",
+    "src/styles/responsive.css",
+    "src/styles/brand-skin.css",
+    "src/styles/info.css"
+  ],
+  "scripts": [
+    "src/main.js",
+    "src/lib/supabase.js",
+    "src/lib/productApi.js",
+    "src/ui/render.js",
+    "src/ui/infoPage.js"
+  ],
+  "external": [
+    "package:@supabase/supabase-js"
+  ],
+  "files": [
+    "index.html",
+    "public/icons/lac-one.svg",
+    "src/main.js",
+    "src/styles.css",
+    "src/styles/tokens.css",
+    "src/styles/base.css",
+    "src/styles/layout.css",
+    "src/styles/components.css",
+    "src/styles/pages.css",
+    "src/styles/fund.css",
+    "src/styles/management.css",
+    "src/styles/settings.css",
+    "src/styles/overlays.css",
+    "src/styles/responsive.css",
+    "src/styles/brand-skin.css",
+    "src/styles/info.css",
+    "src/lib/supabase.js",
+    "src/lib/productApi.js",
+    "src/ui/render.js",
+    "src/ui/infoPage.js"
+  ]
+}

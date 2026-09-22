@@ -1,0 +1,90 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "dashboard",
+      "ok": true
+    },
+    {
+      "name": "fund",
+      "ok": true
+    },
+    {
+      "name": "weekly",
+      "ok": true
+    },
+    {
+      "name": "review",
+      "ok": true
+    },
+    {
+      "name": "members",
+      "ok": true
+    },
+    {
+      "name": "assets",
+      "ok": true
+    },
+    {
+      "name": "returns",
+      "ok": true
+    },
+    {
+      "name": "accounts",
+      "ok": true
+    },
+    {
+      "name": "cooking",
+      "ok": true
+    },
+    {
+      "name": "settings",
+      "ok": true
+    },
+    {
+      "name": "modules",
+      "ok": true
+    },
+    {
+      "name": "platform",
+      "ok": true
+    },
+    {
+      "name": "modal",
+      "ok": true
+    },
+    {
+      "name": "empty-members",
+      "ok": true
+    },
+    {
+      "name": "empty-fund",
+      "ok": true
+    },
+    {
+      "name": "empty-assets",
+      "ok": true
+    },
+    {
+      "name": "empty-accounts",
+      "ok": true
+    },
+    {
+      "name": "empty-cooking",
+      "ok": true
+    },
+    {
+      "name": "empty-platform",
+      "ok": true
+    },
+    {
+      "name": "questions",
+      "ok": true
+    },
+    {
+      "name": "suggestions",
+      "ok": true
+    }
+  ],
+  "scope": "Executed renderer; full DOM/CSS contracts are in browser.mjs, not this smoke test."
+}

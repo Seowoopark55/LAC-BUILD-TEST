@@ -1,0 +1,8 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> axe-product-staging@1.7.41-web-ui.79 validate:static
+> node scripts/validation/static.mjs
+
+product-integrity: PASS
+syntax: PASS
+legacy: PASS

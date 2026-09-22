@@ -1,0 +1,15 @@
+{
+  "sourceChecks": "PASS",
+  "staticValidation": "PASS",
+  "sourceAssetChain": "PASS",
+  "rendererFixtures21": "PASS",
+  "stage2VsRcVisual42": "PASS",
+  "stage2VsRcGeometry50": "PASS",
+  "baselineIntegrity45": "PASS",
+  "knownDefectsPreserved": "PASS",
+  "productionBuild": "NOT RUN",
+  "officialNodeBrowser": "NOT RUN",
+  "negativeControls": "NOT RUN",
+  "releaseStatus": "BUILD_GATE_PENDING",
+  "reason": "Sandbox lacks Vite/Node playwright/pngjs/pixelmatch and registry DNS is unavailable."
+}

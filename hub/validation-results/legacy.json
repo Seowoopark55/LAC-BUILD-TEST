@@ -1,0 +1,260 @@
+{
+  "status": "FAIL",
+  "checks": [
+    {
+      "name": "access-gate-invite-check.mjs",
+      "ok": false,
+      "output": "FAIL invite URL capture\nFAIL invite token session scoped\nFAIL existing invite RPC reused\nFAIL login invite form\nFAIL unaffiliated access gate\nPASS live onboarding has no public create CTA\nFAIL membership recheck remains\nFAIL minimal privacy copy is conditional\nFAIL default OAuth does not falsely claim no email\nPASS access gate CSS scoped\nACCESS GATE 2/10 PASS\n"
+    },
+    {
+      "name": "account-lookup-owner-shell-check.mjs",
+      "ok": true,
+      "output": "PASS home banner no dashboard tooltip\nPASS service management removed from sidebar\nPASS platform still hard gated\nPASS platform menu owner only\nPASS account menu state\nPASS owner gate action\nPASS assets account lookup setting\nPASS guided setup account lookup\nPASS guided setup keeps account lookup channel\nPASS account dropdown styling\nACCOUNT LOOKUP + OWNER SHELL: 10/10 PASS\n"
+    },
+    {
+      "name": "axe-one-brand-check.mjs",
+      "ok": true,
+      "output": "LAC ONE BRAND CHECK: PASS\n"
+    },
+    {
+      "name": "company-delete-platform-scale-check.mjs",
+      "ok": true,
+      "output": "PASS - platform delete RPC API\nPASS - platform-only delete gate\nPASS - exact name confirmation\nPASS - irreversible warning\nPASS - discord cleanup warning\nPASS - service management tabs\nPASS - bounded platform page size\nPASS - platform tab state\nPASS - delete audit table\nPASS - delete function security definer\nPASS - delete company parent row\nPASS - authenticated grant only\nPASS - scale CSS\nPASS - platform owner survives zero companies\nRESULT 14/14\n"
+    },
+    {
+      "name": "content-fit-density-check.mjs",
+      "ok": true,
+      "output": "PASS - fund ledger uses compact 636px reference rail\nPASS - members use 636px FUND reference rail\nPASS - assets use 636px FUND reference rail\nPASS - accounts use 636px FUND reference rail\nPASS - member lanes include role column\nPASS - asset lanes include acquisition column\nPASS - account lanes include role column\nPASS - cooking uses explicit six-column lane\nPASS - platform company table uses explicit eight-column lane\nPASS - header identity is aligned inside content rail\nPASS - settings identity uses settings rail\nPASS - runtime app carries current page class\nPASS - settings uses compact 680px left rail\nPASS - fund subviews are left anchored\nPASS - mobile keeps full width fallback\nContent-fit density: 15/15 PASS\n"
+    },
+    {
+      "name": "content-offset-plan-check.mjs",
+      "ok": true,
+      "output": "PASS  unlimited plan label simplified\nPASS  legacy label removed from UI\nPASS  legacy rows normalize to unlimited\nPASS  unlimited option exists\nPASS  desktop content lower\nPASS  desktop content farther right\nPASS  mid desktop content right shift\nPASS  mid desktop lower shift\nPASS  small desktop restrained shift\nPASS  content offset marker exists\nContent Offset + Plan Cleanup: 10/10 PASS\n"
+    },
+    {
+      "name": "dashboard-copy-cleanup-check.mjs",
+      "ok": true,
+      "output": "PASS web package version\nPASS dashboard metrics have label and value only\nPASS metric markup no helper small\nPASS all-clear duplicate helper removed\nPASS quick action helpers removed\nPASS activity redundant footer removed\nPASS operations redundant helper copy removed\nPASS dashboard no longer repeats guild name below connected state\nPASS meaningful activity metadata retained\nPASS action-item descriptions retained\nPASS hero operational status retained\nPASS metrics vertically tightened\nDashboard copy cleanup: 12/12 PASS\n"
+    },
+    {
+      "name": "dashboard-operations-check.mjs",
+      "ok": true,
+      "output": "PASS current web package version\nPASS dashboard is a valid route\nPASS dashboard is default route\nPASS setup completion lands on dashboard\nPASS sidebar dashboard entry\nPASS dashboard renderer wired\nPASS attention queue uses live snapshots\nPASS dashboard does not invent BOT runtime data\nPASS quick actions reuse existing operations\nPASS dashboard jump controller\nPASS dashboard refresh reuses refreshAll\nPASS dashboard responsive styling\nPASS one-glance dashboard removes support boards from quick-action cards\nPASS quick action settings is compact header link\nPASS recent activity is bounded to four rows\nPASS attention uses compact two-column desktop grid\nPASS dashboard desktop padding stays compact\nPASS desktop dashboard uses one aligned two-column matrix\nPASS dashboard fills the available command-center canvas\nPASS sparse recent activity gains a compact operational digest\nPASS dashboard panels stretch to the same row height\nPASS attention queue is bounded to four visible cards\nPASS all-clear state uses compact operational summary\nPASS quick action panel has no redundant support footer\nPASS dashboard expands across the active content rail\nDashboard operations: 25/25 PASS\n"
+    },
+    {
+      "name": "dashboard-readability-check.mjs",
+      "ok": true,
+      "output": "PASS current web package version\nPASS dashboard hero description is readable\nPASS dashboard refresh is at least 10px\nPASS metric labels increased\nPASS metric values remain prominent\nPASS metric helper text removed\nPASS panel titles increased to 14px\nPASS panel eyebrow increased\nPASS attention title increased\nPASS attention metadata increased\nPASS quick action title remains prominent\nPASS quick action helper text removed\nPASS activity title increased\nPASS activity metadata increased\nPASS activity timestamp increased\nPASS snapshot labels increased\nPASS system connection title increased\nPASS system connection helper removed\nPASS module labels increased\nPASS module chips increased\nPASS desktop one-glance grid retained\nPASS dashboard still has no nested list scrollbar\nDashboard readability: 22/22 PASS\n"
+    },
+    {
+      "name": "dense-ops-system-check.mjs",
+      "ok": true,
+      "output": "PASS settings-scale workspace\nPASS single compact board contract\nPASS member fixed lanes\nPASS asset fixed lanes\nPASS account fixed lanes\nPASS returns fixed lanes\nPASS no semantic management tables\nPASS fund dense lane board\nPASS fund no semantic table dependency\nPASS company settings untouched\nPASS desktop row density 54px\nPASS standard font weights\ndense operations system check: 12/12 PASS\n"
+    },
+    {
+      "name": "discord-permission-reapproval-check.mjs",
+      "ok": true,
+      "output": "PASS · reapproval endpoint exists\nPASS · reapproval accepts canonical UUID company ids\nPASS · reapproval uses shared least-privilege baseline\nPASS · reapproval locks connected guild\nPASS · callback rejects guild mismatch\nPASS · client preserves API status\nPASS · client exposes permission reapproval\nPASS · guided setup catches manage channels 403\nPASS · guided setup resumes at channel step\nPASS · inline reapproval action exists\nPASS · direct-channel fallback remains available\nPASS · permission recovery UI styled\nDiscord Permission Reapproval: 12/12 PASS\n"
+    },
+    {
+      "name": "discord-upfront-permissions-check.mjs",
+      "ok": true,
+      "output": "PASS · baseline permission bitfield is defined\nPASS · administrator permission is explicitly excluded\nPASS · initial Discord connect uses baseline permissions\nPASS · reapproval restores the same baseline permissions\nPASS · initial guide explains one-time permission approval\nPASS · guide lists channel and message permissions\nPASS · guide explicitly says no administrator permission\nPASS · connect CTA describes server/bot/permission flow\nPASS · settings disconnected copy describes upfront approval\nPASS · permission disclosure styling exists\nDiscord Upfront Permissions: 10/10 PASS\n"
+    },
+    {
+      "name": "first-run-onboarding-check.mjs",
+      "ok": true,
+      "output": "PASS current package version\nPASS first-run explains unresolved membership instead of assuming brand-new user\nPASS first-run exposes new company registration path\nPASS first-run exposes member registration wait path\nPASS member path is blocked until company-side registration\nPASS member path can re-check registration\nPASS member path shows and copies Discord registration identity\nPASS first-run has no invite-code join form\nPASS first-run does not search or enumerate companies\nPASS member page keeps registration-first action without redundant explainer\nPASS member page no longer exposes join-code action\nPASS slug is hidden from company UI\nPASS company create generates internal slug automatically\nPASS client has membership claim RPC\nPASS refresh claims pre-registered Discord membership before company list\nPASS manual registration check also claims before listing companies\nPASS successful registration check lands dashboard\nPASS unregistered member remains blocked with clear error\nPASS company create starts Guided Setup automatically\nPASS only owner auto-resumes unfinished initial setup\nPASS registered non-owner is not forced into setup\nPASS SQL identifies authenticated Discord identity\nPASS SQL claims only unowned active placeholder membership\nPASS SQL supports pre-login Discord member placeholders\nPASS SQL prevents duplicate company membership claim\nPASS claim RPC is authenticated-only\nPASS first-run layout stays two-path and responsive\nPASS waiting card has visible blocked-state treatment\nFirst-run registration gate: 28/28 PASS\n"
+    },
+    {
+      "name": "fund-ledger-alignment-check.mjs",
+      "ok": true,
+      "output": "PASS web package version\nPASS ledger keeps eight semantic columns\nPASS ledger header and row share one compact eight-column grid\nPASS fund ledger returns to 636px reference rail\nPASS fund summary and ledger share the same rail rule\nPASS ledger row is compact\nPASS all ledger headers and values share one center axis\nPASS money is centered under its header\nFUND ledger alignment: 8/8 PASS\n"
+    },
+    {
+      "name": "fund-ledger-axis-specificity-check.mjs",
+      "ok": true,
+      "output": "PASS 636px reference rail preserved\nPASS header and row keep one identical 8-column grid\nPASS specificity-safe header centering selector exists\nPASS row data cells centered in same final block\nPASS source index still uses Vite entrypoint\nPASS main still imports source stylesheet\nPASS stylesheet still imports fund.css\nFUND LEDGER AXIS SPECIFICITY CHECK PASS (7/7)\n"
+    },
+    {
+      "name": "generated-ambient-shell-check.mjs",
+      "ok": true,
+      "output": "PASS  LAC ONE background marker exists\nPASS  legacy AXE image unused\nPASS  CSS-only wallpaper used\nPASS  central app width preserved\nPASS  desktop centered margin\nPASS  body overlay exists\nPASS  company banner upload removed\nPASS  mobile ambient disabled\nPASS  old staggered pattern inactive\nPASS  old diamond tile inactive\nGenerated Ambient Shell: 10/10 PASS\n"
+    },
+    {
+      "name": "guided-setup-category-layout-check.mjs",
+      "ok": false,
+      "output": "FAIL three recommended categories exist in UI\nFAIL live plan maps channels to category names\nFAIL quick create sends per-channel category\nFAIL API accepts per-channel category name\nFAIL API caps automatic categories at three\nFAIL API returns category collection\nFAIL recommended category order is explicit\nFAIL outlaw cluster order keeps pinball before record\nPASS legacy single-category payload remains supported\nPASS category is presentation only; channel binding stays key/id based\nGuided setup category layout: 2/10 PASS\n"
+    },
+    {
+      "name": "guided-setup-typography-check.mjs",
+      "ok": true,
+      "output": "PASS  marker exists\nPASS  hero title enlarged\nPASS  body copy enlarged\nPASS  rail labels enlarged\nPASS  field labels enlarged\nPASS  select text enlarged\nPASS  module titles enlarged\nPASS  module descriptions enlarged\nPASS  buttons enlarged\nPASS  mobile title preserved\nGuided Setup Typography: 10/10 PASS\n"
+    },
+    {
+      "name": "info-catalog-stage1-check.mjs",
+      "ok": false,
+      "output": "node:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(html.includes('게임 정보')&&html.includes('필요 재료'))\n\n    at file:///mnt/data/lac_one_rebrand_work/scripts/info-catalog-stage1-check.mjs:14:1\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: '=='\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "name": "info-catalog-stage10-check.mjs",
+      "ok": true,
+      "output": "PASS five top tabs preserved\nPASS each tab has a matching SVG icon\nPASS all five tab labels preserved\nPASS top tab counts removed\nPASS list counts remain intact\nPASS switching top tab retains selected state\nPASS global search keeps all five top navigation entries\nPASS search still renders results from multiple domains\nPASS top-level icon styling is scoped to info page\nPASS no changes to DB writes in info screen\nLAC ONE INFO STAGE 10: 10/10 PASS (synthetic only)\n"
+    },
+    {
+      "name": "info-catalog-stage2-check.mjs",
+      "ok": false,
+      "output": "FAIL all six tabs retain switching\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: all six tabs retain switching\n    at file:///mnt/data/lac_one_rebrand_work/scripts/info-catalog-stage2-check.mjs:29:75\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: '=='\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "name": "info-catalog-stage3-check.mjs",
+      "ok": false,
+      "output": "FAIL all six table tabs and 32 crafts\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: all six table tabs and 32 crafts\n    at file:///mnt/data/lac_one_rebrand_work/scripts/info-catalog-stage3-check.mjs:33:75\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: '=='\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "name": "info-catalog-stage4-check.mjs",
+      "ok": false,
+      "output": "PASS fixture has all 290 imported records\nPASS five top tabs and material table nested\nFAIL 32 crafts available under all\nFAIL knife nested under 근접무기\nFAIL guns nested and Korean category labels\nFAIL 5 part recipes distinct from 14 other recipes\nPASS tools 10 ammo 4 and unknown category visible\nFAIL 95 linked ingredient rows grouped into 32 craft names\nFAIL material list shows craft name only, details show all ingredients\nFAIL search by ingredient still finds grouped craft\nFAIL quest jobs 30, mining 9 and rank C 4\nPASS quest hides redundant rank filter for sole rank\nFAIL process jobs 8, 4, 4 and no redundant process type\nFAIL skill 123 and grouping live\nFAIL production only wood-processing and refining, 8 grade rows\nFAIL one selected skill shows ranks only\nPASS unknown ETC and unknown skill remain discoverable\nPASS information remains read-only and other app styles untouched\nPASS main resets dependent filters on group and tab change\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: 7/19 passed\n\n7 !== 19\n\n    at file:///mnt/data/lac_one_rebrand_work/scripts/info-catalog-stage4-check.mjs:52:8\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: 7,\n  expected: 19,\n  operator: 'strictEqual'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "name": "info-catalog-stage5-check.mjs",
+      "ok": false,
+      "output": "PASS 290 fixtures preserved\nFAIL four top tabs and no separate recipe tab\nFAIL 32 crafts available in overall catalogue\nPASS 3 intermediate materials only, separate from 2 weapon-part recipes\nPASS weapon-part ingredient combinations remain reachable\nPASS matching craft ingredients preserved in weapon-part details\nPASS original 95 material records reachable in craft detail\nPASS production shows 목재 4 by default with no overall selection\nPASS refining shows 4 by selection\nFAIL quest filters preserved\nFAIL skill classification preserved\nPASS unknown recipes remain visible in 무기부품\nPASS read-only screen and existing APIs unchanged\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: 9/13 passed\n\n9 !== 13\n\n    at file:///mnt/data/lac_one_rebrand_work/scripts/info-catalog-stage5-check.mjs:33:8\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: 9,\n  expected: 13,\n  operator: 'strictEqual'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "name": "info-catalog-stage6-check.mjs",
+      "ok": true,
+      "output": "PASS all original rows present in synthetic fixture\nPASS five top-level tabs, including company-scoped modbooks, without a separate materials tab\nPASS craft browse has no 전체 and defaults to knife\nPASS craft firearm subtabs are direct chips without 전체\nPASS weapons combination records and linked ingredients remain reachable\nPASS production 4 wood and 4 refining, without 전체\nPASS quest defaults to one job, with optional grade chips and no 전체\nPASS grade filter toggles without an overall chip\nPASS skill fields are four direct category chips and direct skill chips\nPASS skill requires a direct skill choice and shows only that skill ranks\nPASS global search finds craft by a linked ingredient across active category\nPASS global search reaches production, quest, and skill across categories\nPASS global search finds two weapon-part combination recipes with no duplicate craft results\nPASS search results show source paths and can be opened independently of active category\nPASS global search also handles special characters without raw markup\nPASS hidden inactive rows excluded for non-owner but available to owner with toggle\nPASS navigation handler routes all global result types to category and detail\nPASS non-information screens and API stay read-only\nLAC ONE INFO STAGE 6: 18/18 PASS\n"
+    },
+    {
+      "name": "info-catalog-stage7-check.mjs",
+      "ok": true,
+      "output": "PASS five tabs including existing company modbooks\nPASS three explicit main fields plus labelled unclassified exception, no overall chip\nPASS primary, prefix/suffix and category work together\nPASS composite category included in both weapon and life fields\nPASS multi-weapon composite included in each matching chip with correct count\nPASS uncategorized records remain discoverable without guessed category\nPASS detail shows safe formatted price and parts only on selected item\nPASS inactive entries excluded for member and included with owner toggle\nPASS company switch hides old-company rows from both list and search\nPASS search results retain company-scoped paths and escape unsafe markup\nPASS separate company-scoped, paginated, read-only API\nPASS company/user switch invalidates cached rows and ignores stale responses\nPASS search result dispatch and screen events include modbook\nPASS existing game information tables retained and company module not modified\nLAC ONE INFO STAGE 7: 14/14 PASS (synthetic only)\n"
+    },
+    {
+      "name": "info-catalog-stage8-check.mjs",
+      "ok": true,
+      "output": "PASS both explicit compound categories appear under their correct chips\nPASS legacy generic category with explicit recognized parts labels appears in both weapon chips\nPASS recognized composite / inferred rows are not listed as unclassified\nPASS ambiguous legacy part labels stay in the exception instead of guessing\nPASS global search does not duplicate a multi-category item\nPASS derived categories are visibly marked as provisional, original stored category is not rewritten\nPASS weapon, life and combat category symbols rendered as small SVGs\nPASS prefix blue and suffix red hooks appear with the correct selection\nPASS no company B row leakage after company switch\nPASS existing modbook RLS/API integration unchanged\nPASS CSS colors scoped to modbook chip classes\nLAC ONE INFO STAGE 8: 11/11 PASS (synthetic only)\n"
+    },
+    {
+      "name": "info-catalog-stage9-check.mjs",
+      "ok": true,
+      "output": "PASS 돌판의 is listed in 생활 / 접미 / 채집\nPASS 냄비의 is listed in 생활 / 접미 / 요리\nPASS both verified cases disappear from unclassified\nPASS uncertain effects stay unclassified\nPASS explicit categories override option words\nPASS two explicit effect categories are shown without duplicating the source row\nPASS fully recognized parts take precedence over options\nPASS category chip count reflects derived entries\nPASS the detail labels effect-based classification transparently\nPASS company switch hides cached modbooks\nPASS no new database writes in display-only changes\nLAC ONE INFO STAGE 9: 11/11 PASS (synthetic only)\n"
+    },
+    {
+      "name": "integrated-ui-check.mjs",
+      "ok": true,
+      "output": "LAC ONE INTEGRATED UI CHECK: PASS\n73/73 checks passed.\n - WEB bridge helper: getFundTreasurySnapshot: PASS\n - WEB bridge helper: saveFundLedgerEntry: PASS\n - WEB bridge helper: cancelFundLedgerEntry: PASS\n - WEB bridge helper: getWebAssetsSnapshot: PASS\n - WEB bridge helper: saveWebAsset: PASS\n - WEB bridge helper: manageWebAsset: PASS\n - WEB bridge helper: getWebAccountsSnapshot: PASS\n - WEB bridge helper: submitWebAccountRequest: PASS\n - WEB bridge helper: reviewWebAccountRequest: PASS\n - WEB bridge helper: submitProductFeedback: PASS\n - RPC binding: fund_admin_get_treasury_snapshot: PASS\n - RPC binding: fund_admin_save_ledger_entry: PASS\n - RPC binding: fund_admin_cancel_ledger_entry: PASS\n - RPC binding: web_assets_admin_snapshot: PASS\n - RPC binding: web_assets_admin_save: PASS\n - RPC binding: web_assets_admin_manage: PASS\n - RPC binding: web_accounts_admin_snapshot: PASS\n - RPC binding: web_accounts_submit_request: PASS\n - RPC binding: web_accounts_review_request: PASS\n - RPC binding: submit_product_feedback: PASS\n - axe_product schema lock: PASS\n - No browser BOT runtime RPC usage: PASS\n - No raw fund ledger browser write: PASS\n - No raw company asset browser write: PASS\n - No raw member account browser write: PASS\n - Accepted sidebar group label: PASS\n - Sidebar/page label: 공금 관리: PASS\n - Sidebar/page label: 멤버 관리: PASS\n - Sidebar/page label: 자산 관리: PASS\n - Sidebar/page label: 계좌 관리: PASS\n - Sidebar/page label: 회사 설정: PASS\n - Sidebar/page label: 질문게시판: PASS\n - Sidebar/page label: 건의게시판: PASS\n - Boxed AXE header mark removed: PASS\n - Legacy feedback modal removed: PASS\n - Suggestion board remains separately routed via the shared support menu: PASS\n - Mandatory ledger cancellation reason: PASS\n - Fund monthly selector: PASS\n - Fund weekly tab always reloads live status: PASS\n - Fund refresh reloads weekly status when active: PASS\n - Fund weekly RPC skips nonexistent 5th week: PASS\n - Approved weekly payment renders as weekly fund, never manual extra income: PASS\n - Fund dense ledger lane structure: PASS\n - Settings basic/module tabs: PASS\n - Power-style module controls: PASS\n - No onboarding flash while company list loads: PASS\n - Stable custom company picker: PASS\n - Asset compact mode contract: PASS\n - Fund settings compact runtime override: PASS\n - Customer settings hide internal code badge: PASS\n - Compact save action visual: PASS\n - Onboarding status RPC binding: PASS\n - Reconnect request RPC binding: PASS\n - Reconnect confirmation modal: PASS\n - Reconnect poll lifecycle: PASS\n - New company enters settings onboarding: PASS\n - Onboarding role forward navigation auto-saves: PASS\n - Onboarding role validation: PASS\n - Onboarding dynamic save CTA: PASS\n - Onboarding save guidance copy: PASS\n - Onboarding completion notice: PASS\n - BOT bridge remains connected-state aware without redundant footer copy: PASS\n - Prototype CSS system imported: PASS\n - Cooking menu settings tab: PASS\n - Cooking menu modal: PASS\n - Cooking menu direct RLS CRUD API: PASS\n - Cooking menu state wiring: PASS\n - Cooking menu avoids hard delete: PASS\n - Cooking Discord guide direct RLS config API: PASS\n - Cooking Discord guide state wiring: PASS\n - Cooking compact settings UX: PASS\n - Cooking guide SET baseline field removed: PASS\n - Cooking menu modal ignores backdrop click: PASS\n"
+    },
+    {
+      "name": "interface-copy-cleanup-check.mjs",
+      "ok": true,
+      "output": "PASS web package version\nPASS compact page header supported\nPASS operational page header descriptions removed\nPASS management summary helper lines removed\nPASS fund top copy cleaned\nPASS fund subview redundant descriptions removed\nPASS fund fee remains meaningful data\nPASS member redundant row and workflow helper removed\nPASS asset redundant holder helper removed\nPASS account redundant workflow copy removed\nPASS settings overview helper smalls removed\nPASS settings tab subtitles removed\nPASS basic setting row microcopy removed\nPASS meaningful module descriptions retained\nPASS state-critical onboarding guidance retained\nPASS suggestion privacy notice retained\nPASS clean density css present\nInterface copy cleanup: 17/17 PASS\n"
+    },
+    {
+      "name": "layout-studio-check.mjs",
+      "ok": false,
+      "output": "FAIL layout studio is a valid route\nFAIL layout studio is platform-owner gated\nFAIL platform owner account menu exposes studio\nFAIL studio has intuitive quick controls\nFAIL studio has live preview\nFAIL studio advanced controls are collapsible\nPASS studio saves locally without DB/API dependency\nFAIL studio supports save/revert/default\nFAIL standard table typography tokens exist\nFAIL management tables consume typography tokens\nFAIL fund tables consume typography tokens\nFAIL cooking table consumes typography tokens\nFAIL layout studio stylesheet is isolated and imported\nFAIL member management no longer shows web registration CTA\nFAIL existing registration pathways remain\nLayout Studio: 1/15 PASS\n"
+    },
+    {
+      "name": "list-visual-cleanup-check.mjs",
+      "ok": true,
+      "output": "PASS web package version\nPASS single-page range footer remains hidden\nPASS members expose role as a dedicated column\nPASS assets expose acquisition method as a dedicated column\nPASS returns use six explicit columns\nPASS accounts expose role as a dedicated column without duplicate Discord identity\nPASS member and asset metadata pills are retired\nPASS fund ledger exposes account and type columns\nPASS fund ledger no longer renders inline metadata pills\nPASS fund ledger type does not repeat income or expense direction\nPASS fund weekly view exposes role column\nPASS fund review uses explicit column header\nPASS cooking uses explicit column header\nPASS cooking order badge is retired\nPASS platform company data has dedicated columns\nPASS core operational boards follow 636px fund reference rail\nPASS mobile operational rows expose labels\nColumn structure cleanup: 17/17 PASS\n"
+    },
+    {
+      "name": "live-guided-setup-check.mjs",
+      "ok": true,
+      "output": "PASS live setup launcher and renderer\nPASS settings launches live guide, not preview\nPASS role step saves real config\nPASS module step saves real modules\nPASS quick channel creation wired\nPASS channel API rechecks company admin and guild\nPASS duplicate channel names blocked before creation\nPASS Discord invite requests shared least-privilege baseline\nPASS role-filter member loading wired\nPASS bulk member registration uses server endpoint\nPASS member register endpoint rechecks company admin and guild\nPASS member IDs are revalidated against Discord role server-side\nPASS member inserts keep user token and DB RLS\nPASS member endpoint supports role filtering and intent guidance\nPASS new company opens live guide automatically\nLive Guided Setup: 15/15 PASS\n"
+    },
+    {
+      "name": "member-account-balance-check.mjs",
+      "ok": true,
+      "output": "PASS version\nPASS member keeps Discord identity\nPASS member name and role tracks are equal around Discord\nPASS account removes Discord display column\nPASS account search copy matches visible data\nPASS account five-lane grid\nMEMBER / ACCOUNT BALANCE: 6/6 PASS\n"
+    },
+    {
+      "name": "member-identity-ux-check.mjs",
+      "ok": true,
+      "output": "PASS customer UI no longer exposes PRODUCT STAGING badge\nPASS sidebar refresh button removed\nPASS member detail separates Discord display name and alias\nPASS alias fallback UX is explicit\nPASS membership identity layers are loaded\nPASS member alias mutation is wired\nPASS member form persists alias\nPASS browser form history suppression is applied\nPASS fund free-text category disables browser autocomplete\nPASS browser title is customer-facing\nPASS member detail uses aligned 3-column role/status/hire row plus memo\nPASS member list uses fixed dense identity/hire/status/manage lanes\nPASS member memo is loaded and writable\nPASS member form persists memo\nLAC ONE MEMBER IDENTITY UX CHECK: PASS\n"
+    },
+    {
+      "name": "modbook-channel-guided-check.mjs",
+      "ok": true,
+      "output": "PASS company settings expose modbook channel\nPASS guided setup restores saved modbook channel\nPASS guided quick channel plan persists modbook binding\nPASS guided channel binding supports modbook\nPASS live guided setup renders modbook channel\nPASS preview direct setup renders modbook channel\nPASS module settings save channel_id\nModbook Channel Guided Setup: 7/7 PASS\n"
+    },
+    {
+      "name": "onboarding-catalog-check.mjs",
+      "ok": true,
+      "output": "PASS web patch version\nPASS catalog readiness polling exists\nPASS poll waits for DB catalog readiness\nPASS role flow guards catalog readiness\nPASS module navigation restarts readiness poll\nPASS pending catalog UX is rendered\nPASS settings derive catalog pending from DB status\nPASS save is disabled while role catalog is pending\nPASS module tab is disabled while catalog is pending\nPASS role selects do not look empty while syncing\nLAC ONE WEB onboarding catalog readiness check: PASS\n"
+    },
+    {
+      "name": "onboarding-flow-integrity-check.mjs",
+      "ok": true,
+      "output": "PASS 3.26.3 web package version\nPASS company slug remains internal and automatic\nPASS company create keeps a stable pending attempt\nPASS company create retries recover by the same slug before another insert\nPASS company create accepts scalar/object/array RPC result shapes\nPASS company create verifies canonical company row after RPC\nPASS ambiguous old company result error removed\nPASS company create success message is customer-readable\nPASS company create unresolved state gives recovery instruction\nPASS guided setup uses one shared resume resolver\nPASS resume resolver checks Discord connection/catalog prerequisite\nPASS resume resolver checks role prerequisite\nPASS automatic owner resume uses shared resolver\nPASS manual setup open uses shared resolver\nPASS OAuth setup resume uses shared resolver\nPASS unfinished setup auto-resume remains owner-only\nPASS live module order includes modbook and pinball\nPASS test preview derives module cards from live module definitions\nPASS test preview step uses the shared preview module list\nPASS test preview can toggle newly added shared modules\nPASS test preview channel plan also includes modbook and pinball\nPASS first-run stays registration-gated with no company search/join code\nPASS registration verification still claims before company listing\nPASS server re-verifies selected Discord members before registration\nPASS inactive historical members are not silently reactivated\nPASS test center remains non-writing for member registration check\nPASS existing non-owner does not see additional company action\nPASS direct member registration is available to company admins\nPASS direct member registration revalidates company admin server-side\nPASS direct member registration verifies actual Discord guild membership\nPASS direct member registration fails clearly when Discord is not connected\nPASS direct member registration never grants owner role\nPASS direct member registration preserves inactive historical state\nPASS guided setup launcher is owner-only\nPASS guided setup mutations are owner-only\nPASS company creation verifies owner membership before setup\nOnboarding flow integrity: 36/36 PASS\n"
+    },
+    {
+      "name": "operations-row-actions-check.mjs",
+      "ok": true,
+      "output": "PASS member header/value axes centered\nPASS asset header/value axes centered\nPASS account header/value axes centered\nPASS fund linked entries have active edit control\nPASS fund correction modal exists\nPASS fund correction submit creates delta entry\nPASS account own row has edit action\nPASS account pending row has review action\nPASS account other row has detail action\nPASS account row action routed\nOperations Row Actions: 10/10 PASS\n"
+    },
+    {
+      "name": "operations-ux-check.mjs",
+      "ok": true,
+      "output": "PASS canonical company name comes from companies.name\nPASS member list hides Discord numeric ID\nPASS actual employment date UX exists\nPASS company settings edits canonical company name only\nPASS company banner registration UI removed\nPASS fund ledger uses automatic registrant UX\nPASS asset legacy/internal ID is hidden\nPASS asset status dropdown exists\nPASS unassigned asset exposes assign action\nPASS hidden legacy ID is preserved on asset edit\nPASS member employment date is persisted\nPASS canonical company name RPC is used\nPASS company banner mutation wiring removed from web\nPASS company name admin RPC binding exists\nPASS legacy branding storage binding left untouched for compatibility\nPASS account/header and clean Discord-only sidebar footer layout present\nLAC ONE OPERATIONS UX CHECK: PASS · DATABASE 1.7.48 is a separate apply prerequisite\n"
+    },
+    {
+      "name": "ops-density-balance-check.mjs",
+      "ok": true,
+      "output": "PASS version\nPASS member table adds useful Discord identity column\nPASS asset table surfaces existing memo field\nPASS account table keeps only account-relevant columns\nPASS asset search includes surfaced memo\nPASS member name-discord-role centers are balanced\nPASS asset columns use balanced fractional distribution\nPASS account columns use focused five-lane distribution\nPASS operational rail remains 636px\nPASS mobile action lane spans expanded fields\nOPS DENSITY BALANCE: 10/10 PASS\n"
+    },
+    {
+      "name": "ops-table-fund-standard-check.mjs",
+      "ok": true,
+      "output": "PASS version\nPASS ledger direction redundancy removed\nPASS members 636 rail\nPASS assets 636 rail\nPASS accounts 636 rail\nPASS management header/body same center-axis rule\nPASS management compact rows\nPASS cooking 636 rail\nPASS cooking header/body center axes\nPASS fund weekly 636 rail\nPASS fund review center axes\nPASS platform company keeps 8-column wide rail but centered axes\nOPS TABLE FUND STANDARD: 12/12 PASS\n"
+    },
+    {
+      "name": "pinball-module-check.mjs",
+      "ok": true,
+      "output": "PASS · module UI\nPASS · module order\nPASS · guided quick channel\nPASS · guided direct channel\nPASS · channel binding\nPASS · preview module\nPASS · preview channel\nPASS · channel API capacity 8\nPASS · module catalog SQL\nPASS · sessions table\nPASS · participants table\nPASS · host max 2\nPASS · rolling spam limit\nPASS · company max 8\nPASS · 24h expiry\nPASS · generic/modbook kind\nPASS · idempotent key\nPASS · race-safe company create lock\nPASS · future module row self-heal\nPASS · module off/channel move retires sessions\nPINBALL MODULE CHECK · 20/20 PASS\n"
+    },
+    {
+      "name": "platform-shell-balance-check.mjs",
+      "ok": true,
+      "output": "PASS  Korean plan labels\nPASS  subscription modal Korean plans\nPASS  platform admin hidden-company filter\nPASS  platform refresh rehydrates companies\nPASS  platform save reapplies visibility\nPASS  header brand centered\nPASS  account pushed right\nPASS  operational content shifted right\nPASS  medium desktop shift reduced\nPASS  small desktop fallback\nPlatform Shell Balance: 10/10 PASS\n"
+    },
+    {
+      "name": "platform-subscription-evidence-check.mjs",
+      "ok": true,
+      "output": "PASS  platform admin RPC exists\nPASS  platform owner entry is account-menu only\nPASS  subscription management modal exists\nPASS  subscription update wired\nPASS  expired/paused company lock rendered\nPASS  fund evidence upload uses private bucket helper\nPASS  clipboard paste wired\nPASS  file picker wired\nPASS  ledger evidence table migration included\nPASS  platform admins table migration included\nPASS  new company trial trigger included\nPASS  platform styling included\nPlatform Subscription + Fund Evidence: 12/12 PASS\n"
+    },
+    {
+      "name": "questions-board-check.mjs",
+      "ok": true,
+      "output": "PASS · questions page is a first-class route\nPASS · support nav retains question board via shared entry and separate tab\nPASS · legacy usage guide launcher removed\nPASS · question board is available to active members\nPASS · question board creates questions on site\nPASS · question thread supports platform answer and author follow-up\nPASS · only platform owner path can answer\nPASS · my questions scope exists\nPASS · question creation closes without reopening detail\nPASS · question list is bounded and paged\nPASS · other company members get read-only FAQ view\nPASS · support remains available even when subscription is blocked\nPASS · question state is stored in axe_product DB\nPASS · platform owner has global support queue\nPASS · platform dashboard surfaces unanswered support\nPASS · site unread badge exists\nPASS · Discord is notification only\nPASS · guided setup does not create a question forum\nPASS · guided channel API creates regular text channels only\nPASS · Manage Threads was removed again\nPASS · question board styling exists\nPASS · platform support styling exists\nPASS · question delete is author/platform controlled\nPASS · question image upload exists\nPASS · question clipboard paste exists\nPASS · question drag and drop exists\nPASS · support attachment bucket is private and restricted\nPASS · question attachment opens inside app lightbox\nPASS · question lightbox has explicit close affordances\nPASS · question lightbox renders above runtime modal\nPASS · question attachments no longer force a new tab\nNative Question Board: 31/31 PASS\n"
+    },
+    {
+      "name": "scale-safe-lists-check.mjs",
+      "ok": true,
+      "output": "PASS shared page-size contract\nPASS shared pager renderer\nPASS fund ledger bounded\nPASS members bounded\nPASS assets bounded\nPASS accounts bounded\nPASS cooking search filter pager\nPASS questions scope/status pager\nPASS fund review bounded\nPASS platform companies bounded\nPASS filters reset pages\nPASS pager action routing\nPASS no nested list scrollbar\nPASS cooking scale styling\nPASS question scale styling\nPASS weekly fund viewport bounded\nScale-safe lists: 16/16 PASS\n"
+    },
+    {
+      "name": "session-auth-privacy-check.mjs",
+      "ok": true,
+      "output": "PASS Supabase session persistence enabled\nPASS foreground session recovery installed\nPASS network return can refresh session\nPASS visible app session health check installed\nPASS transient signed-out event is distinguished from manual logout\nPASS custom Discord auth provider is selectable\nPASS custom Discord login requests identify only\nPASS built-in email scope limitation documented\nPASS email-optional custom provider deployment documented\nPASS unverified Discord subject mapping is not presented as guaranteed\nSession/Auth Privacy: 10/10 PASS\n"
+    },
+    {
+      "name": "source-check.mjs",
+      "ok": true,
+      "output": "LAC ONE SOURCE CHECK: PASS\nChecked 33 source files.\n - axe_product schema lock: PASS\n - no NEW AXE NET / HUB app-table reference: PASS\n - no server master key dependency: PASS\n - Discord OAuth API routes: PASS\n - Discord catalog/mapping integration: PASS\n"
+    },
+    {
+      "name": "suggestions-board-check.mjs",
+      "ok": true,
+      "output": "PRIVATE SUGGESTION BOARD: 23/23 PASS\n - suggestions route is valid and shared support tab exists: PASS\n - legacy feedback modal/contact UI removed: PASS\n - customer list is author-scoped in SQL: PASS\n - detail blocks same-company non-author: PASS\n - platform global suggestion queue exists: PASS\n - platform-only answer/status path exists: PASS\n - author follow-up reopens pending: PASS\n - customer unread badge and dashboard notice exist: PASS\n - private image bucket and attachment RPCs exist: PASS\n - upload paste drop inputs wired: PASS\n - shared in-app image lightbox used: PASS\n - platform replies upload into suggestion company tenant: PASS\n - author or platform delete path exists: PASS\n - category and status filters exist: PASS\n - board is bounded to five rows per page: PASS\n - Discord is notification-only and linked id is automatic: PASS\n - creation closes and does not auto-open thread: PASS\n - suggestions remain accessible before subscription lock: PASS\n - platform dashboard counts private suggestions: PASS\n - private board copy is explicit: PASS\n - DB creation has duplicate and spam guards: PASS\n - direct authenticated table access is revoked: PASS\n - suggestion queue styles are restrained/reused: PASS\n"
+    },
+    {
+      "name": "test-center-check.mjs",
+      "ok": true,
+      "output": "PASS web package version\nPASS platform account menu has test center\nPASS test center is platform owner only\nPASS test center state exists\nPASS test center modal renderer\nPASS first-run uses shared component\nPASS member waiting scenario\nPASS member registered scenario\nPASS new owner scenario\nPASS setup resume scenario\nPASS setup complete scenario\nPASS test company form is isolated\nPASS test member check stays local\nPASS guided preview returns to test center\nPASS safe mode copy text\nPASS test center safe banner\nPASS test center CSS\nPASS no join code input in center\nTest Center: 18/18 PASS\n"
+    }
+  ]
+}

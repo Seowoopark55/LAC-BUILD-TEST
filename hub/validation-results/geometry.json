@@ -1,0 +1,4 @@
+{
+  "status": "PASS",
+  "note": "Exact measured rectangles/columns/overflow comparison in matching environment. Existing defects remain in baseline."
+}

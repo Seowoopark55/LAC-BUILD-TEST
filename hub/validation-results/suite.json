@@ -1,0 +1,35 @@
+{
+  "status": "FAIL",
+  "results": [
+    {
+      "file": "static.mjs",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "file": "assets.mjs",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "file": "negative-controls.mjs",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "file": "build.mjs",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "file": "dom.mjs",
+      "exit": 0,
+      "status": "PASS"
+    },
+    {
+      "file": "browser.mjs",
+      "exit": 1,
+      "status": "FAIL"
+    }
+  ]
+}

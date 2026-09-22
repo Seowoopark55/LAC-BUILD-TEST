@@ -1,0 +1,270 @@
+{
+  "status": "PASS",
+  "comparisons": [
+    {
+      "name": "desktop-dashboard.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "desktop-fund.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "desktop-weekly.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "desktop-review.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "desktop-members.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "desktop-assets.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "desktop-returns.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "desktop-accounts.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "desktop-cooking.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "desktop-settings.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "desktop-modules.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "desktop-platform.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "desktop-modal.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "desktop-empty-members.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "desktop-empty-fund.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "desktop-empty-assets.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "desktop-empty-accounts.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "desktop-empty-cooking.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "desktop-empty-platform.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "desktop-questions.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "desktop-suggestions.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "mobile-dashboard.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "mobile-fund.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "mobile-weekly.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "mobile-review.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "mobile-members.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "mobile-assets.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "mobile-returns.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "mobile-accounts.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "mobile-cooking.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "mobile-settings.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "mobile-modules.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "mobile-platform.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "mobile-modal.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "mobile-empty-members.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "mobile-empty-fund.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "mobile-empty-assets.png",
+      "status": "PASS",
+      "differentPixels": 2,
+      "allowedPixels": 4
+    },
+    {
+      "name": "mobile-empty-accounts.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "mobile-empty-cooking.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "mobile-empty-platform.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "mobile-questions.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    },
+    {
+      "name": "mobile-suggestions.png",
+      "status": "PASS",
+      "differentPixels": 0,
+      "allowedPixels": 4
+    }
+  ],
+  "environment": {
+    "fonts": [
+      "Pretendard"
+    ],
+    "fontPackage": "pretendard@1.3.9",
+    "browser": "153.0.8010.0",
+    "playwright": "1.58.2",
+    "platform": "linux",
+    "arch": "x64",
+    "locale": "ko-KR",
+    "timezone": "UTC",
+    "dpr": 1
+  }
+}

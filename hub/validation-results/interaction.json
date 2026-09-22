@@ -1,0 +1,42 @@
+{
+  "status": "FAIL",
+  "checks": [
+    {
+      "name": "search focus/cursor after actual input handler",
+      "ok": true
+    },
+    {
+      "name": "filter + pagination state",
+      "ok": true
+    },
+    {
+      "name": "dropdown open/close actual handlers",
+      "ok": true
+    },
+    {
+      "name": "modal input survives notice-triggered rerender",
+      "ok": false
+    },
+    {
+      "name": "native select value survives full rerender (popup open state NOT automated)",
+      "ok": true
+    },
+    {
+      "name": "mocked member save: payload and modal lifecycle",
+      "ok": true
+    }
+  ],
+  "evidence": [
+    {
+      "test": "modal draft",
+      "trigger": "setNotice -> production render()",
+      "before": "작성중 fixture",
+      "after": ""
+    }
+  ],
+  "notRun": [
+    "Native OS select popup-open persistence",
+    "Real API/auth/RLS/save integration",
+    "IME operating-system composition"
+  ]
+}

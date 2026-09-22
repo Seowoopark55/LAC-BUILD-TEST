@@ -1,0 +1,6 @@
+{
+  "status": "NOT RUN",
+  "exit": 127,
+  "reason": "Vite executable missing",
+  "command": "npm run build"
+}

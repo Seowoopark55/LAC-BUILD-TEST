@@ -1,10 +1,10 @@
 {
-  "name": "lac-hub-build-test-repo",
+  "name": "lac-hub-build-unified",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "check": "node scripts/verify.mjs && node scripts/verify-deploy.mjs",
+    "check": "node scripts/verify.mjs && node scripts/verify-deploy.mjs && node hub/scripts/hub-phase24-build-entry-check.mjs && cd hub && npm run check",
     "build": "node scripts/deploy-build.mjs"
   },
   "engines": {

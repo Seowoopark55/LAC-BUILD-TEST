@@ -1,0 +1,83 @@
+{
+  "status": "PASS_WITH_KNOWN_DEFECTS",
+  "defects": [
+    {
+      "id": "DEF-01",
+      "status": "PRESERVED",
+      "widths": [
+        390,
+        560,
+        561,
+        760
+      ],
+      "headerCells": 7,
+      "rowCells": 7,
+      "headerTracks": 6,
+      "rowTracks": 6
+    },
+    {
+      "id": "DEF-02",
+      "status": "PRESERVED",
+      "combinations": [
+        [
+          "fund",
+          761
+        ],
+        [
+          "cooking",
+          761
+        ],
+        [
+          "platform",
+          761
+        ],
+        [
+          "fund",
+          900
+        ],
+        [
+          "platform",
+          900
+        ],
+        [
+          "fund",
+          901
+        ],
+        [
+          "platform",
+          901
+        ],
+        [
+          "platform",
+          980
+        ],
+        [
+          "fund",
+          981
+        ],
+        [
+          "members",
+          981
+        ],
+        [
+          "cooking",
+          981
+        ],
+        [
+          "platform",
+          981
+        ],
+        [
+          "platform",
+          1281
+        ]
+      ],
+      "count": 13
+    },
+    {
+      "id": "DEF-03",
+      "status": "PRESERVED",
+      "evidence": "src/main.js unchanged; setNotice still sets notice then calls render(); existing interaction evidence before=작성중 fixture after="
+    }
+  ]
+}

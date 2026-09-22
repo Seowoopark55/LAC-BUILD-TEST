@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "baselineFiles": 45,
+  "baselineDifferences": [],
+  "sourceJsFiles": 4,
+  "sourceJsDifferences": [],
+  "criticalFiles": {
+    "index.html": {
+      "status": "IDENTICAL",
+      "sha256": "c8fa4d646d81d05dab7c618ca24a67f58bc066fe8fcfab3b8d954d7ca3c253b8"
+    },
+    "package.json": {
+      "status": "IDENTICAL",
+      "sha256": "4b8bdca59b117a0796912655d46223ac70e56275f4b7133d7ff37aee3c580817"
+    },
+    "package-lock.json": {
+      "status": "IDENTICAL",
+      "sha256": "8c844b850b2310ebb311c74d8462b6a3543b9ba737b0adee57e0b4731abf2e31"
+    },
+    "src/main.js": {
+      "status": "IDENTICAL",
+      "sha256": "df691ee0ba7589be94cb415f0a5cabf1bd91bef71d432748c705bad6347882f2"
+    },
+    "src/ui/render.js": {
+      "status": "IDENTICAL",
+      "sha256": "7defb70938782167c1ac4fd2396180d2b76de835aecb34815a80348325436255"
+    }
+  }
+}

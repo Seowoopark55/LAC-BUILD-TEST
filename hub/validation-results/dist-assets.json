@@ -1,0 +1,57 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "entry -> index.html",
+      "ok": true
+    },
+    {
+      "name": "index.html -> icons/favicon-32.png",
+      "ok": true
+    },
+    {
+      "name": "index.html -> assets/index-C2SdUFTG.js",
+      "ok": true
+    },
+    {
+      "name": "index.html -> assets/index-C1aTnaHS.css",
+      "ok": true
+    },
+    {
+      "name": "assets/index-C1aTnaHS.css -> brand/axe-shell-generated-v1.png",
+      "ok": true
+    },
+    {
+      "name": "reachable stylesheet exists",
+      "ok": true
+    },
+    {
+      "name": "reachable JavaScript exists",
+      "ok": true
+    },
+    {
+      "name": "production HTML has no source entry",
+      "ok": true
+    },
+    {
+      "name": "root base deployment (subpath not certified)",
+      "ok": true
+    }
+  ],
+  "styles": [
+    "assets/index-C1aTnaHS.css"
+  ],
+  "scripts": [
+    "assets/index-C2SdUFTG.js"
+  ],
+  "external": [
+    "package:@supabase/supabase-js/tracing"
+  ],
+  "files": [
+    "index.html",
+    "icons/favicon-32.png",
+    "assets/index-C2SdUFTG.js",
+    "assets/index-C1aTnaHS.css",
+    "brand/axe-shell-generated-v1.png"
+  ]
+}

@@ -1,0 +1,2465 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "Korean font available",
+      "ok": true
+    },
+    {
+      "name": "dashboard/1440: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "fund/1440: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "fund/1440: header cells",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "name": "fund/1440: row cells",
+      "ok": true,
+      "detail": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "name": "fund/1440: action",
+      "ok": true
+    },
+    {
+      "name": "fund/1440: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "72px 56px 62px 124px 90px 82px 52px 52px",
+        "row": "72px 56px 62px 124px 90px 82px 52px 52px"
+      }
+    },
+    {
+      "name": "weekly/1440: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "weekly/1440: header cells",
+      "ok": true,
+      "detail": 7
+    },
+    {
+      "name": "weekly/1440: row cells",
+      "ok": true,
+      "detail": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "weekly/1440: action",
+      "ok": true
+    },
+    {
+      "name": "weekly/1440: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "272px 72px 58px 58px 58px 58px 58px",
+        "row": "272px 72px 58px 58px 58px 58px 58px"
+      }
+    },
+    {
+      "name": "review/1440: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "review/1440: header cells",
+      "ok": true,
+      "detail": 7
+    },
+    {
+      "name": "review/1440: row cells",
+      "ok": true,
+      "detail": [
+        7
+      ]
+    },
+    {
+      "name": "review/1440: action",
+      "ok": true
+    },
+    {
+      "name": "review/1440: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "123.625px 78px 72px 68px 52px 52px 148.375px",
+        "row": "123.625px 78px 72px 68px 52px 52px 148.375px"
+      }
+    },
+    {
+      "name": "members/1440: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "members/1440: header cells",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "members/1440: row cells",
+      "ok": true,
+      "detail": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "name": "members/1440: action",
+      "ok": true
+    },
+    {
+      "name": "members/1440: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "106.359px 130px 106.359px 101.641px 85.0938px 68.5312px",
+        "row": "106.359px 130px 106.359px 101.641px 85.0938px 68.5312px"
+      }
+    },
+    {
+      "name": "assets/1440: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "assets/1440: header cells",
+      "ok": true,
+      "detail": 7
+    },
+    {
+      "name": "assets/1440: row cells",
+      "ok": true,
+      "detail": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "assets/1440: action",
+      "ok": true
+    },
+    {
+      "name": "assets/1440: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "91.0781px 106.922px 95.0312px 71.2812px 100.984px 71.2812px 57.4219px",
+        "row": "91.0781px 106.922px 95.0312px 71.2812px 100.984px 71.2812px 57.4219px"
+      }
+    },
+    {
+      "name": "returns/1440: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "returns/1440: header cells",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "returns/1440: row cells",
+      "ok": true,
+      "detail": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "name": "returns/1440: action",
+      "ok": true
+    },
+    {
+      "name": "returns/1440: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "137.547px 84px 70px 144.438px 76px 86px",
+        "row": "137.547px 84px 70px 144.438px 76px 86px"
+      }
+    },
+    {
+      "name": "accounts/1440: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "accounts/1440: header cells",
+      "ok": true,
+      "detail": 5
+    },
+    {
+      "name": "accounts/1440: row cells",
+      "ok": true,
+      "detail": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ]
+    },
+    {
+      "name": "accounts/1440: action",
+      "ok": true
+    },
+    {
+      "name": "accounts/1440: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "129.672px 106.484px 188.375px 98.2812px 79.1719px",
+        "row": "129.672px 106.484px 188.375px 98.2812px 79.1719px"
+      }
+    },
+    {
+      "name": "cooking/1440: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "cooking/1440: header cells",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "cooking/1440: row cells",
+      "ok": true,
+      "detail": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "name": "cooking/1440: action",
+      "ok": true
+    },
+    {
+      "name": "cooking/1440: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "185.109px 212.875px 78px 46px 68px 52px",
+        "row": "185.109px 212.875px 78px 46px 68px 52px"
+      }
+    },
+    {
+      "name": "settings/1440: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "modules/1440: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "platform/1440: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "platform/1440: header cells",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "name": "platform/1440: row cells",
+      "ok": true,
+      "detail": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "name": "platform/1440: action",
+      "ok": true
+    },
+    {
+      "name": "platform/1440: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "110px 115px 44px 64px 82px 122px 94px 54px",
+        "row": "110px 115px 44px 64px 82px 122px 94px 54px"
+      }
+    },
+    {
+      "name": "modal/1440: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "modal/desktop",
+      "ok": true
+    },
+    {
+      "name": "empty-members/1440: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "empty-state/desktop",
+      "ok": true
+    },
+    {
+      "name": "empty-fund/1440: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "empty-fund/desktop: empty structure",
+      "ok": true
+    },
+    {
+      "name": "empty-assets/1440: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "empty-assets/desktop: empty structure",
+      "ok": true
+    },
+    {
+      "name": "empty-accounts/1440: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "empty-accounts/desktop: empty structure",
+      "ok": true
+    },
+    {
+      "name": "empty-cooking/1440: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "empty-cooking/desktop: empty structure",
+      "ok": true
+    },
+    {
+      "name": "empty-platform/1440: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "empty-platform/desktop: empty structure",
+      "ok": true
+    },
+    {
+      "name": "questions/1440: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "suggestions/1440: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "dashboard/390: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "fund/390: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "fund/390: header cells",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "name": "fund/390: row cells",
+      "ok": true,
+      "detail": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "name": "fund/390: action",
+      "ok": true
+    },
+    {
+      "name": "weekly/390: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "weekly/390: header cells",
+      "ok": true,
+      "detail": 7
+    },
+    {
+      "name": "weekly/390: row cells",
+      "ok": true,
+      "detail": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "weekly/390: action",
+      "ok": true
+    },
+    {
+      "name": "review/390: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "review/390: header cells",
+      "ok": true,
+      "detail": 7
+    },
+    {
+      "name": "review/390: row cells",
+      "ok": true,
+      "detail": [
+        7
+      ]
+    },
+    {
+      "name": "review/390: action",
+      "ok": true
+    },
+    {
+      "name": "members/390: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "members/390: header cells",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "members/390: row cells",
+      "ok": true,
+      "detail": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "name": "members/390: action",
+      "ok": true
+    },
+    {
+      "name": "assets/390: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "assets/390: header cells",
+      "ok": true,
+      "detail": 7
+    },
+    {
+      "name": "assets/390: row cells",
+      "ok": true,
+      "detail": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "assets/390: action",
+      "ok": true
+    },
+    {
+      "name": "returns/390: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "returns/390: header cells",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "returns/390: row cells",
+      "ok": true,
+      "detail": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "name": "returns/390: action",
+      "ok": true
+    },
+    {
+      "name": "accounts/390: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "accounts/390: header cells",
+      "ok": true,
+      "detail": 5
+    },
+    {
+      "name": "accounts/390: row cells",
+      "ok": true,
+      "detail": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ]
+    },
+    {
+      "name": "accounts/390: action",
+      "ok": true
+    },
+    {
+      "name": "cooking/390: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "cooking/390: header cells",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "cooking/390: row cells",
+      "ok": true,
+      "detail": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "name": "cooking/390: action",
+      "ok": true
+    },
+    {
+      "name": "settings/390: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "modules/390: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "platform/390: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "platform/390: header cells",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "name": "platform/390: row cells",
+      "ok": true,
+      "detail": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "name": "platform/390: action",
+      "ok": true
+    },
+    {
+      "name": "modal/390: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "modal/mobile",
+      "ok": true
+    },
+    {
+      "name": "empty-members/390: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "empty-state/mobile",
+      "ok": true
+    },
+    {
+      "name": "empty-fund/390: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "empty-fund/mobile: empty structure",
+      "ok": true
+    },
+    {
+      "name": "empty-assets/390: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "empty-assets/mobile: empty structure",
+      "ok": true
+    },
+    {
+      "name": "empty-accounts/390: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "empty-accounts/mobile: empty structure",
+      "ok": true
+    },
+    {
+      "name": "empty-cooking/390: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "empty-cooking/mobile: empty structure",
+      "ok": true
+    },
+    {
+      "name": "empty-platform/390: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "empty-platform/mobile: empty structure",
+      "ok": true
+    },
+    {
+      "name": "questions/390: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "suggestions/390: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "fund/560: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "fund/560: header cells",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "name": "fund/560: row cells",
+      "ok": true,
+      "detail": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "name": "fund/560: action",
+      "ok": true
+    },
+    {
+      "name": "weekly/560: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "weekly/560: header cells",
+      "ok": true,
+      "detail": 7
+    },
+    {
+      "name": "weekly/560: row cells",
+      "ok": true,
+      "detail": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "weekly/560: action",
+      "ok": true
+    },
+    {
+      "name": "members/560: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "members/560: header cells",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "members/560: row cells",
+      "ok": true,
+      "detail": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "name": "members/560: action",
+      "ok": true
+    },
+    {
+      "name": "cooking/560: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "cooking/560: header cells",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "cooking/560: row cells",
+      "ok": true,
+      "detail": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "name": "cooking/560: action",
+      "ok": true
+    },
+    {
+      "name": "platform/560: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "platform/560: header cells",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "name": "platform/560: row cells",
+      "ok": true,
+      "detail": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "name": "platform/560: action",
+      "ok": true
+    },
+    {
+      "name": "fund/561: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "fund/561: header cells",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "name": "fund/561: row cells",
+      "ok": true,
+      "detail": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "name": "fund/561: action",
+      "ok": true
+    },
+    {
+      "name": "weekly/561: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "weekly/561: header cells",
+      "ok": true,
+      "detail": 7
+    },
+    {
+      "name": "weekly/561: row cells",
+      "ok": true,
+      "detail": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "weekly/561: action",
+      "ok": true
+    },
+    {
+      "name": "members/561: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "members/561: header cells",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "members/561: row cells",
+      "ok": true,
+      "detail": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "name": "members/561: action",
+      "ok": true
+    },
+    {
+      "name": "cooking/561: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "cooking/561: header cells",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "cooking/561: row cells",
+      "ok": true,
+      "detail": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "name": "cooking/561: action",
+      "ok": true
+    },
+    {
+      "name": "platform/561: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "platform/561: header cells",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "name": "platform/561: row cells",
+      "ok": true,
+      "detail": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "name": "platform/561: action",
+      "ok": true
+    },
+    {
+      "name": "fund/760: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "fund/760: header cells",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "name": "fund/760: row cells",
+      "ok": true,
+      "detail": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "name": "fund/760: action",
+      "ok": true
+    },
+    {
+      "name": "weekly/760: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "weekly/760: header cells",
+      "ok": true,
+      "detail": 7
+    },
+    {
+      "name": "weekly/760: row cells",
+      "ok": true,
+      "detail": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "weekly/760: action",
+      "ok": true
+    },
+    {
+      "name": "members/760: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "members/760: header cells",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "members/760: row cells",
+      "ok": true,
+      "detail": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "name": "members/760: action",
+      "ok": true
+    },
+    {
+      "name": "cooking/760: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "cooking/760: header cells",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "cooking/760: row cells",
+      "ok": true,
+      "detail": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "name": "cooking/760: action",
+      "ok": true
+    },
+    {
+      "name": "platform/760: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "platform/760: header cells",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "name": "platform/760: row cells",
+      "ok": true,
+      "detail": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "name": "platform/760: action",
+      "ok": true
+    },
+    {
+      "name": "fund/761: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "fund/761: header cells",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "name": "fund/761: row cells",
+      "ok": true,
+      "detail": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "name": "fund/761: action",
+      "ok": true
+    },
+    {
+      "name": "fund/761: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "72px 56px 62px 108px 90px 82px 52px 52px",
+        "row": "72px 56px 62px 108px 90px 82px 52px 52px"
+      }
+    },
+    {
+      "name": "weekly/761: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "weekly/761: header cells",
+      "ok": true,
+      "detail": 7
+    },
+    {
+      "name": "weekly/761: row cells",
+      "ok": true,
+      "detail": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "weekly/761: action",
+      "ok": true
+    },
+    {
+      "name": "weekly/761: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "105px 72px 58px 58px 58px 58px 58px",
+        "row": "105px 72px 58px 58px 58px 58px 58px"
+      }
+    },
+    {
+      "name": "members/761: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "members/761: header cells",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "members/761: row cells",
+      "ok": true,
+      "detail": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "name": "members/761: action",
+      "ok": true
+    },
+    {
+      "name": "members/761: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "62.7812px 76.7344px 62.7812px 60px 50.2344px 40.4531px",
+        "row": "62.7812px 76.7344px 62.7812px 60px 50.2344px 40.4531px"
+      }
+    },
+    {
+      "name": "cooking/761: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "cooking/761: header cells",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "cooking/761: row cells",
+      "ok": true,
+      "detail": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "name": "cooking/761: action",
+      "ok": true
+    },
+    {
+      "name": "cooking/761: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "105px 125px 78px 46px 68px 52px",
+        "row": "105px 125px 78px 46px 68px 52px"
+      }
+    },
+    {
+      "name": "platform/761: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "platform/761: header cells",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "name": "platform/761: row cells",
+      "ok": true,
+      "detail": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "name": "platform/761: action",
+      "ok": true
+    },
+    {
+      "name": "platform/761: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "110px 115px 44px 64px 82px 122px 94px 54px",
+        "row": "110px 115px 44px 64px 82px 122px 94px 54px"
+      }
+    },
+    {
+      "name": "fund/900: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "fund/900: header cells",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "name": "fund/900: row cells",
+      "ok": true,
+      "detail": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "name": "fund/900: action",
+      "ok": true
+    },
+    {
+      "name": "fund/900: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "72px 56px 62px 108px 90px 82px 52px 52px",
+        "row": "72px 56px 62px 108px 90px 82px 52px 52px"
+      }
+    },
+    {
+      "name": "weekly/900: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "weekly/900: header cells",
+      "ok": true,
+      "detail": 7
+    },
+    {
+      "name": "weekly/900: row cells",
+      "ok": true,
+      "detail": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "weekly/900: action",
+      "ok": true
+    },
+    {
+      "name": "weekly/900: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "166px 72px 58px 58px 58px 58px 58px",
+        "row": "166px 72px 58px 58px 58px 58px 58px"
+      }
+    },
+    {
+      "name": "members/900: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "members/900: header cells",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "members/900: row cells",
+      "ok": true,
+      "detail": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "name": "members/900: action",
+      "ok": true
+    },
+    {
+      "name": "members/900: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "87.5px 106.953px 87.5156px 83.625px 70px 56.3906px",
+        "row": "87.5px 106.953px 87.5156px 83.625px 70px 56.3906px"
+      }
+    },
+    {
+      "name": "cooking/900: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "cooking/900: header cells",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "cooking/900: row cells",
+      "ok": true,
+      "detail": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "name": "cooking/900: action",
+      "ok": true
+    },
+    {
+      "name": "cooking/900: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "115.344px 132.641px 78px 46px 68px 52px",
+        "row": "115.344px 132.641px 78px 46px 68px 52px"
+      }
+    },
+    {
+      "name": "platform/900: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "platform/900: header cells",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "name": "platform/900: row cells",
+      "ok": true,
+      "detail": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "name": "platform/900: action",
+      "ok": true
+    },
+    {
+      "name": "platform/900: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "110px 115px 44px 64px 82px 122px 94px 54px",
+        "row": "110px 115px 44px 64px 82px 122px 94px 54px"
+      }
+    },
+    {
+      "name": "fund/901: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "fund/901: header cells",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "name": "fund/901: row cells",
+      "ok": true,
+      "detail": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "name": "fund/901: action",
+      "ok": true
+    },
+    {
+      "name": "fund/901: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "72px 56px 62px 108px 90px 82px 52px 52px",
+        "row": "72px 56px 62px 108px 90px 82px 52px 52px"
+      }
+    },
+    {
+      "name": "weekly/901: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "weekly/901: header cells",
+      "ok": true,
+      "detail": 7
+    },
+    {
+      "name": "weekly/901: row cells",
+      "ok": true,
+      "detail": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "weekly/901: action",
+      "ok": true
+    },
+    {
+      "name": "weekly/901: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "191px 72px 58px 58px 58px 58px 58px",
+        "row": "191px 72px 58px 58px 58px 58px 58px"
+      }
+    },
+    {
+      "name": "members/901: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "members/901: header cells",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "members/901: row cells",
+      "ok": true,
+      "detail": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "name": "members/901: action",
+      "ok": true
+    },
+    {
+      "name": "members/901: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "91.9531px 112.391px 91.9531px 87.875px 73.5625px 59.25px",
+        "row": "91.9531px 112.391px 91.9531px 87.875px 73.5625px 59.25px"
+      }
+    },
+    {
+      "name": "cooking/901: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "cooking/901: header cells",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "cooking/901: row cells",
+      "ok": true,
+      "detail": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "name": "cooking/901: action",
+      "ok": true
+    },
+    {
+      "name": "cooking/901: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "126.969px 146.016px 78px 46px 68px 52px",
+        "row": "126.969px 146.016px 78px 46px 68px 52px"
+      }
+    },
+    {
+      "name": "platform/901: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "platform/901: header cells",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "name": "platform/901: row cells",
+      "ok": true,
+      "detail": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "name": "platform/901: action",
+      "ok": true
+    },
+    {
+      "name": "platform/901: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "110px 115px 44px 64px 82px 122px 94px 54px",
+        "row": "110px 115px 44px 64px 82px 122px 94px 54px"
+      }
+    },
+    {
+      "name": "fund/980: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "fund/980: header cells",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "name": "fund/980: row cells",
+      "ok": true,
+      "detail": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "name": "fund/980: action",
+      "ok": true
+    },
+    {
+      "name": "fund/980: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "72px 56px 62px 122px 90px 82px 52px 52px",
+        "row": "72px 56px 62px 122px 90px 82px 52px 52px"
+      }
+    },
+    {
+      "name": "weekly/980: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "weekly/980: header cells",
+      "ok": true,
+      "detail": 7
+    },
+    {
+      "name": "weekly/980: row cells",
+      "ok": true,
+      "detail": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "weekly/980: action",
+      "ok": true
+    },
+    {
+      "name": "weekly/980: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "270px 72px 58px 58px 58px 58px 58px",
+        "row": "270px 72px 58px 58px 58px 58px 58px"
+      }
+    },
+    {
+      "name": "members/980: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "members/980: header cells",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "members/980: row cells",
+      "ok": true,
+      "detail": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "name": "members/980: action",
+      "ok": true
+    },
+    {
+      "name": "members/980: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "106px 129.562px 106.016px 101.297px 84.7969px 68.3125px",
+        "row": "106px 129.562px 106.016px 101.297px 84.7969px 68.3125px"
+      }
+    },
+    {
+      "name": "cooking/980: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "cooking/980: header cells",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "cooking/980: row cells",
+      "ok": true,
+      "detail": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "name": "cooking/980: action",
+      "ok": true
+    },
+    {
+      "name": "cooking/980: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "163.719px 188.266px 78px 46px 68px 52px",
+        "row": "163.719px 188.266px 78px 46px 68px 52px"
+      }
+    },
+    {
+      "name": "platform/980: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "platform/980: header cells",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "name": "platform/980: row cells",
+      "ok": true,
+      "detail": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "name": "platform/980: action",
+      "ok": true
+    },
+    {
+      "name": "platform/980: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "110px 115px 44px 64px 82px 122px 94px 54px",
+        "row": "110px 115px 44px 64px 82px 122px 94px 54px"
+      }
+    },
+    {
+      "name": "fund/981: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "fund/981: header cells",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "name": "fund/981: row cells",
+      "ok": true,
+      "detail": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "name": "fund/981: action",
+      "ok": true
+    },
+    {
+      "name": "fund/981: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "72px 56px 62px 108px 90px 82px 52px 52px",
+        "row": "72px 56px 62px 108px 90px 82px 52px 52px"
+      }
+    },
+    {
+      "name": "weekly/981: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "weekly/981: header cells",
+      "ok": true,
+      "detail": 7
+    },
+    {
+      "name": "weekly/981: row cells",
+      "ok": true,
+      "detail": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "weekly/981: action",
+      "ok": true
+    },
+    {
+      "name": "weekly/981: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "215px 72px 58px 58px 58px 58px 58px",
+        "row": "215px 72px 58px 58px 58px 58px 58px"
+      }
+    },
+    {
+      "name": "members/981: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "members/981: header cells",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "members/981: row cells",
+      "ok": true,
+      "detail": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "name": "members/981: action",
+      "ok": true
+    },
+    {
+      "name": "members/981: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "96.2188px 117.609px 96.2188px 91.9531px 76.9844px 62px",
+        "row": "96.2188px 117.609px 96.2188px 91.9531px 76.9844px 62px"
+      }
+    },
+    {
+      "name": "cooking/981: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "cooking/981: header cells",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "cooking/981: row cells",
+      "ok": true,
+      "detail": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "name": "cooking/981: action",
+      "ok": true
+    },
+    {
+      "name": "cooking/981: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "138.125px 158.859px 78px 46px 68px 52px",
+        "row": "138.125px 158.859px 78px 46px 68px 52px"
+      }
+    },
+    {
+      "name": "platform/981: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "platform/981: header cells",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "name": "platform/981: row cells",
+      "ok": true,
+      "detail": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "name": "platform/981: action",
+      "ok": true
+    },
+    {
+      "name": "platform/981: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "110px 115px 44px 64px 82px 122px 94px 54px",
+        "row": "110px 115px 44px 64px 82px 122px 94px 54px"
+      }
+    },
+    {
+      "name": "fund/1280: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "fund/1280: header cells",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "name": "fund/1280: row cells",
+      "ok": true,
+      "detail": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "name": "fund/1280: action",
+      "ok": true
+    },
+    {
+      "name": "fund/1280: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "72px 56px 62px 124px 90px 82px 52px 52px",
+        "row": "72px 56px 62px 124px 90px 82px 52px 52px"
+      }
+    },
+    {
+      "name": "weekly/1280: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "weekly/1280: header cells",
+      "ok": true,
+      "detail": 7
+    },
+    {
+      "name": "weekly/1280: row cells",
+      "ok": true,
+      "detail": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "weekly/1280: action",
+      "ok": true
+    },
+    {
+      "name": "weekly/1280: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "272px 72px 58px 58px 58px 58px 58px",
+        "row": "272px 72px 58px 58px 58px 58px 58px"
+      }
+    },
+    {
+      "name": "members/1280: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "members/1280: header cells",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "members/1280: row cells",
+      "ok": true,
+      "detail": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "name": "members/1280: action",
+      "ok": true
+    },
+    {
+      "name": "members/1280: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "106.359px 130px 106.359px 101.641px 85.0938px 68.5312px",
+        "row": "106.359px 130px 106.359px 101.641px 85.0938px 68.5312px"
+      }
+    },
+    {
+      "name": "cooking/1280: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "cooking/1280: header cells",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "cooking/1280: row cells",
+      "ok": true,
+      "detail": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "name": "cooking/1280: action",
+      "ok": true
+    },
+    {
+      "name": "cooking/1280: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "185.109px 212.875px 78px 46px 68px 52px",
+        "row": "185.109px 212.875px 78px 46px 68px 52px"
+      }
+    },
+    {
+      "name": "platform/1280: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "platform/1280: header cells",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "name": "platform/1280: row cells",
+      "ok": true,
+      "detail": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "name": "platform/1280: action",
+      "ok": true
+    },
+    {
+      "name": "platform/1280: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "110px 115px 44px 64px 82px 122px 94px 54px",
+        "row": "110px 115px 44px 64px 82px 122px 94px 54px"
+      }
+    },
+    {
+      "name": "fund/1281: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "fund/1281: header cells",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "name": "fund/1281: row cells",
+      "ok": true,
+      "detail": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "name": "fund/1281: action",
+      "ok": true
+    },
+    {
+      "name": "fund/1281: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "72px 56px 62px 124px 90px 82px 52px 52px",
+        "row": "72px 56px 62px 124px 90px 82px 52px 52px"
+      }
+    },
+    {
+      "name": "weekly/1281: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "weekly/1281: header cells",
+      "ok": true,
+      "detail": 7
+    },
+    {
+      "name": "weekly/1281: row cells",
+      "ok": true,
+      "detail": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ]
+    },
+    {
+      "name": "weekly/1281: action",
+      "ok": true
+    },
+    {
+      "name": "weekly/1281: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "272px 72px 58px 58px 58px 58px 58px",
+        "row": "272px 72px 58px 58px 58px 58px 58px"
+      }
+    },
+    {
+      "name": "members/1281: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "members/1281: header cells",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "members/1281: row cells",
+      "ok": true,
+      "detail": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "name": "members/1281: action",
+      "ok": true
+    },
+    {
+      "name": "members/1281: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "106.359px 130px 106.359px 101.641px 85.0938px 68.5312px",
+        "row": "106.359px 130px 106.359px 101.641px 85.0938px 68.5312px"
+      }
+    },
+    {
+      "name": "cooking/1281: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "cooking/1281: header cells",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "cooking/1281: row cells",
+      "ok": true,
+      "detail": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "name": "cooking/1281: action",
+      "ok": true
+    },
+    {
+      "name": "cooking/1281: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "185.109px 212.875px 78px 46px 68px 52px",
+        "row": "185.109px 212.875px 78px 46px 68px 52px"
+      }
+    },
+    {
+      "name": "platform/1281: CSS applied",
+      "ok": true
+    },
+    {
+      "name": "platform/1281: header cells",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "name": "platform/1281: row cells",
+      "ok": true,
+      "detail": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "name": "platform/1281: action",
+      "ok": true
+    },
+    {
+      "name": "platform/1281: shared computed column model",
+      "ok": true,
+      "detail": {
+        "head": "110px 115px 44px 64px 82px 122px 94px 54px",
+        "row": "110px 115px 44px 64px 82px 122px 94px 54px"
+      }
+    },
+    {
+      "name": "production JS rendered",
+      "ok": true
+    },
+    {
+      "name": "production stylesheet loaded",
+      "ok": true
+    },
+    {
+      "name": "production requests",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "negative control: CSS 404 is detected",
+      "ok": true
+    },
+    {
+      "name": "fixture no unexpected browser errors",
+      "ok": true,
+      "detail": []
+    }
+  ]
+}
