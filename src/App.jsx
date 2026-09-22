@@ -1,0 +1,4213 @@
+import React, { useEffect, useMemo, useState } from "react";
+import { isSupabaseConfigured, supabase } from "./lib/supabase";
+
+const SLOT_META = [
+  { key: "outer", label: "겉옷", icon: "01", image: "/build/assets/equipment/outer-team.webp", keywords: ["겉옷", "단독상의"] },
+  { key: "top", label: "상의", icon: "02", image: "/build/assets/equipment/top-team.webp", keywords: ["상의"] },
+  { key: "bottom", label: "하의", icon: "03", image: "/build/assets/equipment/bottom-team.webp", keywords: ["하의"] },
+  { key: "shoes", label: "신발", icon: "04", image: "/build/assets/equipment/shoes-team.webp", keywords: ["신발"] }
+];
+
+const WEAPON_SLOT_META = {
+  key: "weapon",
+  label: "무기",
+  icon: "WPN",
+  image: "",
+  keywords: []
+};
+
+const BUILD_SLOT_META = [...SLOT_META, WEAPON_SLOT_META];
+
+const BASE_CATEGORIES = ["전체", "인기", "무법지대", "체력", "이동속도", "생활"];
+const LIFE_CATEGORIES = ["벌목", "낚시", "채광", "택배", "요리"];
+const WEAPON_FAMILIES = [
+  { key: "라이플", code: "RF", aliases: ["라이플", "소총", "rifle"] },
+  { key: "SMG", code: "SMG", aliases: ["smg", "기관단총", "서브머신", "submachine"] },
+  { key: "권총", code: "HG", aliases: ["권총", "피스톨", "pistol", "handgun"] },
+  { key: "샷건", code: "SG", aliases: ["샷건", "산탄총", "shotgun"] },
+  { key: "저격", code: "SR", aliases: ["저격", "스나이퍼", "sniper"] },
+  { key: "기관총", code: "MG", aliases: ["기관총", "lmg", "machinegun", "machine gun"] }
+];
+
+function normalizeWeaponLookup(value) {
+  return String(value || "")
+    .toLowerCase()
+    .normalize("NFKC")
+    .replace(/\s+/g, "");
+}
+
+function weaponFamilyForMod(mod) {
+  const corpus = normalizeWeaponLookup([
+    mod?.category,
+    mod?.name,
+    mod?.parts
+  ].filter(Boolean).join(" "));
+
+  return WEAPON_FAMILIES.find((family) =>
+    family.aliases.some((alias) => corpus.includes(normalizeWeaponLookup(alias)))
+  ) || null;
+}
+
+function WeaponFamilyVisual({ family, compact = false }) {
+  const key = String(family || "").trim();
+  const common = {
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: compact ? 4.6 : 4,
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  };
+
+  const body = (() => {
+    switch (key) {
+      case "권총":
+        return (
+          <>
+            <path {...common} d="M38 27 H103 L119 38 H94 L90 47 H65 L61 39 H38 Z" />
+            <path {...common} d="M72 47 L82 68 H65 L57 47" />
+            <path {...common} d="M103 28 H139" />
+          </>
+        );
+      case "SMG":
+        return (
+          <>
+            <path {...common} d="M26 31 H116 L133 40 H96 L90 48 H52 L47 41 H26 Z" />
+            <path {...common} d="M70 48 L77 69 H61 L57 48" />
+            <path {...common} d="M101 48 L107 65" />
+            <path {...common} d="M132 40 H156" />
+          </>
+        );
+      case "샷건":
+        return (
+          <>
+            <path {...common} d="M22 36 H128" />
+            <path {...common} d="M35 29 H126 L142 36 L126 43 H42 Z" />
+            <path {...common} d="M92 43 L99 61 H83 L78 43" />
+            <path {...common} d="M142 36 H166" />
+          </>
+        );
+      case "저격":
+        return (
+          <>
+            <path {...common} d="M17 37 H128" />
+            <path {...common} d="M34 29 H119 L137 37 L119 45 H49 Z" />
+            <path {...common} d="M74 45 L82 64 H65 L59 45" />
+            <path {...common} d="M68 22 H106" />
+            <circle {...common} cx="87" cy="22" r="10" />
+            <path {...common} d="M137 37 H171" />
+          </>
+        );
+      case "기관총":
+        return (
+          <>
+            <path {...common} d="M20 31 H123 L140 39 H103 L96 48 H47 L42 40 H20 Z" />
+            <path {...common} d="M67 48 L72 67 H57 L53 48" />
+            <path {...common} d="M99 48 L115 63" />
+            <path {...common} d="M113 48 L127 64" />
+            <path {...common} d="M139 39 H164" />
+            <rect {...common} x="76" y="48" width="21" height="15" rx="3" />
+          </>
+        );
+      case "라이플":
+      default:
+        return (
+          <>
+            <path {...common} d="M20 33 H124 L141 40 H99 L92 49 H50 L44 41 H20 Z" />
+            <path {...common} d="M67 49 L75 68 H59 L54 49" />
+            <path {...common} d="M95 49 L102 64" />
+            <path {...common} d="M141 40 H166" />
+          </>
+        );
+    }
+  })();
+
+  return (
+    <div className={cls("weapon-family-visual-v132", compact && "is-compact", !key && "is-empty")}>
+      <svg viewBox="0 0 180 82" aria-hidden="true">
+        {key ? body : (
+          <>
+            <rect {...common} x="34" y="22" width="112" height="38" rx="10" />
+            <path {...common} d="M72 41 H108" />
+            <path {...common} d="M90 30 V52" />
+          </>
+        )}
+      </svg>
+      <span>{key || "WEAPON"}</span>
+    </div>
+  );
+}
+
+const HIDDEN_TAGS = new Set(["AXE 추천", "AXE OFFICIAL", "공식", "밸런스"]);
+
+const BUILD_TAG_GROUPS = [
+  { label: "전투 / 핵심", options: ["무법지대", "체력", "이동속도"] },
+  { label: "생활", options: ["생활", "벌목", "낚시", "채광", "택배", "요리"] }
+];
+const BUILD_TAG_OPTIONS = BUILD_TAG_GROUPS.flatMap((group) => group.options);
+
+const EVIDENCE_MAX_BYTES = 5 * 1024 * 1024;
+const EVIDENCE_MIME_EXTENSION = {
+  "image/png": "png",
+  "image/jpeg": "jpg",
+  "image/webp": "webp"
+};
+
+function validateEvidenceFile(file) {
+  if (!file) return "";
+  if (!EVIDENCE_MIME_EXTENSION[file.type]) {
+    return "증빙 이미지는 PNG, JPG, WEBP만 업로드할 수 있습니다.";
+  }
+  if (file.size > EVIDENCE_MAX_BYTES) {
+    return "증빙 이미지는 최대 5MB까지 업로드할 수 있습니다.";
+  }
+  return "";
+}
+
+function evidenceSafeExtension(file) {
+  return EVIDENCE_MIME_EXTENSION[file?.type] || null;
+}
+
+
+function normalizeBuildTagSelection(value) {
+  const source = Array.isArray(value)
+    ? value
+    : String(value || "").split(",");
+
+  return [...new Set(
+    source
+      .map((tag) => String(tag || "").trim())
+      .filter(Boolean)
+      .filter((tag) => BUILD_TAG_OPTIONS.includes(tag))
+      .filter((tag) => !HIDDEN_TAGS.has(tag))
+  )].slice(0, 8);
+}
+
+const TAB_ROUTES = {
+  home: "/build/",
+  builds: "/build/builds",
+  notices: "/build/notices",
+  presets: "/build/presets",
+  modbooks: "/build/modbooks",
+  weapons: "/build/weapons",
+  reports: "/build/reports",
+  admin: "/build/admin"
+};
+
+const PAGE_TITLES = {
+  home: "LAC BUILD · HOME",
+  builds: "추천세팅 · LAC BUILD",
+  notices: "공지 · LAC BUILD",
+  presets: "내 프리셋 · LAC BUILD",
+  modbooks: "개조서 · LAC BUILD",
+  weapons: "무기 · LAC BUILD",
+  reports: "제보 · LAC BUILD",
+  admin: "관리 · LAC BUILD"
+};
+
+function tabFromLocation() {
+  if (typeof window === "undefined") return "builds";
+  const path = String(window.location.pathname || "/")
+    .replace(/\/+$/, "") || "/";
+  if (path === "/build" || path === "/") return "home";
+  const matched = Object.entries(TAB_ROUTES).find(([, route]) => route === path);
+  return matched?.[0] || "home";
+}
+
+function categoryFromLocation() {
+  if (typeof window === "undefined") return "전체";
+  const value = new URLSearchParams(window.location.search).get("category") || "전체";
+  return BASE_CATEGORIES.includes(value) ? value : "전체";
+}
+
+function compactPreview(value, maxLength = 52) {
+  const clean = String(value || "")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (clean.length <= maxLength) return clean;
+  return `${clean.slice(0, maxLength).trim()}…`;
+}
+
+
+const emptySlots = () =>
+  Object.fromEntries(
+    BUILD_SLOT_META.map((slot) => [
+      slot.key,
+      {
+        prefix_modbook_id: "",
+        suffix_modbook_id: "",
+        comment: "",
+        weapon_family: slot.key === "weapon" ? "" : undefined
+      }
+    ])
+  );
+
+function normalizeEditorSlots(source) {
+  const base = emptySlots();
+
+  if (!source) return base;
+
+  // localStorage draft shape: { outer, top, bottom, shoes, ... }
+  if (!Array.isArray(source) && typeof source === "object") {
+    for (const meta of BUILD_SLOT_META) {
+      const row = source?.[meta.key];
+      if (!row) continue;
+
+      base[meta.key] = {
+        ...base[meta.key],
+        prefix_modbook_id: row.prefix_modbook_id || "",
+        suffix_modbook_id: row.suffix_modbook_id || "",
+        comment: row.comment || "",
+        weapon_family: meta.key === "weapon"
+          ? String(row.weapon_family || "")
+          : undefined
+      };
+    }
+    return base;
+  }
+
+  // Supabase build_slots shape: [{ slot_key, ... }]
+  for (const row of source || []) {
+    const slotKey = String(row?.slot_key || "");
+    if (!base[slotKey]) continue;
+
+    base[slotKey] = {
+      ...base[slotKey],
+      prefix_modbook_id: row?.prefix_modbook_id || "",
+      suffix_modbook_id: row?.suffix_modbook_id || "",
+      comment: row?.comment || "",
+      weapon_family: slotKey === "weapon"
+        ? String(row?.weapon_family || "")
+        : undefined
+    };
+  }
+
+  return base;
+}
+
+function cls(...parts) {
+  return parts.filter(Boolean).join(" ");
+}
+
+function SettingsIcon({ size = 15 }) {
+  return (
+    <svg
+      className="settings-icon-v119"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M12 8.25A3.75 3.75 0 1 0 12 15.75A3.75 3.75 0 0 0 12 8.25Z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+      />
+      <path
+        d="M19.2 13.15c.05-.38.08-.76.08-1.15s-.03-.77-.08-1.15l2.05-1.6-2-3.46-2.55 1.03a8.2 8.2 0 0 0-2-1.16L14.3 3h-4.6l-.4 2.66a8.2 8.2 0 0 0-2 1.16L4.75 5.79l-2 3.46 2.05 1.6c-.05.38-.08.76-.08 1.15s.03.77.08 1.15l-2.05 1.6 2 3.46 2.55-1.03a8.2 8.2 0 0 0 2 1.16L9.7 21h4.6l.4-2.66a8.2 8.2 0 0 0 2-1.16l2.55 1.03 2-3.46-2.05-1.6Z"
+        stroke="currentColor"
+        strokeWidth="1.35"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function fmtDate(value) {
+  if (!value) return "";
+  try {
+    return new Intl.DateTimeFormat("ko-KR", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit"
+    }).format(new Date(value));
+  } catch {
+    return "";
+  }
+}
+
+function normalizeRange(text) {
+  if (!text) return "";
+  return String(text).replace(
+    /\((-?\d+(?:\.\d+)?)%\s*~\s*(-?\d+(?:\.\d+)?)%\)/g,
+    (_, a, b) => {
+      const x = Number(a);
+      const y = Number(b);
+      if (Number.isNaN(x) || Number.isNaN(y)) return `(${a}% ~ ${b}%)`;
+      return `(${Math.min(x, y)}% ~ ${Math.max(x, y)}%)`;
+    }
+  );
+}
+
+function optionLines(mod) {
+  return [mod?.option1, mod?.option2, mod?.option3]
+    .filter(Boolean)
+    .map(normalizeRange);
+}
+
+function modifierDropdownLabel(mod) {
+  const category = mod?.category || "기타";
+  const name = cleanPresetModbookName(mod?.name || "이름 없음");
+  const options = optionLines(mod)
+    .map((line) => String(line).replace(/^\*\s*/, "⚠ "))
+    .join(" · ");
+
+  return `[${category}] ${name}${options ? ` — ${options}` : ""}`;
+}
+
+function normalizeModifierSearch(value) {
+  return String(value || "")
+    .toLowerCase()
+    .normalize("NFKC")
+    .replace(/\s+/g, "")
+    .replace(/[()[\]{}<>·•,.:;/'"\-_+~!@#$%^&*=|\\?]/g, "");
+}
+
+function modifierSearchText(mod) {
+  return normalizeModifierSearch([
+    mod?.name,
+    cleanPresetModbookName(mod?.name || ""),
+    mod?.category,
+    mod?.parts,
+    mod?.success_rate,
+    mod?.option1,
+    mod?.option2,
+    mod?.option3,
+    mod?.note,
+    modifierDropdownLabel(mod)
+  ].filter(Boolean).join(" "));
+}
+
+function detectBuildTagSuggestions(slots, modMap) {
+  const selectedMods = Object.values(slots || {})
+    .flatMap((slot) => [slot?.prefix_modbook_id, slot?.suffix_modbook_id])
+    .filter(Boolean)
+    .map((id) => modMap.get(Number(id)) || modMap.get(id))
+    .filter(Boolean);
+
+  const corpus = selectedMods
+    .flatMap((mod) => [
+      mod.name,
+      mod.category,
+      mod.parts,
+      mod.option1,
+      mod.option2,
+      mod.option3,
+      mod.note
+    ])
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase()
+    .replace(/\s+/g, "");
+
+  const suggestions = [];
+
+  if (corpus.includes("무법지대") || corpus.includes("무법")) {
+    suggestions.push("무법지대");
+  }
+
+  if (
+    corpus.includes("체력") ||
+    corpus.includes("생명력") ||
+    corpus.includes("최대체력")
+  ) {
+    suggestions.push("체력");
+  }
+
+  if (
+    corpus.includes("이동속도") ||
+    corpus.includes("이속") ||
+    corpus.includes("movement")
+  ) {
+    suggestions.push("이동속도");
+  }
+
+  for (const lifeTag of LIFE_CATEGORIES) {
+    if (corpus.includes(lifeTag.toLowerCase())) {
+      suggestions.push(lifeTag);
+    }
+  }
+
+  if (LIFE_CATEGORIES.some((tag) => suggestions.includes(tag)) || corpus.includes("생활")) {
+    suggestions.push("생활");
+  }
+
+  return [...new Set(suggestions)]
+    .filter((tag) => BUILD_TAG_OPTIONS.includes(tag));
+}
+
+
+function slotAllows(mod, slot) {
+  const parts = String(mod?.parts || "");
+  if (!parts) return true;
+  if (slot.key === "top") {
+    const pureTop =
+      parts.includes("상의") &&
+      (!parts.includes("겉옷/단독상의") || parts.split(",").some((v) => v.trim() === "상의"));
+    return pureTop;
+  }
+  return slot.keywords.some((k) => parts.includes(k));
+}
+
+
+function visibleTags(tags = []) {
+  return (tags || []).filter((tag) => tag && !HIDDEN_TAGS.has(String(tag).trim()));
+}
+
+function displayProfileName(profile, user) {
+  return (
+    profile?.approved_nickname ||
+    profile?.display_name ||
+    user?.user_metadata?.full_name ||
+    user?.user_metadata?.name ||
+    "Discord User"
+  );
+}
+
+function displayProfileCompany(profile) {
+  return String(profile?.approved_company_name || "").trim();
+}
+
+function socialScore(build) {
+  return (build?.like_count || 0) - (build?.dislike_count || 0);
+}
+
+function buildSearchText(build, slots = [], modMap = new Map()) {
+  const modText = (slots || [])
+    .flatMap((slot) => [slot?.prefix_modbook_id, slot?.suffix_modbook_id])
+    .map((id) => modMap.get(id))
+    .filter(Boolean)
+    .flatMap((mod) => [
+      mod.name,
+      mod.category,
+      mod.parts,
+      mod.option1,
+      mod.option2,
+      mod.option3,
+      mod.note
+    ])
+    .filter(Boolean);
+
+  const slotText = (slots || [])
+    .flatMap((slot) => [slot?.weapon_family])
+    .filter(Boolean);
+
+  return [
+    build?.title,
+    build?.summary,
+    build?.description,
+    build?.author_name,
+    build?.author_company,
+    ...visibleTags(build?.tags),
+    ...slotText,
+    ...modText
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+}
+
+function buildCategoryList() {
+  return BASE_CATEGORIES;
+}
+
+function buildMatchesCategory(build, slots, modMap, primary, lifeSecondary = "전체") {
+  if (primary === "전체" || primary === "인기") return true;
+
+  const tags = new Set(normalizeBuildTagSelection(visibleTags(build?.tags)));
+
+  if (primary === "무법지대") return tags.has("무법지대");
+  if (primary === "체력") return tags.has("체력");
+  if (primary === "이동속도") return tags.has("이동속도");
+
+  if (primary === "생활") {
+    if (lifeSecondary === "전체") {
+      return tags.has("생활") || LIFE_CATEGORIES.some((tag) => tags.has(tag));
+    }
+    return tags.has(lifeSecondary);
+  }
+
+  return false;
+}
+
+function formatSigned(value, unit = "") {
+  if (!Number.isFinite(value)) return "-";
+  const rounded = Math.abs(value % 1) < 0.001 ? Math.round(value) : Number(value.toFixed(1));
+  return `${rounded > 0 ? "+" : ""}${rounded}${unit}`;
+}
+
+function extractBestOption(line) {
+  const normalized = normalizeRange(line || "").replace(/^\*/, "").trim();
+  const range = normalized.match(/\((-?\d+(?:\.\d+)?)\s*(%)?\s*~\s*(-?\d+(?:\.\d+)?)\s*(%)?\)/);
+  if (!range) return null;
+  const a = Number(range[1]);
+  const b = Number(range[3]);
+  if (!Number.isFinite(a) || !Number.isFinite(b)) return null;
+  const best = Math.max(a, b);
+  const unit = range[2] || range[4] || "";
+  const label = normalized.replace(range[0], "").replace(/\s+/g, " ").trim();
+  if (!label) return null;
+  return { label, value: best, unit };
+}
+
+function summarizeBuildOptions(slots, modMap) {
+  const totals = new Map();
+  const warnings = [];
+  for (const slot of slots || []) {
+    for (const id of [slot.prefix_modbook_id, slot.suffix_modbook_id]) {
+      const mod = modMap.get(id);
+      if (!mod) continue;
+      for (const raw of optionLines(mod)) {
+        if (String(raw).trim().startsWith("*")) warnings.push(String(raw).replace(/^\*/, "").trim());
+        const parsed = extractBestOption(raw);
+        if (!parsed) continue;
+        const key = `${parsed.label}__${parsed.unit}`;
+        const prev = totals.get(key) || { label: parsed.label, unit: parsed.unit, value: 0 };
+        prev.value += parsed.value;
+        totals.set(key, prev);
+      }
+    }
+  }
+  return { rows: [...totals.values()], warnings: [...new Set(warnings)] };
+}
+
+function canonicalPresetOptionLabel(value) {
+  const display = String(value || "").replace(/\s+/g, " ").trim();
+  const key = display.replace(/\s+/g, "").toLowerCase();
+  const aliases = {
+    "이동속도증가": "이동 속도 증가",
+    "최대스태미나증가": "최대 스태미나 증가",
+    "최대체력증가": "최대 체력 증가",
+    "전력질주스태미나감소": "전력질주 스태미나 감소",
+  };
+  return aliases[key] || display;
+}
+
+function parsePresetOptionExact(value) {
+  const raw = String(value || "").trim();
+  const negative = raw.startsWith("*");
+  const clean = raw.replace(/^\*\s*/, "").trim();
+  const match = clean.match(/^(.*?)\s*\(([^)]+)\)\s*$/);
+
+  if (!match) {
+    return {
+      raw,
+      negative,
+      label: canonicalPresetOptionLabel(clean),
+      range: "",
+      value: null,
+      unit: "",
+      bestDisplay: "",
+    };
+  }
+
+  const label = canonicalPresetOptionLabel(match[1]);
+  const range = match[2].replace(/\s*~\s*/g, " ~ ").trim();
+  const tokens = [...range.matchAll(/-?\d+(?:\.\d+)?\s*%?/g)]
+    .map((entry) => entry[0].replace(/\s+/g, ""));
+  const bestToken = tokens.length ? tokens[tokens.length - 1] : "";
+  const unit = bestToken.endsWith("%") ? "%" : "";
+  const numeric = Number(bestToken.replace("%", ""));
+
+  return {
+    raw,
+    negative,
+    label,
+    range,
+    value: Number.isFinite(numeric) ? numeric : null,
+    unit,
+    bestDisplay: bestToken,
+  };
+}
+
+function cleanPresetModbookName(name) {
+  return String(name || "")
+    .replace(/\s*\(\s*1\s*\)\s*$/, "")
+    .replace(/\s*1티어\s*$/, "")
+    .trim();
+}
+
+function compactPresetStatLabel(label) {
+  const aliases = {
+    "이동 속도 증가": "이속",
+    "최대 체력 증가": "체력",
+    "체력 증가": "체력",
+    "최대 스태미나 증가": "스태미나",
+    "스태미나 증가": "스태미나",
+    "받는 피해 감소": "피감",
+    "대미지 감소": "피감",
+    "방어력 증가": "방어",
+    "회피율 증가": "회피",
+    "치명타 확률 증가": "치확",
+    "치명타 피해 증가": "치피"
+  };
+  if (aliases[label]) return aliases[label];
+  const compact = String(label || "")
+    .replace(/\s+/g, "")
+    .replace(/증가|감소|확률|최대/g, "");
+  return compact.slice(0, 4) || "옵션";
+}
+
+function getPresetRepresentativeStat(mods) {
+  const totals = new Map();
+
+  for (const mod of mods || []) {
+    [mod?.option1, mod?.option2, mod?.option3]
+      .filter(Boolean)
+      .map(parsePresetOptionExact)
+      .forEach((option) => {
+        if (option.negative || option.value == null || option.unit !== "%" || option.value <= 0) return;
+        const current = totals.get(option.label) || 0;
+        totals.set(option.label, current + option.value);
+      });
+  }
+
+  const ranked = [...totals.entries()]
+    .map(([label, value]) => ({ label, value }))
+    .sort((a, b) => b.value - a.value || a.label.localeCompare(b.label, "ko"));
+
+  if (!ranked.length) return null;
+
+  const best = ranked[0];
+  return {
+    ...best,
+    unit: "%",
+    shortLabel: compactPresetStatLabel(best.label)
+  };
+}
+
+function formatPresetCompactNumber(value) {
+  const number = Number(value || 0);
+  if (!Number.isFinite(number)) return "0";
+  return Number.isInteger(number)
+    ? String(number)
+    : number.toFixed(1).replace(/\.0$/, "");
+}
+
+function summarizePresetExact(slots, modMap) {
+  const totals = new Map();
+  const negative = [];
+  let movement = 0;
+
+  for (const slot of slots || []) {
+    for (const id of [slot?.prefix_modbook_id, slot?.suffix_modbook_id]) {
+      const mod = modMap.get(id);
+      if (!mod) continue;
+
+      [mod.option1, mod.option2, mod.option3]
+        .filter(Boolean)
+        .forEach((value) => {
+          const option = parsePresetOptionExact(value);
+          if (option.value == null) return;
+
+          if (option.negative) {
+            negative.push(option);
+            return;
+          }
+
+          const key = `${option.label}|${option.unit}`;
+          const current = totals.get(key) || {
+            label: option.label,
+            unit: option.unit,
+            value: 0,
+          };
+          current.value += option.value;
+          totals.set(key, current);
+
+          if (option.label === "이동 속도 증가") movement += option.value;
+        });
+    }
+  }
+
+  return {
+    movement,
+    positive: [...totals.values()].sort((a, b) => {
+      if (a.label === "이동 속도 증가") return -1;
+      if (b.label === "이동 속도 증가") return 1;
+      return b.value - a.value;
+    }),
+    negative,
+  };
+}
+
+
+function Toast({ message, tone = "default" }) {
+  if (!message) return null;
+  return <div className={cls("toast", tone === "error" && "error")}>{message}</div>;
+}
+
+function Modal({ title, children, onClose, wide = false, bare = false, className = "" }) {
+  return (
+    <div className="modal-backdrop" onMouseDown={onClose}>
+      <section
+        className={cls("modal", wide && "wide", bare && "bare", className)}
+        onMouseDown={(e) => e.stopPropagation()}
+      >
+        {!bare && (
+          <header className="modal-head">
+            <div>
+              <div className="eyebrow">LAC HUB</div>
+              <h2>{title}</h2>
+            </div>
+            <button className="icon-btn" onClick={onClose} aria-label="닫기">
+              ×
+            </button>
+          </header>
+        )}
+        {children}
+      </section>
+    </div>
+  );
+}
+
+function Brand() {
+  return (
+    <div className="brand brand-v114">
+      <div className="brand-mark brand-logo-box">
+        <img src="/build/assets/lac-hub-mark.png" alt="LAC HUB 로고" />
+      </div>
+      <div className="brand-v114__copy">
+        <strong>LAC BUILD</strong>
+        <span>RECOMMENDED BUILDS &amp; MODBOOKS</span>
+      </div>
+    </div>
+  );
+}
+
+function Header({
+  tab,
+  setTab,
+  user,
+  profile,
+  adminPendingCount = 0,
+  onLogin,
+  onLogout,
+  onProfile
+}) {
+  const displayName = displayProfileName(profile, user);
+  const displayCompany = displayProfileCompany(profile);
+  return (
+    <header className="topbar">
+      <div className="shell topbar-inner">
+        <button className="brand-btn" onClick={() => setTab("home")} aria-label="LAC BUILD 홈">
+          <Brand />
+        </button>
+        <nav className="nav">
+          <button className={cls(tab === "home" && "active")} onClick={() => setTab("home")}>홈</button>
+          <button className={cls(tab === "notices" && "active")} onClick={() => setTab("notices")}>공지</button>
+          <button className={cls(tab === "builds" && "active")} onClick={() => setTab("builds")}>추천세팅</button>
+          {user && <button className={cls(tab === "presets" && "active")} onClick={() => setTab("presets")}>내 프리셋</button>}
+          <button className={cls(tab === "modbooks" && "active")} onClick={() => setTab("modbooks")}>개조서</button>
+          <button className={cls(tab === "weapons" && "active")} onClick={() => setTab("weapons")}>무기</button>
+          <button className={cls(tab === "reports" && "active")} onClick={() => setTab("reports")}>제보</button>
+          {profile?.is_admin && (
+            <button className={cls("admin-nav-btn", tab === "admin" && "active")} onClick={() => setTab("admin")}>
+              관리
+              {adminPendingCount > 0 && <span>{Math.min(adminPendingCount, 99)}</span>}
+            </button>
+          )}
+        </nav>
+        <div className="header-actions">
+          {user ? (
+            <div className="user-chip">
+              {profile?.avatar_url ? <img src={profile.avatar_url} alt="" /> : <div className="avatar-fallback">{displayName[0] || "?"}</div>}
+              <div>
+                <div className="user-chip-name-v115">
+                  <strong>{displayName}</strong>
+                  {displayCompany && <span>{displayCompany}</span>}
+                </div>
+                <div className="user-chip-actions"><button onClick={onProfile}>프로필</button><button onClick={onLogout}>로그아웃</button></div>
+              </div>
+            </div>
+          ) : <button className="btn discord" onClick={onLogin}>Discord로 계속하기</button>}
+        </div>
+      </div>
+    </header>
+  );
+}
+
+function Hero({ onJump, user, onCreate, onProfile, onLogin }) {
+  return (
+    <section className="hero shell hero-simple">
+      <div className="hero-copy">
+        <div className="eyebrow gold">LAC BUILD · PUBLIC SETTING HUB</div>
+        <h1>추천세팅을<br />가장 빠르게 찾는 곳.</h1>
+        <p>
+          장비 슬롯과 개조서 옵션을 한눈에 비교하고, 이용자들이 직접 공유한 다양한 세팅을 확인해보세요.
+          추천세팅과 개조서는 로그인 없이 볼 수 있고, 로그인하면 세팅 공유·프리셋 저장·추천·댓글을 사용할 수 있습니다.
+        </p>
+        <div className="hero-actions hero-actions-v119 hero-actions-v124">
+          <button className="btn primary hero-primary-v124" onClick={onJump}>
+            <span>추천세팅 바로 보기</span>
+            <span className="hero-primary-arrow-v124" aria-hidden="true">→</span>
+          </button>
+
+          <button
+            className="btn hero-share-btn-v122"
+            onClick={onCreate}
+            title={user ? "내 세팅을 직접 등록하고 공유" : "로그인 후 내 세팅을 직접 등록하고 공유"}
+          >
+            <span className="hero-share-icon-v122" aria-hidden="true">+</span>
+            <span>세팅 공유하기</span>
+          </button>
+
+          {user ? (
+            <button
+              className="btn hero-profile-btn-v119"
+              onClick={onProfile}
+              title="닉네임·회사명 등 프로필 설정"
+            >
+              <SettingsIcon />
+              <span>프로필 설정</span>
+            </button>
+          ) : (
+            <button className="btn hero-login-btn-v119" onClick={onLogin}>Discord 로그인</button>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function BuildCard({ build, slots, modMap, onOpen, favorite, onFavorite }) {
+  const modName = (id) => modMap.get(id)?.name || "미지정";
+  const tags = visibleTags(build.tags).slice(0, 3);
+  const weaponSlot = (slots || []).find((v) => v.slot_key === "weapon") || {};
+  const weaponMods = [
+    modMap.get(weaponSlot?.prefix_modbook_id),
+    modMap.get(weaponSlot?.suffix_modbook_id)
+  ].filter(Boolean);
+  const weaponFamily =
+    String(weaponSlot?.weapon_family || "").trim() ||
+    weaponFamilyForMod(weaponMods[0])?.key ||
+    "";
+  const weaponFamilyMeta = WEAPON_FAMILIES.find((row) => row.key === weaponFamily);
+
+  return (
+    <article className="build-card" onClick={() => onOpen(build)}>
+      <div className="build-card-top">
+        <div className="badges">{tags.map((tag) => <span className="badge" key={tag}>{tag}</span>)}</div>
+        <button className={cls("preset-save-btn", favorite && "active")} onClick={(e) => { e.stopPropagation(); onFavorite(build); }} aria-label="내 프리셋 저장">
+          {favorite ? "★ 프리셋" : "☆ 프리셋"}
+        </button>
+      </div>
+      <div className="build-author-v115">
+        <span>BUILDER</span>
+        <strong>{build.author_name || "익명"}</strong>
+        {build.author_company && <em>{build.author_company}</em>}
+      </div>
+      <div className="build-title-row">
+        <div><h3>{build.title}</h3><p>{build.summary || "세팅 설명이 없습니다."}</p></div>
+        <span className="open-arrow">→</span>
+      </div>
+      {(weaponFamily || weaponMods.length > 0) && (
+        <div className="mini-slot weapon-mini-slot-v132">
+          <div className="mini-slot-visual weapon-mini-slot-v132__visual">
+            <WeaponFamilyVisual family={weaponFamily} compact />
+            <span>{weaponFamilyMeta?.code || "WPN"}</span>
+          </div>
+          <div className="mini-slot-body">
+            <div className="mini-slot-label weapon-mini-slot-v132__label">
+              <small>WEAPON SLOT</small>
+              <strong>{weaponFamily || "무기"}</strong>
+            </div>
+            <div className="mini-slot-values">
+              <span className="prefix-text"><em>접두</em>{modName(weaponSlot?.prefix_modbook_id)}</span>
+              <span className="suffix-text"><em>접미</em>{modName(weaponSlot?.suffix_modbook_id)}</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="mini-slot-grid">
+        {SLOT_META.map((meta) => {
+          const slot = (slots || []).find((v) => v.slot_key === meta.key);
+          return (
+            <div className="mini-slot" key={meta.key}>
+              <div className="mini-slot-visual"><img src={meta.image} alt="" /></div>
+              <div className="mini-slot-body">
+                <div className="mini-slot-label"><strong>{meta.label}</strong></div>
+                <div className="mini-slot-values">
+                  <span className="prefix-text"><em>접두</em>{modName(slot?.prefix_modbook_id)}</span>
+                  <span className="suffix-text"><em>접미</em>{modName(slot?.suffix_modbook_id)}</span>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div className="build-meta social-meta">
+        <span className="like-stat">▲ {build.like_count || 0}</span>
+        <span className="dislike-stat">▼ {build.dislike_count || 0}</span>
+        <span>댓글 {build.comment_count || 0}</span>
+        <span>조회 {build.view_count || 0}</span>
+      </div>
+    </article>
+  );
+}
+
+function BuildsPage({
+  builds,
+  buildSlotsMap,
+  modMap,
+  loading,
+  user,
+  favorites,
+  onOpen,
+  onFavorite,
+  onCreate,
+  categoryFilter,
+  setCategoryFilter
+}) {
+  const [query, setQuery] = useState("");
+  const [sort, setSort] = useState("latest");
+  const [lifeCategory, setLifeCategory] = useState("전체");
+  const categories = useMemo(() => buildCategoryList(), []);
+
+  const rows = useMemo(() => {
+    let result = builds.filter((build) => {
+      const hay = buildSearchText(build, buildSlotsMap[build.id] || [], modMap);
+      const qOk = hay.includes(query.trim().toLowerCase());
+      const categoryOk = buildMatchesCategory(
+        build,
+        buildSlotsMap[build.id] || [],
+        modMap,
+        categoryFilter,
+        lifeCategory
+      );
+      return qOk && categoryOk;
+    });
+
+    result = [...result].sort((a, b) => {
+      if (categoryFilter === "인기" || sort === "popular") {
+        return socialScore(b) - socialScore(a) ||
+          (b.like_count || 0) - (a.like_count || 0) ||
+          (b.view_count || 0) - (a.view_count || 0) ||
+          new Date(b.created_at) - new Date(a.created_at);
+      }
+      if (sort === "views") return (b.view_count || 0) - (a.view_count || 0);
+      return new Date(b.created_at) - new Date(a.created_at);
+    });
+    return result;
+  }, [builds, query, sort, categoryFilter, lifeCategory, buildSlotsMap, modMap]);
+
+  return (
+    <section className="shell section" id="build-archive">
+      <div className="section-head">
+        <div>
+          <div className="eyebrow">BUILD ARCHIVE</div>
+          <h2>추천세팅</h2>
+          <p>카테고리를 선택하고 장비 슬롯 구성을 바로 비교해보세요.</p>
+        </div>
+        {user && <button className="btn primary" onClick={onCreate}>+ 세팅 작성</button>}
+      </div>
+
+      <div className="category-strip" aria-label="추천세팅 카테고리">
+        {categories.map((category) => (
+          <button
+            key={category}
+            className={cls(categoryFilter === category && "active")}
+            onClick={() => {
+              setCategoryFilter(category);
+              if (category !== "생활") setLifeCategory("전체");
+            }}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+
+      {categoryFilter === "생활" && (
+        <div className="subcategory-strip" aria-label="생활 세부 카테고리">
+          {["전체", ...LIFE_CATEGORIES].map((category) => (
+            <button
+              key={category}
+              className={cls(lifeCategory === category && "active")}
+              onClick={() => setLifeCategory(category)}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+      )}
+
+      <div className="toolbar build-toolbar">
+        <div className="searchbox">
+          <span>⌕</span>
+          <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="세팅명, 태그, 작성자, 개조서/옵션 검색" />
+          {query && <button onClick={() => setQuery("")}>×</button>}
+        </div>
+        <select value={sort} onChange={(e) => setSort(e.target.value)}>
+          <option value="latest">최신순</option>
+          <option value="popular">인기순</option>
+          <option value="views">조회순</option>
+        </select>
+      </div>
+
+      {loading ? (
+        <div className="empty">추천세팅을 불러오는 중...</div>
+      ) : rows.length ? (
+        <div className="build-grid">
+          {rows.map((build) => (
+            <BuildCard
+              key={build.id}
+              build={build}
+              slots={buildSlotsMap[build.id] || []}
+              modMap={modMap}
+              onOpen={onOpen}
+              favorite={favorites.has(build.id)}
+              onFavorite={onFavorite}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="empty">조건에 맞는 추천세팅이 없습니다.</div>
+      )}
+    </section>
+  );
+}
+
+function NoticeStrip({ announcements, onOpen }) {
+  const notice = announcements.find((v) => v.is_pinned) || announcements[0];
+  if (!notice) return null;
+  return (
+    <div className="shell notice-strip" onClick={onOpen} role="button" tabIndex={0}>
+      <span className="notice-badge">공지</span>
+      <strong>{notice.title}</strong>
+      <p>{compactPreview(notice.body, 52)}</p>
+      <em>{fmtDate(notice.created_at)} · 전체보기 →</em>
+    </div>
+  );
+}
+
+function PresetsPage({ user, builds, buildSlotsMap, modMap, favorites, onOpen, onFavorite, onLogin }) {
+  if (!user) return (
+    <section className="shell section"><div className="login-gate"><div><div className="eyebrow gold">MY PRESET</div><h3>내 프리셋은 Discord 로그인 후 사용할 수 있습니다.</h3><p>마음에 드는 추천세팅을 저장해두고 언제든 빠르게 다시 볼 수 있습니다.</p></div><button className="btn discord" onClick={onLogin}>Discord로 계속하기</button></div></section>
+  );
+  const rows = builds.filter((b) => favorites.has(b.id));
+  return (
+    <section className="shell section">
+      <div className="section-head"><div><div className="eyebrow">MY PRESET</div><h2>내 프리셋</h2><p>저장한 세팅을 한 곳에서 관리합니다. 별표를 다시 누르면 프리셋에서 제거됩니다.</p></div><div className="stat-chip">{rows.length}</div></div>
+      {rows.length ? <div className="build-grid">{rows.map((build) => <BuildCard key={build.id} build={build} slots={buildSlotsMap[build.id] || []} modMap={modMap} onOpen={onOpen} favorite={true} onFavorite={onFavorite} />)}</div> : <div className="empty">아직 저장한 프리셋이 없습니다. 추천세팅 우측 상단의 ☆ 프리셋을 눌러 저장해보세요.</div>}
+    </section>
+  );
+}
+
+function NoticesPage({
+  announcements,
+  profile,
+  pendingProfileCount = 0,
+  onAnnouncementSave,
+  onAnnouncementDelete,
+  onOpenProfileAdmin
+}) {
+  const [form, setForm] = useState({ title: "", body: "", is_pinned: false });
+  const [saving, setSaving] = useState(false);
+
+  const submit = async () => {
+    if (!form.title.trim() || !form.body.trim()) return;
+    setSaving(true);
+    await onAnnouncementSave(form);
+    setForm({ title: "", body: "", is_pinned: false });
+    setSaving(false);
+  };
+
+  return (
+    <section className="shell section notices-page-v113">
+      <div className="section-head">
+        <div>
+          <div className="eyebrow">LAC HUB NOTICE</div>
+          <h2>공지사항</h2>
+          <p>변경사항, 이용 안내, 데이터 업데이트 소식을 확인할 수 있습니다.</p>
+        </div>
+
+        {profile?.is_admin ? (
+          <button className="nickname-admin-shortcut" onClick={onOpenProfileAdmin}>
+            프로필 승인
+            <span>{pendingProfileCount}</span>
+          </button>
+        ) : (
+          <div className="nickname-admin-hidden-note">
+            닉네임·회사명 승인 기능은 관리자 계정에서만 표시됩니다.
+          </div>
+        )}
+      </div>
+
+      {profile?.is_admin && (
+        <section className="notice-compose-v113">
+          <div className="notice-compose-head">
+            <div>
+              <span>ADMIN NOTICE</span>
+              <strong>공지사항 작성</strong>
+            </div>
+            <label>
+              <input
+                type="checkbox"
+                checked={form.is_pinned}
+                onChange={(e) => setForm((prev) => ({ ...prev, is_pinned: e.target.checked }))}
+              />
+              상단 고정
+            </label>
+          </div>
+
+          <input
+            value={form.title}
+            onChange={(e) => setForm((prev) => ({ ...prev, title: e.target.value }))}
+            placeholder="공지 제목"
+            maxLength={120}
+          />
+          <textarea
+            value={form.body}
+            onChange={(e) => setForm((prev) => ({ ...prev, body: e.target.value }))}
+            placeholder="변경사항 또는 안내할 내용을 입력하세요."
+            maxLength={3000}
+          />
+          <div className="notice-compose-actions">
+            <small>관리자만 작성할 수 있습니다.</small>
+            <button className="btn primary" onClick={submit} disabled={saving}>
+              {saving ? "등록 중..." : "공지 등록"}
+            </button>
+          </div>
+        </section>
+      )}
+
+      <div className="notice-list">
+        {announcements.map((notice) => (
+          <article className={cls("notice-card", notice.is_pinned && "pinned")} key={notice.id}>
+            <div>
+              <span>{notice.is_pinned ? "PINNED" : "NOTICE"}</span>
+              <div className="notice-card-tools">
+                <time>{fmtDate(notice.created_at)}</time>
+                {profile?.is_admin && (
+                  <button className="text-danger" onClick={() => onAnnouncementDelete(notice)}>
+                    삭제
+                  </button>
+                )}
+              </div>
+            </div>
+            <h3>{notice.title}</h3>
+            <p>{notice.body}</p>
+          </article>
+        ))}
+      </div>
+
+      {!announcements.length && <div className="empty">등록된 공지가 없습니다.</div>}
+    </section>
+  );
+}
+
+function FloatingContextPanel({
+  tab,
+  announcements,
+  user,
+  onHome,
+  onNotice,
+  onReport,
+  onPreset
+}) {
+  const noticeCount = announcements?.length || 0;
+
+  const quickItems = [
+    { key: "home", label: "홈", icon: "⌂", action: onHome },
+    { key: "notices", label: "공지", icon: "!", action: onNotice, badge: noticeCount > 0 ? Math.min(noticeCount, 9) : null },
+    { key: "reports", label: "제보", icon: "✎", action: onReport },
+    { key: "presets", label: "내 프리셋", icon: "★", action: onPreset }
+  ];
+
+  const contextMap = {
+    home: {
+      kicker: "LAC BUILD",
+      title: "빌드 공유 시스템",
+      body: "공지, 추천세팅, 개조서·무기 정보와 제보 기능을 한 곳에서 이용할 수 있습니다."
+    },
+    builds: {
+      kicker: "BUILD STATUS",
+      title: "추천세팅 탐색",
+      body: "카테고리별 추천세팅을 빠르게 보고, 원하는 조합은 바로 내 프리셋으로 저장할 수 있습니다."
+    },
+    notices: {
+      kicker: "NOTICE CHANNEL",
+      title: "공지사항",
+      body: "LAC BUILD의 업데이트, 이용 안내와 데이터 변경사항을 확인하는 공간입니다."
+    },
+    reports: {
+      kicker: "REPORT DESK",
+      title: "제보로 데이터 보강",
+      body: "누락된 개조서 정보와 잘못된 옵션을 제보하면 검수 후 반영됩니다."
+    },
+    presets: {
+      kicker: "MY PRESET",
+      title: user ? "저장한 프리셋 관리" : "로그인 후 내 프리셋 이용",
+      body: user ? "즐겨찾기한 세팅과 직접 저장한 조합을 한 곳에서 다시 확인하세요." : "Discord 로그인 후 프리셋 저장과 댓글, 추천 기능을 사용할 수 있습니다."
+    },
+    modbooks: {
+      kicker: "MODBOOK DATA",
+      title: "개조서 확인",
+      body: "부위별 개조서 옵션을 검색하고, 필요한 정보는 제보로 추가할 수 있습니다."
+    },
+    weapons: {
+      kicker: "WEAPON DATA",
+      title: "무기 개조 정보",
+      body: "라이플, SMG 등 무기군별로 적용 가능한 개조서를 빠르게 확인할 수 있습니다."
+    },
+    admin: {
+      kicker: "ADMIN CENTER",
+      title: "관리 작업",
+      body: "공지, 닉네임·회사명 승인, 제보 검수를 이 영역에서 빠르게 확인할 수 있습니다."
+    }
+  };
+
+  const current = contextMap[tab] || contextMap.builds;
+
+  return (
+    <aside className="floating-context-v116" aria-label="LAC BUILD 빠른 메뉴">
+      <div className="floating-context-v116__menu">
+        {quickItems.map((item) => (
+          <button
+            key={item.key}
+            type="button"
+            className={cls("floating-context-v116__menu-btn", tab === item.key && "is-active")}
+            onClick={item.action}
+          >
+            <span className="floating-context-v116__icon">{item.icon}</span>
+            <b>{item.label}</b>
+            {item.badge ? <em>{item.badge}</em> : null}
+          </button>
+        ))}
+      </div>
+
+      <div className="floating-context-v116__focus">
+        <span>{current.kicker}</span>
+        <strong>{current.title}</strong>
+        <p>{current.body}</p>
+      </div>
+    </aside>
+  );
+}
+
+function ShareLoginRequiredModal({ onClose, onLogin }) {
+  return (
+    <Modal title="세팅 공유 안내" onClose={onClose} className="share-login-modal-v124">
+      <div className="share-login-v124">
+        <div className="share-login-v124__mark" aria-hidden="true">
+          <span>+</span>
+        </div>
+        <div className="share-login-v124__copy">
+          <span>SHARE YOUR BUILD</span>
+          <strong>로그인 후 직접 세팅을 등록하고 공유할 수 있습니다.</strong>
+          <p>
+            세팅 등록은 작성자 구분과 도배 방지를 위해 Discord 로그인이 필요합니다.
+            추천세팅과 개조서 열람은 로그인 없이 계속 이용할 수 있습니다.
+          </p>
+        </div>
+      </div>
+
+      <div className="modal-actions">
+        <button className="btn ghost" onClick={onClose}>나중에</button>
+        <button className="btn discord" onClick={onLogin}>Discord 로그인</button>
+      </div>
+    </Modal>
+  );
+}
+
+function LoginPrivacyModal({ onClose, onContinue }) {
+  return (
+    <Modal title="Discord 로그인 안내" onClose={onClose} className="login-privacy-modal-v116">
+      <div className="login-privacy-v116">
+        <div className="login-privacy-v116__lead">
+          <span>MINIMUM ACCESS</span>
+          <strong>로그인에 필요한 최소 권한만 요청합니다.</strong>
+          <p>LAC BUILD는 Discord 계정을 사용자 식별 용도로만 사용합니다.</p>
+        </div>
+
+        <div className="login-privacy-v116__grid">
+          <section>
+            <span>요청하는 권한</span>
+            <strong>Discord 사용자 식별</strong>
+            <p>계정 식별을 위한 <b>identify</b> 권한만 요청합니다.</p>
+          </section>
+          <section>
+            <span>요청하지 않는 정보</span>
+            <strong>이메일 · 비밀번호 · 채팅</strong>
+            <p>서버 채팅, DM, 서버 목록, Discord 비밀번호에 접근하지 않습니다.</p>
+          </section>
+          <section>
+            <span>사이트에 저장되는 내용</span>
+            <strong>직접 작성한 데이터</strong>
+            <p>빌드, 댓글, 닉네임/회사명 신청, 제보 등 사용자가 직접 입력한 내용만 저장합니다.</p>
+          </section>
+          <section>
+            <span>이미지 업로드</span>
+            <strong>직접 선택한 증빙만</strong>
+            <p>제보 시 사용자가 직접 선택한 PNG/JPG/WEBP 이미지에 한해 업로드됩니다.</p>
+          </section>
+        </div>
+
+        <div className="login-privacy-v116__note">
+          <span>보안 안내</span>
+          <p>LAC BUILD는 프로그램 설치나 실행 파일 다운로드를 요구하지 않습니다.</p>
+        </div>
+      </div>
+
+      <div className="modal-actions">
+        <button className="btn ghost" onClick={onClose}>취소</button>
+        <button className="btn discord" onClick={onContinue}>Discord 로그인 계속</button>
+      </div>
+    </Modal>
+  );
+}
+
+function ProfileModal({
+  user,
+  profile,
+  request,
+  companyRequest,
+  onClose,
+  onRequest,
+  onCompanyRequest
+}) {
+  const [name, setName] = useState("");
+  const [company, setCompany] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [companySaving, setCompanySaving] = useState(false);
+  const currentCompany = displayProfileCompany(profile);
+
+  const submit = async () => {
+    if (!name.trim()) return;
+    setSaving(true);
+    await onRequest(name.trim());
+    setSaving(false);
+    setName("");
+  };
+
+  const submitCompany = async () => {
+    if (!company.trim()) return;
+    setCompanySaving(true);
+    await onCompanyRequest(company.trim());
+    setCompanySaving(false);
+    setCompany("");
+  };
+
+  return (
+    <Modal title="프로필 설정" onClose={onClose}>
+      <div className="nickname-panel profile-settings-v115">
+        <section className="profile-setting-block-v115">
+          <div className="profile-setting-title-v115">
+            <div>
+              <span>DISPLAY NAME</span>
+              <strong>닉네임</strong>
+            </div>
+            <small>승인제</small>
+          </div>
+
+          <div className="nickname-current">
+            <span>현재 표시 이름</span>
+            <strong>{displayProfileName(profile, user)}</strong>
+            <small>{profile?.approved_nickname ? "관리자 승인 닉네임" : "Discord 표시 이름"}</small>
+          </div>
+
+          <div className="nickname-explain">
+            <strong>닉네임은 신청/승인제로 운영합니다.</strong>
+            <p>타인 사칭과 혼동을 줄이기 위해 신청 후 관리자가 확인합니다. 승인되면 작성글과 댓글에 해당 닉네임이 표시됩니다.</p>
+          </div>
+
+          {request?.status === "pending" && (
+            <div className="nickname-status pending">
+              <span>승인 대기</span><strong>{request.requested_name}</strong>
+            </div>
+          )}
+          {request?.status === "rejected" && (
+            <div className="nickname-status rejected">
+              <span>최근 신청 반려</span>
+              <strong>{request.requested_name}</strong>
+              <p>{request.admin_note || "관리자 메모 없음"}</p>
+            </div>
+          )}
+
+          <label className="nickname-input">
+            <span>신청할 닉네임</span>
+            <input value={name} maxLength={16} onChange={(e) => setName(e.target.value)} placeholder="2~16자" />
+          </label>
+          <div className="modal-actions inline-actions">
+            <button className="btn primary" onClick={submit} disabled={saving}>
+              {saving ? "신청 중..." : "닉네임 신청"}
+            </button>
+          </div>
+        </section>
+
+        <section className="profile-setting-block-v115 company-setting-v115">
+          <div className="profile-setting-title-v115">
+            <div>
+              <span>COMPANY TAG</span>
+              <strong>회사명</strong>
+            </div>
+            <small>승인제</small>
+          </div>
+
+          <div className="company-current-v115">
+            <span>현재 회사명</span>
+            <div>
+              {currentCompany ? <strong>{currentCompany}</strong> : <strong className="is-empty">미등록</strong>}
+            </div>
+            <small>승인되면 빌드 작성자 닉네임 옆에 회사 태그로 표시됩니다.</small>
+          </div>
+
+          <div className="nickname-explain">
+            <strong>회사명도 신청 후 관리자가 확인합니다.</strong>
+            <p>동일 회사의 여러 구성원이 같은 회사명을 사용할 수 있습니다. 허위 소속 표기를 방지하기 위해 승인제로 운영합니다.</p>
+          </div>
+
+          {companyRequest?.status === "pending" && (
+            <div className="nickname-status pending">
+              <span>회사명 승인 대기</span><strong>{companyRequest.requested_company}</strong>
+            </div>
+          )}
+          {companyRequest?.status === "rejected" && (
+            <div className="nickname-status rejected">
+              <span>최근 회사명 신청 반려</span>
+              <strong>{companyRequest.requested_company}</strong>
+              <p>{companyRequest.admin_note || "관리자 메모 없음"}</p>
+            </div>
+          )}
+
+          <label className="nickname-input">
+            <span>신청할 회사명</span>
+            <input value={company} maxLength={24} onChange={(e) => setCompany(e.target.value)} placeholder="2~24자 · 예: 회사명" />
+          </label>
+          <div className="modal-actions inline-actions">
+            <button className="btn primary" onClick={submitCompany} disabled={companySaving}>
+              {companySaving ? "신청 중..." : "회사명 신청"}
+            </button>
+          </div>
+        </section>
+      </div>
+    </Modal>
+  );
+}
+
+function Promo() { return null; }
+
+function ModbookDetail({ mod }) {
+  if (!mod) return <div className="modbook-detail empty-detail">개조서를 선택하세요.</div>;
+  return (
+    <aside className="modbook-detail">
+      <div className="detail-labels">
+        <span className={cls("type-pill", mod.type === "접두" ? "prefix" : "suffix")}>{mod.type}</span>
+        <span className="badge">{mod.category}</span>
+        <span className="rate-chip">{mod.success_rate || "-"}</span>
+      </div>
+      <h3>{mod.name}</h3>
+      <div className="detail-parts"><span>적용 부위</span><strong>{mod.parts || "-"}</strong></div>
+      <div className="option-stack">
+        {optionLines(mod).map((line, idx) => (
+          <div key={idx} className={cls("option-line", line.trim().startsWith("*") && "warning")}>
+            <span>{String(idx + 1).padStart(2, "0")}</span><strong>{line.replace(/^\*/, "")}</strong>
+          </div>
+        ))}
+      </div>
+      {mod.note && <div className="note-box"><span>NOTE</span><p>{mod.note}</p></div>}
+    </aside>
+  );
+}
+
+function WeaponsPage({ modbooks }) {
+  const [family, setFamily] = useState("전체");
+  const [query, setQuery] = useState("");
+  const [selectedMod, setSelectedMod] = useState(null);
+
+  const weaponMods = useMemo(() => {
+    return modbooks
+      .map((mod) => ({ mod, family: weaponFamilyForMod(mod) }))
+      .filter((row) => row.family);
+  }, [modbooks]);
+
+  const familyStats = useMemo(() => {
+    return WEAPON_FAMILIES
+      .map((meta) => {
+        const rows = weaponMods.filter((row) => row.family.key === meta.key);
+        return {
+          ...meta,
+          count: rows.length,
+          prefix: rows.filter((row) => row.mod.type === "접두").length,
+          suffix: rows.filter((row) => row.mod.type === "접미").length
+        };
+      })
+      .filter((row) => row.count > 0);
+  }, [weaponMods]);
+
+  const filtered = useMemo(() => {
+    const needle = normalizeModifierSearch(query);
+
+    return weaponMods.filter((row) => {
+      if (family !== "전체" && row.family.key !== family) return false;
+      if (!needle) return true;
+      return modifierSearchText(row.mod).includes(needle);
+    });
+  }, [weaponMods, family, query]);
+
+  useEffect(() => {
+    if (selectedMod && !filtered.some((row) => row.mod.id === selectedMod.id)) {
+      setSelectedMod(null);
+    }
+  }, [family, query, filtered, selectedMod]);
+
+  return (
+    <section className="shell section weapons-page-v128">
+      <div className="section-head weapons-head-v128">
+        <div>
+          <div className="eyebrow gold">WEAPON DATA</div>
+          <h2>무기</h2>
+          <p>
+            현재 등록된 개조서 정보를 기준으로 무기군별 적용 가능한 개조서를 자동으로 정리합니다.
+            무기별 상세 정보는 확인되는 데이터에 맞춰 계속 확장할 수 있습니다.
+          </p>
+        </div>
+        <div className="weapon-total-v128">
+          <span>연결된 개조서</span>
+          <strong>{weaponMods.length}</strong>
+        </div>
+      </div>
+
+      {familyStats.length > 0 ? (
+        <>
+          <div className="weapon-family-grid-v128">
+            {familyStats.map((row) => (
+              <button
+                type="button"
+                key={row.key}
+                className={cls("weapon-family-card-v128", family === row.key && "active")}
+                onClick={() => {
+                  setFamily((prev) => prev === row.key ? "전체" : row.key);
+                  setSelectedMod(null);
+                }}
+              >
+                <span className="weapon-family-code-v128">{row.code}</span>
+                <div>
+                  <strong>{row.key}</strong>
+                  <small>접두 {row.prefix} · 접미 {row.suffix}</small>
+                </div>
+                <em>{row.count}</em>
+              </button>
+            ))}
+          </div>
+
+          <div className="weapon-toolbar-v128">
+            <div className="weapon-filter-tabs-v128">
+              <button
+                type="button"
+                className={cls(family === "전체" && "active")}
+                onClick={() => {
+                  setFamily("전체");
+                  setSelectedMod(null);
+                }}
+              >
+                전체
+              </button>
+              {familyStats.map((row) => (
+                <button
+                  type="button"
+                  key={row.key}
+                  className={cls(family === row.key && "active")}
+                  onClick={() => {
+                    setFamily(row.key);
+                    setSelectedMod(null);
+                  }}
+                >
+                  {row.key}
+                </button>
+              ))}
+            </div>
+
+            <div className="weapon-search-v128">
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="개조서명 / 옵션 검색"
+                autoComplete="off"
+              />
+              {query && (
+                <button type="button" onClick={() => setQuery("")} aria-label="검색어 지우기">×</button>
+              )}
+            </div>
+          </div>
+
+          <div className="weapon-data-layout-v128">
+            <div className="weapon-mod-list-v128">
+              <div className="weapon-list-head-v128">
+                <div>
+                  <span>{family === "전체" ? "전체 무기군" : family}</span>
+                  <strong>적용 가능한 개조서</strong>
+                </div>
+                <em>{filtered.length}개</em>
+              </div>
+
+              {filtered.map(({ mod, family: rowFamily }) => (
+                <button
+                  type="button"
+                  key={mod.id}
+                  className={cls("weapon-mod-row-v128", selectedMod?.id === mod.id && "active")}
+                  onClick={() => setSelectedMod(mod)}
+                >
+                  <span className="weapon-mod-family-v128">{rowFamily.code}</span>
+                  <div className="weapon-mod-copy-v128">
+                    <div>
+                      <span className={cls("type-pill", mod.type === "접두" ? "prefix" : "suffix")}>{mod.type}</span>
+                      <b>{mod.name}</b>
+                    </div>
+                    <small>{mod.category} · {mod.parts || "적용 부위 미확인"}</small>
+                    <p>{optionLines(mod).slice(0, 2).join(" · ") || "옵션 정보 없음"}</p>
+                  </div>
+                  <span className="weapon-mod-rate-v128">{mod.success_rate || "-"}</span>
+                </button>
+              ))}
+
+              {!filtered.length && (
+                <div className="empty weapon-empty-v128">
+                  조건에 맞는 무기 개조서가 없습니다.
+                </div>
+              )}
+            </div>
+
+            <div className="weapon-detail-wrap-v128">
+              {selectedMod ? (
+                <ModbookDetail mod={selectedMod} />
+              ) : (
+                <div className="weapon-detail-empty-v128">
+                  <span>WEAPON MODBOOK</span>
+                  <strong>개조서를 선택하세요.</strong>
+                  <p>목록에서 개조서를 선택하면 적용 부위와 옵션을 자세히 확인할 수 있습니다.</p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="weapon-source-note-v128">
+            <span>DATA SOURCE</span>
+            <p>
+              이 페이지의 무기군 연결은 LAC BUILD 개조서 DB의 분류·이름을 기준으로 자동 구성됩니다.
+              개조서 정보가 추가되면 무기 페이지에도 자동 반영됩니다.
+            </p>
+          </div>
+        </>
+      ) : (
+        <div className="weapon-no-data-v128">
+          <span>WEAPON DATA</span>
+          <strong>연결할 수 있는 무기 개조서가 아직 없습니다.</strong>
+          <p>라이플, SMG 등 무기 관련 개조서가 등록되면 이 페이지에 자동으로 나타납니다.</p>
+        </div>
+      )}
+    </section>
+  );
+}
+
+function ModbooksPage({ modbooks }) {
+  const [query, setQuery] = useState("");
+  const [type, setType] = useState("all");
+  const [category, setCategory] = useState("all");
+  const [parts, setParts] = useState("all");
+  const [selectedId, setSelectedId] = useState(null);
+  const categories = useMemo(() => [...new Set(modbooks.map((m) => m.category).filter(Boolean))].sort(), [modbooks]);
+
+  const rows = useMemo(() => modbooks.filter((m) => {
+    if (type !== "all" && m.type !== type) return false;
+    if (category !== "all" && m.category !== category) return false;
+    if (parts !== "all" && !String(m.parts || "").includes(parts)) return false;
+    return [m.name, m.parts, m.category, ...optionLines(m)].join(" ").toLowerCase().includes(query.trim().toLowerCase());
+  }), [modbooks, query, type, category, parts]);
+
+  useEffect(() => {
+    if (!rows.length) return setSelectedId(null);
+    if (!selectedId || !rows.some((m) => m.id === selectedId)) setSelectedId(rows[0].id);
+  }, [rows, selectedId]);
+
+  const selected = rows.find((m) => m.id === selectedId) || null;
+
+  return (
+    <section className="shell section">
+      <div className="section-head">
+        <div><div className="eyebrow">MODBOOK DATABASE</div><h2>개조서 도감</h2><p>왼쪽에서 찾고, 오른쪽에서 옵션을 확인하는 도감형 구조로 정리했습니다.</p></div>
+        <div className="stat-chip">{rows.length} / {modbooks.length}</div>
+      </div>
+      <div className="toolbar multi">
+        <div className="searchbox"><span>⌕</span><input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="개조서명 또는 옵션 검색" />{query && <button onClick={() => setQuery("")}>×</button>}</div>
+        <select value={type} onChange={(e) => setType(e.target.value)}><option value="all">접두/접미 전체</option><option value="접두">접두</option><option value="접미">접미</option></select>
+        <select value={category} onChange={(e) => setCategory(e.target.value)}><option value="all">분류 전체</option>{categories.map((v) => <option key={v} value={v}>{v}</option>)}</select>
+        <select value={parts} onChange={(e) => setParts(e.target.value)}><option value="all">부위 전체</option>{["겉옷","상의","하의","신발","전부위"].map((v) => <option key={v} value={v}>{v}</option>)}</select>
+      </div>
+      <div className="modbook-browser">
+        <div className="modbook-list">
+          {rows.map((mod) => (
+            <button key={mod.id} className={cls("modbook-list-row", selectedId === mod.id && "active")} onClick={() => setSelectedId(mod.id)}>
+              <div><span className={cls("type-dot", mod.type === "접두" ? "prefix" : "suffix")}></span><strong>{mod.name}</strong></div>
+              <div><span>{mod.category}</span><em>{mod.parts}</em></div>
+            </button>
+          ))}
+          {!rows.length && <div className="empty compact-empty">검색 결과가 없습니다.</div>}
+        </div>
+        <ModbookDetail mod={selected} />
+      </div>
+    </section>
+  );
+}
+
+function ReportsPage({ user, myReports, onNewReport, onLogin }) {
+  return (
+    <section className="shell section reports-page">
+      <div className="report-hero">
+        <div><div className="eyebrow gold">HELP LAC BUILD</div><h2>새 개조서를 발견했거나<br />옵션이 잘못되어 있나요?</h2><p>제보 하나가 전체 추천세팅의 정확도를 올립니다. 스크린샷이 있으면 같이 첨부해주세요.</p></div>
+        {user ? <button className="btn primary report-cta" onClick={onNewReport}>+ 지금 제보하기</button> : <button className="btn discord report-cta" onClick={onLogin}>로그인하고 제보하기</button>}
+      </div>
+      <div className="report-guide">
+        <div className="guide-card"><span>01</span><strong>누락 제보</strong><p>도감에 없는 새로운 개조서를 등록합니다.</p></div>
+        <div className="guide-card"><span>02</span><strong>수정 제보</strong><p>수치·부위·옵션이 다를 때 기존 정보를 수정 요청합니다.</p></div>
+        <div className="guide-card"><span>03</span><strong>검수 반영</strong><p>관리자 승인 후 개조서 DB에 자동으로 반영됩니다.</p></div>
+      </div>
+      {user && <div className="subsection-title"><div><span>MY REPORTS</span><h3>내 제보 현황</h3></div><div className="report-count">{myReports.length}</div></div>}
+      {user ? (myReports.length ? <div className="report-list">{myReports.map((r) => <article className="report-row" key={r.id}><div><span className={cls("status", r.status)}>{r.status}</span><strong>{r.name}</strong><span>{r.mod_type} · {r.category || "기타"}</span></div><time>{fmtDate(r.created_at)}</time></article>)}</div> : <div className="empty">아직 등록한 제보가 없습니다.</div>) : <div className="login-gate compact-login-gate"><p>추천세팅과 개조서는 로그인 없이 볼 수 있습니다. 제보 등록만 작성자 식별을 위해 Discord 로그인이 필요합니다.</p></div>}
+    </section>
+  );
+}
+
+function AdminModbookManager({ modbooks, buildSlotsMap, onSave, onDelete }) {
+  const emptyForm = {
+    id: null,
+    name: "",
+    type: "접두",
+    category: "",
+    parts: "",
+    success_rate: "",
+    option1: "",
+    option2: "",
+    option3: "",
+    note: "",
+    sort_order: ""
+  };
+
+  const [query, setQuery] = useState("");
+  const [typeFilter, setTypeFilter] = useState("all");
+  const [selectedId, setSelectedId] = useState(null);
+  const [form, setForm] = useState(emptyForm);
+  const [saving, setSaving] = useState(false);
+
+  const usageMap = useMemo(() => {
+    const map = new Map();
+
+    for (const slots of Object.values(buildSlotsMap || {})) {
+      for (const slot of slots || []) {
+        for (const id of [slot?.prefix_modbook_id, slot?.suffix_modbook_id]) {
+          if (!id) continue;
+          map.set(Number(id), (map.get(Number(id)) || 0) + 1);
+        }
+      }
+    }
+
+    return map;
+  }, [buildSlotsMap]);
+
+  const categories = useMemo(
+    () => [...new Set(modbooks.map((m) => String(m?.category || "").trim()).filter(Boolean))]
+      .sort((a, b) => a.localeCompare(b, "ko")),
+    [modbooks]
+  );
+
+  const partsOptions = useMemo(
+    () => [...new Set(modbooks.map((m) => String(m?.parts || "").trim()).filter(Boolean))]
+      .sort((a, b) => a.localeCompare(b, "ko")),
+    [modbooks]
+  );
+
+  const rows = useMemo(() => {
+    const needle = normalizeModifierSearch(query);
+
+    return modbooks.filter((mod) => {
+      if (typeFilter !== "all" && mod.type !== typeFilter) return false;
+      if (!needle) return true;
+      return modifierSearchText(mod).includes(needle);
+    });
+  }, [modbooks, query, typeFilter]);
+
+  function editMod(mod) {
+    setSelectedId(mod.id);
+    setForm({
+      id: mod.id,
+      name: mod.name || "",
+      type: mod.type || "접두",
+      category: mod.category || "",
+      parts: mod.parts || "",
+      success_rate: mod.success_rate || "",
+      option1: mod.option1 || "",
+      option2: mod.option2 || "",
+      option3: mod.option3 || "",
+      note: mod.note || "",
+      sort_order: mod.sort_order ?? ""
+    });
+  }
+
+  function newMod() {
+    setSelectedId(null);
+    setForm(emptyForm);
+  }
+
+  function setField(key, value) {
+    setForm((prev) => ({ ...prev, [key]: value }));
+  }
+
+  async function submit() {
+    if (!form.name.trim()) return;
+    if (!form.category.trim()) return;
+
+    setSaving(true);
+    try {
+      const ok = await onSave(form);
+      if (ok) newMod();
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  const selectedUsage = form.id ? (usageMap.get(Number(form.id)) || 0) : 0;
+
+  return (
+    <div className="admin-modbook-manager-v133">
+      <div className="admin-modbook-toolbar-v133">
+        <div>
+          <span>MODBOOK DATABASE</span>
+          <strong>개조서 직접 관리</strong>
+          <p>제보 승인 후 잘못 반영된 항목도 여기서 수정하거나 삭제할 수 있습니다.</p>
+        </div>
+        <button className="btn primary" type="button" onClick={newMod}>+ 새 개조서</button>
+      </div>
+
+      <div className="admin-modbook-layout-v133">
+        <aside className="admin-modbook-list-v133">
+          <div className="admin-modbook-search-v133">
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="개조서명 / 옵션 검색"
+            />
+            <select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
+              <option value="all">접두/접미 전체</option>
+              <option value="접두">접두</option>
+              <option value="접미">접미</option>
+            </select>
+          </div>
+
+          <div className="admin-modbook-list-head-v133">
+            <span>전체 {modbooks.length}개</span>
+            <em>검색 {rows.length}개</em>
+          </div>
+
+          <div className="admin-modbook-scroll-v133">
+            {rows.map((mod) => {
+              const used = usageMap.get(Number(mod.id)) || 0;
+
+              return (
+                <button
+                  key={mod.id}
+                  type="button"
+                  className={cls("admin-modbook-row-v133", selectedId === mod.id && "active")}
+                  onClick={() => editMod(mod)}
+                >
+                  <div>
+                    <span className={cls("type-pill", mod.type === "접두" ? "prefix" : "suffix")}>{mod.type}</span>
+                    <strong>{mod.name}</strong>
+                  </div>
+                  <small>{mod.category} · {mod.parts || "부위 미입력"}</small>
+                  <div className="admin-modbook-row-meta-v133">
+                    <span>{mod.success_rate || "성공률 -"}</span>
+                    {used > 0 ? <em>세팅 사용 {used}</em> : <em className="is-free">미사용</em>}
+                  </div>
+                </button>
+              );
+            })}
+
+            {!rows.length && <div className="empty compact-empty">검색 결과가 없습니다.</div>}
+          </div>
+        </aside>
+
+        <section className="admin-modbook-editor-v133">
+          <div className="admin-modbook-editor-head-v133">
+            <div>
+              <span>{form.id ? "EDIT MODBOOK" : "NEW MODBOOK"}</span>
+              <strong>{form.id ? "개조서 수정" : "개조서 추가"}</strong>
+            </div>
+            {form.id && (
+              <div className={cls("admin-modbook-usage-v133", selectedUsage > 0 && "is-used")}>
+                <span>추천세팅 사용</span>
+                <strong>{selectedUsage}</strong>
+              </div>
+            )}
+          </div>
+
+          <div className="admin-modbook-form-v133">
+            <label className="full">
+              <span>개조서 이름</span>
+              <input value={form.name} onChange={(e) => setField("name", e.target.value)} placeholder="예: 제한된" />
+            </label>
+
+            <label>
+              <span>종류</span>
+              <select value={form.type} onChange={(e) => setField("type", e.target.value)}>
+                <option value="접두">접두</option>
+                <option value="접미">접미</option>
+              </select>
+            </label>
+
+            <label>
+              <span>분류</span>
+              <input
+                value={form.category}
+                onChange={(e) => setField("category", e.target.value)}
+                placeholder="체력, 이동속도, 라이플..."
+                list="admin-modbook-category-v133"
+              />
+              <datalist id="admin-modbook-category-v133">
+                {categories.map((value) => <option key={value} value={value} />)}
+              </datalist>
+            </label>
+
+            <label>
+              <span>적용 부위</span>
+              <input
+                value={form.parts}
+                onChange={(e) => setField("parts", e.target.value)}
+                placeholder="겉옷/단독상의, 라이플..."
+                list="admin-modbook-parts-v133"
+              />
+              <datalist id="admin-modbook-parts-v133">
+                {partsOptions.map((value) => <option key={value} value={value} />)}
+              </datalist>
+            </label>
+
+            <label>
+              <span>성공률</span>
+              <input
+                value={form.success_rate}
+                onChange={(e) => setField("success_rate", e.target.value)}
+                placeholder="예: 30%"
+              />
+            </label>
+
+            <label className="full">
+              <span>옵션 1</span>
+              <input value={form.option1} onChange={(e) => setField("option1", e.target.value)} />
+            </label>
+
+            <label className="full">
+              <span>옵션 2</span>
+              <input value={form.option2} onChange={(e) => setField("option2", e.target.value)} />
+            </label>
+
+            <label className="full">
+              <span>옵션 3</span>
+              <input value={form.option3} onChange={(e) => setField("option3", e.target.value)} />
+            </label>
+
+            <label className="full">
+              <span>비고</span>
+              <textarea value={form.note} onChange={(e) => setField("note", e.target.value)} />
+            </label>
+
+            <label>
+              <span>정렬 순서</span>
+              <input
+                type="number"
+                value={form.sort_order}
+                onChange={(e) => setField("sort_order", e.target.value)}
+                placeholder="자동"
+              />
+            </label>
+          </div>
+
+          <div className="admin-modbook-editor-actions-v133">
+            {form.id && (
+              <button
+                className="btn danger admin-modbook-delete-v133"
+                type="button"
+                onClick={() => onDelete(form, selectedUsage)}
+                disabled={saving}
+                title={selectedUsage > 0 ? "추천세팅에서 사용 중이면 DB가 삭제를 차단합니다." : "개조서 삭제"}
+              >
+                삭제
+              </button>
+            )}
+
+            <div>
+              <button className="btn ghost" type="button" onClick={newMod}>초기화</button>
+              <button
+                className="btn primary"
+                type="button"
+                onClick={submit}
+                disabled={saving || !form.name.trim() || !form.category.trim()}
+              >
+                {saving ? "저장 중..." : (form.id ? "수정 저장" : "개조서 추가")}
+              </button>
+            </div>
+          </div>
+
+          {form.id && selectedUsage > 0 && (
+            <div className="admin-modbook-delete-guide-v133">
+              <span>삭제 보호</span>
+              <p>
+                이 개조서는 현재 추천세팅 {selectedUsage}개 슬롯에서 사용 중입니다.
+                실수로 기존 세팅을 깨뜨리지 않도록 DB에서 삭제를 차단합니다. 수정은 바로 가능합니다.
+              </p>
+            </div>
+          )}
+        </section>
+      </div>
+    </div>
+  );
+}
+
+function AdminPage({
+  profile,
+  reports,
+  nicknameRequests,
+  companyRequests,
+  announcements,
+  modbooks,
+  buildSlotsMap,
+  initialMode = "nicknames",
+  onApprove,
+  onReject,
+  onNicknameReview,
+  onCompanyReview,
+  onAnnouncementSave,
+  onAnnouncementDelete,
+  onModbookSave,
+  onModbookDelete
+}) {
+  const [mode, setMode] = useState(initialMode);
+
+  useEffect(() => {
+    setMode(initialMode);
+  }, [initialMode]);
+  const [noticeForm, setNoticeForm] = useState({ title: "", body: "", is_pinned: false });
+  if (!profile?.is_admin) return <section className="shell section"><div className="empty">관리자 권한이 없습니다.</div></section>;
+  const pending = reports.filter((r) => r.status === "pending");
+  const pendingNames = nicknameRequests.filter((r) => r.status === "pending");
+  const pendingCompanies = companyRequests.filter((r) => r.status === "pending");
+  const saveNotice = async () => {
+    if (!noticeForm.title.trim() || !noticeForm.body.trim()) return;
+    await onAnnouncementSave(noticeForm);
+    setNoticeForm({ title: "", body: "", is_pinned: false });
+  };
+  return (
+    <section className="shell section admin-page">
+      <div className="section-head"><div><div className="eyebrow">LAC HUB ADMIN</div><h2>관리 센터</h2><p>개조서 DB, 제보 검수, 닉네임·회사명 승인, 공지사항을 한 곳에서 관리합니다.</p></div></div>
+      <div className="admin-tabs">
+        <button className={cls(mode === "modbooks" && "active")} onClick={() => setMode("modbooks")}>개조서 관리 <span>{modbooks.length}</span></button>
+        <button className={cls(mode === "reports" && "active")} onClick={() => setMode("reports")}>개조서 제보 <span>{pending.length}</span></button>
+        <button className={cls(mode === "nicknames" && "active")} onClick={() => setMode("nicknames")}>닉네임 신청 <span>{pendingNames.length}</span></button>
+        <button className={cls(mode === "companies" && "active")} onClick={() => setMode("companies")}>회사명 신청 <span>{pendingCompanies.length}</span></button>
+        <button className={cls(mode === "notices" && "active")} onClick={() => setMode("notices")}>공지사항 <span>{announcements.length}</span></button>
+      </div>
+      {mode === "modbooks" && (
+        <AdminModbookManager
+          modbooks={modbooks}
+          buildSlotsMap={buildSlotsMap}
+          onSave={onModbookSave}
+          onDelete={onModbookDelete}
+        />
+      )}
+      {mode === "reports" && <div className="admin-list">{pending.map((r) => <article className="admin-card" key={r.id}><div className="admin-card-head"><div><span className="status pending">pending</span><h3>{r.name}</h3></div><span>{r.mod_type} · {r.category || "기타"}</span></div><dl><div><dt>부위</dt><dd>{r.parts || "-"}</dd></div><div><dt>옵션</dt><dd className="preline">{r.options_text || "-"}</dd></div><div><dt>메모</dt><dd>{r.note || "-"}</dd></div></dl><div className="admin-actions"><button className="btn ghost" onClick={() => onReject(r)}>반려</button><button className="btn primary" onClick={() => onApprove(r)}>승인</button></div></article>)}</div>}
+      {mode === "reports" && !pending.length && <div className="empty">대기 중인 개조서 제보가 없습니다.</div>}
+      {mode === "nicknames" && <div className="admin-list">{pendingNames.map((r) => <article className="admin-card nickname-admin-card" key={r.id}><div className="admin-card-head"><div><span className="status pending">pending</span><h3>{r.current_name || "Discord 사용자"} <span className="nickname-arrow">→</span> {r.requested_name}</h3></div><span>{fmtDate(r.created_at)}</span></div><p className="nickname-review-explain">승인하면 이후 추천세팅·댓글·제보에서 이 닉네임이 표시됩니다.</p><div className="admin-actions"><button className="btn ghost" onClick={() => onNicknameReview(r, false)}>반려</button><button className="btn primary" onClick={() => onNicknameReview(r, true)}>승인</button></div></article>)}</div>}
+      {mode === "nicknames" && !pendingNames.length && <div className="empty">대기 중인 닉네임 신청이 없습니다.</div>}
+      {mode === "companies" && (
+        <div className="admin-list">
+          {pendingCompanies.map((r) => (
+            <article className="admin-card nickname-admin-card company-admin-card-v115" key={r.id}>
+              <div className="admin-card-head">
+                <div>
+                  <span className="status pending">pending</span>
+                  <h3>
+                    {r.current_name || "Discord 사용자"}
+                    <span className="nickname-arrow"> · </span>
+                    <span className="company-review-v115">
+                      {r.current_company || "회사 미등록"} <span className="nickname-arrow">→</span> {r.requested_company}
+                    </span>
+                  </h3>
+                </div>
+                <span>{fmtDate(r.created_at)}</span>
+              </div>
+              <p className="nickname-review-explain">승인하면 추천세팅 작성자의 닉네임 옆에 회사 태그가 표시됩니다.</p>
+              <div className="admin-actions">
+                <button className="btn ghost" onClick={() => onCompanyReview(r, false)}>반려</button>
+                <button className="btn primary" onClick={() => onCompanyReview(r, true)}>승인</button>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+      {mode === "companies" && !pendingCompanies.length && <div className="empty">대기 중인 회사명 신청이 없습니다.</div>}
+      {mode === "notices" && <><div className="notice-admin-form"><input value={noticeForm.title} onChange={(e) => setNoticeForm((p) => ({ ...p, title: e.target.value }))} placeholder="공지 제목" /><textarea value={noticeForm.body} onChange={(e) => setNoticeForm((p) => ({ ...p, body: e.target.value }))} placeholder="공지 내용" /><label><input type="checkbox" checked={noticeForm.is_pinned} onChange={(e) => setNoticeForm((p) => ({ ...p, is_pinned: e.target.checked }))} /> 상단 고정</label><button className="btn primary" onClick={saveNotice}>공지 등록</button></div><div className="notice-list admin-notice-list">{announcements.map((n) => <article className="notice-card" key={n.id}><div><span>{n.is_pinned ? "PINNED" : "NOTICE"}</span><button className="text-danger" onClick={() => onAnnouncementDelete(n)}>삭제</button></div><h3>{n.title}</h3><p>{n.body}</p></article>)}</div></>}
+    </section>
+  );
+}
+
+function BuildDetail({
+  build,
+  slots,
+  modMap,
+  favorite,
+  user,
+  profile,
+  userVote,
+  comments,
+  onFavorite,
+  onVote,
+  onComment,
+  onDeleteComment,
+  onLogin,
+  onClose,
+  onClone,
+  onEdit,
+  onDelete
+}) {
+  const [commentText, setCommentText] = useState("");
+  const [commentBusy, setCommentBusy] = useState(false);
+  const [selectedSlotKey, setSelectedSlotKey] = useState("outer");
+  const [hoverSlotKey, setHoverSlotKey] = useState(null);
+
+  const tags = visibleTags(build.tags);
+  const summary = summarizePresetExact(slots, modMap);
+
+  const canManage = Boolean(
+    user && (profile?.is_admin || (build.author_id && build.author_id === user.id))
+  );
+
+  const getSlot = (slotKey) =>
+    slots.find((slot) => String(slot.slot_key) === String(slotKey)) || {};
+
+  const getMods = (slot) =>
+    [modMap.get(slot?.prefix_modbook_id), modMap.get(slot?.suffix_modbook_id)]
+      .filter(Boolean);
+
+  const weaponSlot = getSlot("weapon");
+  const weaponMods = getMods(weaponSlot);
+  const weaponFamily =
+    String(weaponSlot?.weapon_family || "").trim() ||
+    weaponFamilyForMod(weaponMods[0])?.key ||
+    "";
+  const weaponFamilyMeta = WEAPON_FAMILIES.find((row) => row.key === weaponFamily);
+
+  const submitComment = async () => {
+    if (!commentText.trim()) return;
+    setCommentBusy(true);
+    await onComment(commentText.trim());
+    setCommentText("");
+    setCommentBusy(false);
+  };
+
+  const GhostSlots = () => {
+    const ghosts = [
+      ["ghost-a", "좌측 슬롯"],
+      ["ghost-b", "안경 슬롯"],
+      ["ghost-c", "모자 슬롯"],
+      ["ghost-d", "마스크 슬롯"],
+      ["ghost-e", "목 슬롯"],
+      ["ghost-f", "기타 슬롯"],
+      ["ghost-g", "기타 슬롯"],
+    ];
+    return ghosts.map(([key, label]) => (
+      <span
+        className={`ops-info-preset-ghost ops-info-preset-ghost--${key}`}
+        aria-hidden="true"
+        title={label}
+        key={key}
+      />
+    ));
+  };
+
+  const PresetMod = ({ mod }) => {
+    if (!mod) return null;
+
+    const typeClass = mod.type === "접두" ? "is-prefix" : "is-suffix";
+    const options = [mod.option1, mod.option2, mod.option3]
+      .filter((value) => String(value || "").trim())
+      .map(parsePresetOptionExact);
+
+    return (
+      <section className={`ops-info-preset-mod ${typeClass}`}>
+        <header>
+          <strong>{cleanPresetModbookName(mod.name)}</strong>
+          <span>{mod.type}</span>
+        </header>
+        <div className="ops-info-preset-mod__options">
+          {options.map((option, idx) => (
+            <div className={option.negative ? "is-negative" : ""} key={`${mod.id}-${idx}`}>
+              <b>{option.bestDisplay || "—"}</b>
+              <span>{option.label}</span>
+              {option.range && <small>({option.range})</small>}
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  };
+
+  const PresetTooltip = ({ slotKey, mobile = false, inspector = false }) => {
+    const meta = BUILD_SLOT_META.find((item) => item.key === slotKey);
+    const slot = getSlot(slotKey);
+    const mods = getMods(slot);
+    const representative = getPresetRepresentativeStat(mods);
+
+    return (
+      <div
+        className={cls(
+          "ops-info-preset-tooltip",
+          `ops-info-preset-tooltip--${slotKey}`,
+          mobile && "is-mobile",
+          inspector && "is-inspector"
+        )}
+        role={mobile || inspector ? "region" : "tooltip"}
+      >
+        <div className="ops-info-preset-tooltip__head">
+          <div>
+            <span>{build.title}</span>
+            <strong>
+              {slotKey === "weapon"
+                ? `무기${weaponFamily ? ` · ${weaponFamily}` : ""}`
+                : (meta?.label || slotKey)}
+            </strong>
+          </div>
+          {representative && (
+            <b title={`대표 옵션 · ${representative.label} 최대 합산`}>
+              {representative.shortLabel} +{formatPresetCompactNumber(representative.value)}%
+            </b>
+          )}
+        </div>
+
+        {mods.map((mod) => <PresetMod mod={mod} key={mod.id} />)}
+
+        {!mods.length && (
+          <div className="ops-info-preset-emptyhint">
+            선택된 개조서가 없습니다.
+          </div>
+        )}
+
+        {slot?.comment && (
+          <div className="ops-info-preset-emptyhint">{slot.comment}</div>
+        )}
+
+        <small>표시 수치 = 해당 옵션의 최대값 · 괄호 = 실제 등장 범위</small>
+      </div>
+    );
+  };
+
+  const PresetSlot = ({ slotKey }) => {
+    const meta = BUILD_SLOT_META.find((item) => item.key === slotKey);
+    const slot = getSlot(slotKey);
+    const representative = getPresetRepresentativeStat(getMods(slot));
+    const hovered = hoverSlotKey === slotKey;
+
+    return (
+      <button
+        className={cls(
+          "hub-gear-card-v118",
+          `hub-gear-card-v118--${slotKey}`,
+          hovered && "is-hovered"
+        )}
+        type="button"
+        onMouseEnter={() => setHoverSlotKey(slotKey)}
+        onFocus={() => setHoverSlotKey(slotKey)}
+        onBlur={() => setHoverSlotKey(null)}
+        onClick={() => setSelectedSlotKey(slotKey)}
+        aria-label={`${meta?.label || slotKey} 추천 개조서`}
+      >
+        <span className="hub-gear-card-v118__frame">
+          {slotKey === "weapon" ? (
+            <>
+              <WeaponFamilyVisual family={weaponFamily} />
+              <span className="weapon-slot-family-badge-v132">{weaponFamilyMeta?.code || "WPN"}</span>
+            </>
+          ) : (
+            <img src={meta?.image} alt="" loading="lazy" draggable="false" />
+          )}
+          {representative && (
+            <em title={`대표 옵션 · ${representative.label} 최대 합산`}>
+              {representative.shortLabel} +{formatPresetCompactNumber(representative.value)}%
+            </em>
+          )}
+        </span>
+        <span className="hub-gear-card-v118__label">
+          {slotKey === "weapon" ? `무기 · ${weaponFamily || "미선택"}` : meta?.label}
+        </span>
+      </button>
+    );
+  };
+
+  return (
+    <Modal
+      title={build.title}
+      onClose={onClose}
+      wide
+      bare
+      className="preset-detail-modal-v112"
+    >
+      <section className="ops-info-workspace--preset-detail">
+        <article className="ops-info-preset-article">
+          <header className="ops-info-preset-article__head">
+            <div>
+              <span className="ops-info-kicker">
+                {build.author_id ? "MEMBER BUILD" : "BUILD"}
+              </span>
+              <h2>{build.title}</h2>
+              <div className="build-author-detail-v115">
+                <span>BUILDER</span>
+                <strong>{build.author_name || "익명"}</strong>
+                {build.author_company && <em>{build.author_company}</em>}
+              </div>
+              <div className="ops-info-preset-article__meta">
+                <span>{fmtDate(build.updated_at || build.created_at)}</span>
+                <span>★ {build.favorite_count || 0}</span>
+                <span>조회 {build.view_count || 0}</span>
+              </div>
+            </div>
+
+            <div className="ops-info-preset-article__actions">
+              <button
+                type="button"
+                className={cls("ops-info-btn", favorite && "ops-info-btn--saved")}
+                onClick={() => onFavorite(build)}
+              >
+                {favorite ? "★ 저장됨" : "☆ 내 프리셋"}
+              </button>
+
+              {user && (
+                <button type="button" className="ops-info-btn" onClick={onClone}>
+                  복제해서 작성
+                </button>
+              )}
+
+              {canManage && (
+                <>
+                  <button type="button" className="ops-info-btn" onClick={() => onEdit(build, slots)}>
+                    수정
+                  </button>
+                  <button type="button" className="ops-info-btn ops-info-btn--danger" onClick={() => onDelete(build)}>
+                    삭제
+                  </button>
+                </>
+              )}
+
+              <button type="button" className="ops-info-btn" onClick={onClose}>
+                닫기
+              </button>
+            </div>
+          </header>
+
+          {tags.length > 0 && (
+            <div className="ops-info-preset-article__tags">
+              {tags.map((tag) => <span key={tag}>#{tag}</span>)}
+            </div>
+          )}
+
+          <div className="ops-info-preset-article__description">
+            {build.description || build.summary || (
+              <span className="is-empty">설명이 없습니다.</span>
+            )}
+          </div>
+
+          <div className="ops-info-preset-article__build-layout">
+            <div className="ops-info-preset-inventory ops-info-preset-inventory--article">
+              <div className="ops-info-preset-inventory__bar ops-info-preset-inventory__bar--compact">
+                <span>장비 <b>1</b></span>
+                <em>LAC BUILD</em>
+              </div>
+
+              <div
+                className="hub-gear-board-v119"
+                onMouseLeave={() => setHoverSlotKey(null)}
+              >
+                <div className="hub-gear-grid-v118 hub-gear-grid-v132">
+                  {(weaponFamily || weaponMods.length > 0) && (
+                    <PresetSlot slotKey="weapon" key="weapon" />
+                  )}
+                  {SLOT_META.map((meta) => (
+                    <PresetSlot slotKey={meta.key} key={meta.key} />
+                  ))}
+                </div>
+
+                <div className={cls("hub-gear-hover-zone-v119", hoverSlotKey && "is-open")}>
+                  {hoverSlotKey ? (
+                    <PresetTooltip slotKey={hoverSlotKey} inspector />
+                  ) : (
+                    <div className="hub-gear-hover-hint-v119">
+                      <strong>무기나 장비에 마우스를 올려보세요.</strong>
+                      <p>접두 · 접미 옵션과 최대 수치를 여기서 확인할 수 있습니다.</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="ops-info-preset-mobile-detail">
+                <PresetTooltip slotKey={selectedSlotKey} mobile />
+              </div>
+            </div>
+
+            <section className="ops-info-preset-aggregate ops-info-preset-aggregate--side">
+              <div className="ops-info-preset-aggregate__head">
+                <div>
+                  <span className="ops-info-kicker">MAX ROLL SUMMARY</span>
+                  <h3>전체 옵션 요약</h3>
+                </div>
+                <small>최대값 합산</small>
+              </div>
+
+              <div className="ops-info-preset-summary__stats">
+                {summary.positive.length ? (
+                  summary.positive.slice(0, 10).map((item) => (
+                    <div
+                      className={item.label === "이동 속도 증가" ? "is-primary" : ""}
+                      key={`${item.label}-${item.unit}`}
+                    >
+                      <span>{item.label}</span>
+                      <strong>
+                        +{item.unit === "%"
+                          ? `${formatPresetCompactNumber(item.value)}%`
+                          : formatPresetCompactNumber(item.value)}
+                      </strong>
+                    </div>
+                  ))
+                ) : (
+                  <div className="ops-info-preset-aggregate__empty">
+                    합산 가능한 옵션이 없습니다.
+                  </div>
+                )}
+              </div>
+
+              {summary.negative.length > 0 && (
+                <div className="ops-info-preset-warning">
+                  <strong>주의 옵션</strong>
+                  {summary.negative.slice(0, 5).map((item, idx) => (
+                    <span key={`${item.label}-${idx}`}>
+                      {item.label} {item.range}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              <div className="ops-info-preset-slot-notes is-compact">
+                <h3>부위별 코멘트</h3>
+                {weaponSlot?.comment && (
+                  <div>
+                    <strong>무기{weaponFamily ? ` · ${weaponFamily}` : ""}</strong>
+                    <p>{weaponSlot.comment}</p>
+                  </div>
+                )}
+                {SLOT_META.map((meta) => {
+                  const note = getSlot(meta.key)?.comment;
+                  if (!note) return null;
+                  return (
+                    <div key={meta.key}>
+                      <strong>{meta.label}</strong>
+                      <p>{note}</p>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <p className="ops-info-preset-aggregate__hint">
+                무기와 장비 부위별 접두·접미 옵션을 함께 확인할 수 있습니다.
+              </p>
+            </section>
+          </div>
+
+          <div className="social-action-row preset-social-row-v112">
+            <button
+              className={cls("vote-btn like", userVote === 1 && "active")}
+              onClick={() => user ? onVote(userVote === 1 ? 0 : 1) : onLogin()}
+            >
+              ▲ 추천 <strong>{build.like_count || 0}</strong>
+            </button>
+            <button
+              className={cls("vote-btn dislike", userVote === -1 && "active")}
+              onClick={() => user ? onVote(userVote === -1 ? 0 : -1) : onLogin()}
+            >
+              ▼ 비추천 <strong>{build.dislike_count || 0}</strong>
+            </button>
+            <span className="comment-count-chip">
+              댓글 {build.comment_count || comments.length || 0}
+            </span>
+          </div>
+
+          <section className="comments-section preset-comments-v112">
+            <div className="comments-head">
+              <div><span>BUILD TALK</span><h3>댓글</h3></div>
+              <strong>{comments.length}</strong>
+            </div>
+
+            {user ? (
+              <div className="comment-write">
+                <textarea
+                  value={commentText}
+                  maxLength={500}
+                  onChange={(e) => setCommentText(e.target.value)}
+                  placeholder="이 세팅을 써본 느낌이나 보완점을 남겨주세요."
+                />
+                <button className="btn primary" onClick={submitComment} disabled={commentBusy}>
+                  {commentBusy ? "등록 중..." : "댓글 등록"}
+                </button>
+                <small className="comment-rate-note-v118">도배 방지 · 1분에 5개까지</small>
+              </div>
+            ) : (
+              <button className="comment-login" onClick={onLogin}>
+                댓글을 남기려면 Discord 로그인
+              </button>
+            )}
+
+            <div className="comment-list">
+              {comments.map((comment) => (
+                <article className="comment-row" key={comment.id}>
+                  <div className="comment-meta">
+                    <strong>{comment.author_name}</strong>
+                    {comment.author_company && <em className="comment-company-v115">{comment.author_company}</em>}
+                    <span>{fmtDate(comment.created_at)}</span>
+                  </div>
+                  <p>{comment.body}</p>
+                  {user && (profile?.is_admin || comment.user_id === user.id) && (
+                    <button className="comment-delete" onClick={() => onDeleteComment(comment)}>
+                      삭제
+                    </button>
+                  )}
+                </article>
+              ))}
+            </div>
+
+            {!comments.length && (
+              <div className="comment-empty">첫 댓글을 남겨보세요.</div>
+            )}
+          </section>
+        </article>
+      </section>
+    </Modal>
+  );
+}
+
+function SlotMod({ label, mod }) {
+  if (!mod) return <div className="slot-mod empty-mod"><span>{label}</span><strong>선택 없음</strong></div>;
+  return (
+    <div className="slot-mod">
+      <span>{label}</span>
+      <strong>{mod.name}</strong>
+      <small>{mod.category} · {mod.parts}</small>
+    </div>
+  );
+}
+
+function ModifierPicker({ type, slotMeta, modbooks, value, onChange, weaponFamily = "" }) {
+  const [category, setCategory] = useState("전체 분류");
+  const [query, setQuery] = useState("");
+
+  const candidates = useMemo(
+    () => modbooks.filter((m) => {
+      if (m.type !== type) return false;
+
+      if (slotMeta.key === "weapon") {
+        if (!weaponFamily) return false;
+        return weaponFamilyForMod(m)?.key === weaponFamily;
+      }
+
+      return slotAllows(m, slotMeta);
+    }),
+    [modbooks, type, slotMeta.key, weaponFamily]
+  );
+  const categories = useMemo(
+    () => [...new Set(candidates.map((m) => m.category).filter(Boolean))].sort(),
+    [candidates]
+  );
+  const filtered = useMemo(() => {
+    const needle = normalizeModifierSearch(query);
+
+    return candidates.filter((m) => {
+      if (category !== "전체 분류" && m.category !== category) return false;
+      if (!needle) return true;
+      return modifierSearchText(m).includes(needle);
+    });
+  }, [candidates, category, query]);
+
+  const selectedMod = candidates.find((m) => String(m.id) === String(value)) || null;
+
+  return (
+    <div className={cls("modifier-picker", type === "접두" ? "prefix-picker" : "suffix-picker")}>
+      <div className="modifier-picker-head">
+        <strong>{type}</strong>
+        <span>{candidates.length}개</span>
+      </div>
+
+      <div className="modifier-picker-filters">
+        <label>
+          <span>분류</span>
+          <select value={category} onChange={(e) => setCategory(e.target.value)}>
+            <option>전체 분류</option>
+            {categories.map((v) => <option key={v}>{v}</option>)}
+          </select>
+        </label>
+        <label>
+          <span>검색</span>
+          <div className="modifier-search-v126">
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="개조서명 / 옵션 검색"
+              autoComplete="off"
+            />
+            {query && (
+              <button
+                type="button"
+                onClick={() => setQuery("")}
+                aria-label="검색어 지우기"
+                title="검색어 지우기"
+              >
+                ×
+              </button>
+            )}
+          </div>
+        </label>
+      </div>
+
+      <div className="modifier-search-status-v126">
+        <span>
+          {query
+            ? `검색 결과 ${filtered.length}개`
+            : `선택 가능 ${filtered.length}개`}
+        </span>
+        {query && <small>띄어쓰기와 기호를 무시하고 검색합니다.</small>}
+      </div>
+
+      <label className="modifier-select">
+        <span>선택</span>
+        <select value={value || ""} onChange={(e) => onChange(e.target.value)}>
+          <option value="">선택 안 함</option>
+          {filtered.map((m) => (
+            <option key={m.id} value={m.id}>{modifierDropdownLabel(m)}</option>
+          ))}
+        </select>
+      </label>
+
+      {query && filtered.length === 0 && (
+        <div className="modifier-no-result-v126">
+          <strong>검색 결과가 없습니다.</strong>
+          <span>다른 개조서명이나 옵션 단어로 검색해보세요.</span>
+        </div>
+      )}
+
+      {selectedMod && (
+        <div className="picker-selected-options">
+          <strong>{selectedMod.name}</strong>
+          {optionLines(selectedMod).map((line, idx) => (
+            <span key={`${selectedMod.id}-${idx}`}>{line.replace(/^\*/, "⚠ ")}</span>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function BuildTagMultiSelect({ value, onChange }) {
+  const [open, setOpen] = useState(false);
+  const selected = normalizeBuildTagSelection(value);
+
+  const toggle = (tag) => {
+    if (selected.includes(tag)) {
+      onChange(selected.filter((item) => item !== tag));
+      return;
+    }
+    if (selected.length >= 8) return;
+    onChange([...selected, tag]);
+  };
+
+  const remove = (tag) => onChange(selected.filter((item) => item !== tag));
+
+  return (
+    <div className={cls("build-tag-select-v113", open && "is-open")}>
+      <button
+        className="build-tag-select-v113__trigger"
+        type="button"
+        onClick={() => setOpen((prev) => !prev)}
+        aria-expanded={open}
+      >
+        <span>{selected.length ? `${selected.length}개 태그 선택됨` : "태그 선택"}</span>
+        <b>{selected.length}/8</b>
+        <em>⌄</em>
+      </button>
+
+      {selected.length > 0 && (
+        <div className="build-tag-select-v113__chips">
+          {selected.map((tag) => (
+            <button
+              type="button"
+              key={tag}
+              onClick={() => remove(tag)}
+              title={`${tag} 태그 제거`}
+            >
+              <span>#{tag}</span>
+              <b>×</b>
+            </button>
+          ))}
+        </div>
+      )}
+
+      {open && (
+        <div className="build-tag-select-v113__menu">
+          <div className="build-tag-select-v113__menu-head">
+            <div>
+              <span>BUILD TAG</span>
+              <strong>여러 태그를 함께 선택할 수 있습니다.</strong>
+            </div>
+            <small>{selected.length}/8</small>
+          </div>
+
+          {BUILD_TAG_GROUPS.map((group) => (
+            <section className="build-tag-select-v113__group" key={group.label}>
+              <span>{group.label}</span>
+              <div>
+                {group.options.map((tag) => {
+                  const checked = selected.includes(tag);
+                  return (
+                    <button
+                      type="button"
+                      key={tag}
+                      className={cls(checked && "is-selected")}
+                      onClick={() => toggle(tag)}
+                      aria-pressed={checked}
+                    >
+                      <i>{checked ? "✓" : ""}</i>
+                      <b>{tag}</b>
+                    </button>
+                  );
+                })}
+              </div>
+            </section>
+          ))}
+
+          <div className="build-tag-select-v113__menu-foot">
+            <small>‘인기’는 추천·조회 반응으로 자동 분류됩니다.</small>
+            <div>
+              {selected.length > 0 && (
+                <button type="button" className="tag-clear-v113" onClick={() => onChange([])}>
+                  전체 해제
+                </button>
+              )}
+              <button type="button" className="tag-done-v113" onClick={() => setOpen(false)}>
+                완료
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function BuildEditor({
+  user,
+  profile,
+  modbooks,
+  initialBuild,
+  initialSlots,
+  mode = "create",
+  onClose,
+  onSaved
+}) {
+  const isEdit = mode === "edit";
+  const isClone = mode === "clone";
+  const isCreate = mode === "create";
+
+  const draftKey = `axe-build-draft-${user?.id || "guest"}`;
+  const initial = useMemo(() => {
+    try {
+      if (isCreate) {
+        const saved = localStorage.getItem(draftKey);
+        if (saved) return JSON.parse(saved);
+      }
+    } catch {}
+    return null;
+  }, [draftKey, isCreate]);
+
+  const restoredForm = initial?.form || {};
+  const [form, setForm] = useState({
+    title: restoredForm.title ?? (
+      isClone && initialBuild?.title
+        ? `${initialBuild.title} 복제`
+        : (initialBuild?.title || "")
+    ),
+    summary: restoredForm.summary ?? (initialBuild?.summary || ""),
+    description: restoredForm.description ?? (initialBuild?.description || ""),
+    tags: normalizeBuildTagSelection(
+      restoredForm.tags ?? visibleTags(initialBuild?.tags || [])
+    )
+  });
+
+  const [slots, setSlots] = useState(() => {
+    if (initial?.slots) return normalizeEditorSlots(initial.slots);
+    return normalizeEditorSlots(initialSlots || []);
+  });
+
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
+  const setField = (k, v) => setForm((prev) => ({ ...prev, [k]: v }));
+
+  const editorModMap = useMemo(
+    () => new Map(modbooks.map((mod) => [Number(mod.id), mod])),
+    [modbooks]
+  );
+
+  const detectedTagSuggestions = useMemo(
+    () => detectBuildTagSuggestions(slots, editorModMap)
+      .filter((tag) => !normalizeBuildTagSelection(form.tags).includes(tag)),
+    [slots, editorModMap, form.tags]
+  );
+
+  const addSuggestedTag = (tag) => {
+    const current = normalizeBuildTagSelection(form.tags);
+    if (current.includes(tag) || current.length >= 8) return;
+    setField("tags", [...current, tag]);
+  };
+
+  useEffect(() => {
+    if (!isCreate) return;
+    const timer = window.setTimeout(() => {
+      try {
+        localStorage.setItem(draftKey, JSON.stringify({ form, slots }));
+      } catch {}
+    }, 250);
+    return () => window.clearTimeout(timer);
+  }, [form, slots, isCreate, draftKey]);
+
+  const setSlot = (slotKey, k, v) =>
+    setSlots((prev) => ({
+      ...prev,
+      [slotKey]: {
+        ...(emptySlots()[slotKey] || {}),
+        ...(prev?.[slotKey] || {}),
+        [k]: v
+      }
+    }));
+
+  async function save() {
+    if (!form.title.trim()) return setError("세팅 제목을 입력하세요.");
+
+    setSaving(true);
+    setError("");
+
+    try {
+      const tags = normalizeBuildTagSelection(form.tags);
+      const safeSlots = normalizeEditorSlots(slots);
+
+      const payload = {
+        title: form.title.trim(),
+        summary: form.summary.trim(),
+        description: form.description.trim(),
+        tags,
+        is_published: true
+      };
+
+      let build;
+
+      if (isEdit) {
+        const { data, error: buildError } = await supabase
+          .from("builds")
+          .update(payload)
+          .eq("id", initialBuild.id)
+          .select("*")
+          .single();
+
+        if (buildError) throw buildError;
+        build = data;
+
+        for (const meta of BUILD_SLOT_META) {
+          const original = (initialSlots || []).find((s) => s.slot_key === meta.key);
+          const slotPayload = {
+            prefix_modbook_id: safeSlots[meta.key].prefix_modbook_id
+              ? Number(safeSlots[meta.key].prefix_modbook_id)
+              : null,
+            suffix_modbook_id: safeSlots[meta.key].suffix_modbook_id
+              ? Number(safeSlots[meta.key].suffix_modbook_id)
+              : null,
+            comment: safeSlots[meta.key].comment.trim(),
+            weapon_family: meta.key === "weapon"
+              ? (String(safeSlots[meta.key].weapon_family || "").trim() || null)
+              : null
+          };
+
+          if (original?.id) {
+            const { error: slotError } = await supabase
+              .from("build_slots")
+              .update(slotPayload)
+              .eq("id", original.id);
+            if (slotError) throw slotError;
+          } else {
+            const { error: slotError } = await supabase
+              .from("build_slots")
+              .insert({
+                build_id: build.id,
+                slot_key: meta.key,
+                ...slotPayload
+              });
+            if (slotError) throw slotError;
+          }
+        }
+      } else {
+        const { data, error: buildError } = await supabase
+          .from("builds")
+          .insert({
+            ...payload,
+            author_id: user.id,
+            author_name: displayProfileName(profile, user),
+            author_company: displayProfileCompany(profile) || null,
+            is_official: false
+          })
+          .select("*")
+          .single();
+
+        if (buildError) throw buildError;
+        build = data;
+
+        const slotRows = BUILD_SLOT_META.map((meta) => ({
+          build_id: build.id,
+          slot_key: meta.key,
+          prefix_modbook_id: safeSlots[meta.key].prefix_modbook_id
+            ? Number(safeSlots[meta.key].prefix_modbook_id)
+            : null,
+          suffix_modbook_id: safeSlots[meta.key].suffix_modbook_id
+            ? Number(safeSlots[meta.key].suffix_modbook_id)
+            : null,
+          comment: safeSlots[meta.key].comment.trim(),
+          weapon_family: meta.key === "weapon"
+            ? (String(safeSlots[meta.key].weapon_family || "").trim() || null)
+            : null
+        }));
+
+        const { error: slotError } = await supabase.from("build_slots").insert(slotRows);
+        if (slotError) {
+          await supabase.from("builds").delete().eq("id", build.id);
+          throw slotError;
+        }
+      }
+
+      if (isCreate) {
+        try { localStorage.removeItem(draftKey); } catch {}
+      }
+
+      onSaved(build, isEdit ? "edit" : "create");
+    } catch (e) {
+      setError(e.message || (isEdit ? "수정 중 오류가 발생했습니다." : "저장 중 오류가 발생했습니다."));
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <Modal title={isEdit ? "추천세팅 수정" : "추천세팅 작성"} onClose={onClose} wide>
+      {isCreate && (
+        <div className="draft-banner">
+          <strong>작성 내용 자동 임시저장</strong>
+          <span>브라우저를 닫거나 새로고침해도 작성 중인 내용이 복원됩니다.</span>
+        </div>
+      )}
+
+      <div className="form-grid legacy-form-top">
+        <label className="full">
+          <span>제목</span>
+          <input
+            value={form.title}
+            onChange={(e) => setField("title", e.target.value)}
+            placeholder="예: 이동속도 1티어 / 무법 생존 세팅"
+          />
+        </label>
+        <div className="full build-tag-field-v113">
+          <span>태그 · 카테고리 기준</span>
+          <BuildTagMultiSelect
+            value={form.tags}
+            onChange={(tags) => setField("tags", tags)}
+          />
+          <small>
+            카테고리 노출은 <b>여기서 직접 선택한 태그만</b> 기준으로 합니다.
+            체력 + 이동속도처럼 목적이 겹치면 여러 태그를 함께 선택하세요.
+          </small>
+
+          {detectedTagSuggestions.length > 0 && (
+            <div className="tag-suggestions-v117">
+              <div>
+                <span>선택한 개조서에서 감지</span>
+                <small>자동 분류되지 않습니다. 필요한 태그만 직접 추가하세요.</small>
+              </div>
+              <div className="tag-suggestions-v117__chips">
+                {detectedTagSuggestions.map((tag) => (
+                  <button
+                    type="button"
+                    key={tag}
+                    onClick={() => addSuggestedTag(tag)}
+                  >
+                    <b>+</b>
+                    <span>{tag}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+        <label className="full">
+          <span>설명</span>
+          <textarea
+            value={form.description}
+            onChange={(e) => setField("description", e.target.value)}
+            placeholder="이 조합을 추천하는 이유, 실제 사용감, 주의점 등을 적어주세요."
+          />
+        </label>
+        <label className="full compact-summary-field">
+          <span>한줄 요약</span>
+          <input
+            value={form.summary}
+            onChange={(e) => setField("summary", e.target.value)}
+            placeholder="목록에서 보일 짧은 설명"
+          />
+        </label>
+      </div>
+
+      <section className="weapon-slot-editor-v129 weapon-slot-editor-v132">
+        <div className="weapon-slot-editor-v132__top">
+          <div className="weapon-editor-preview-v132">
+            <div className="weapon-editor-preview-v132__frame">
+              <WeaponFamilyVisual family={slots.weapon?.weapon_family || ""} />
+              <span>{WEAPON_FAMILIES.find((row) => row.key === slots.weapon?.weapon_family)?.code || "WPN"}</span>
+            </div>
+            <strong>{slots.weapon?.weapon_family || "무기 슬롯"}</strong>
+          </div>
+
+          <div className="weapon-slot-editor-v129__head weapon-slot-editor-v132__head">
+            <div>
+              <small>OPTIONAL WEAPON SLOT</small>
+              <strong>무기</strong>
+              <span>장비 슬롯처럼 무기군과 접두·접미 개조서를 하나의 슬롯으로 구성합니다.</span>
+            </div>
+          </div>
+        </div>
+
+        <label className="weapon-family-select-v129">
+          <span>무기군</span>
+          <select
+            value={slots.weapon?.weapon_family || ""}
+            onChange={(e) => {
+              const nextFamily = e.target.value;
+              setSlots((prev) => ({
+                ...prev,
+                weapon: {
+                  ...prev.weapon,
+                  weapon_family: nextFamily,
+                  prefix_modbook_id: "",
+                  suffix_modbook_id: ""
+                }
+              }));
+            }}
+          >
+            <option value="">무기 사용 안 함 / 미선택</option>
+            {WEAPON_FAMILIES.map((row) => (
+              <option key={row.key} value={row.key}>{row.key}</option>
+            ))}
+          </select>
+          <small>무기 슬롯은 선택 사항입니다. 기존 장비 4부위 세팅만 올려도 됩니다.</small>
+        </label>
+
+        {slots.weapon?.weapon_family && (
+          <div className="weapon-slot-editor-v129__pickers">
+            <ModifierPicker
+              type="접두"
+              slotMeta={WEAPON_SLOT_META}
+              modbooks={modbooks}
+              weaponFamily={slots.weapon?.weapon_family || ""}
+              value={slots.weapon?.prefix_modbook_id || ""}
+              onChange={(v) => setSlot("weapon", "prefix_modbook_id", v)}
+            />
+            <ModifierPicker
+              type="접미"
+              slotMeta={WEAPON_SLOT_META}
+              modbooks={modbooks}
+              weaponFamily={slots.weapon?.weapon_family || ""}
+              value={slots.weapon?.suffix_modbook_id || ""}
+              onChange={(v) => setSlot("weapon", "suffix_modbook_id", v)}
+            />
+          </div>
+        )}
+
+        {slots.weapon?.weapon_family && (
+          <label className="weapon-slot-comment-v129">
+            <span>무기 설명</span>
+            <textarea
+              value={slots.weapon?.comment || ""}
+              onChange={(e) => setSlot("weapon", "comment", e.target.value)}
+              placeholder="이 무기군과 개조서 조합을 선택한 이유"
+            />
+          </label>
+        )}
+      </section>
+
+      <div className="legacy-editor-grid">
+        {SLOT_META.map((meta) => (
+          <section className="legacy-slot-editor" key={meta.key}>
+            <div className="legacy-slot-head">
+              <div className="slot-thumb">
+                <img src={meta.image} alt={`${meta.label} AXE 팀복`} />
+              </div>
+              <div>
+                <small>장비 부위</small>
+                <strong>{meta.label}</strong>
+                <span>접두·접미 개조서를 선택합니다.</span>
+              </div>
+            </div>
+
+            <ModifierPicker
+              type="접두"
+              slotMeta={meta}
+              modbooks={modbooks}
+              value={slots[meta.key].prefix_modbook_id}
+              onChange={(v) => setSlot(meta.key, "prefix_modbook_id", v)}
+            />
+            <ModifierPicker
+              type="접미"
+              slotMeta={meta}
+              modbooks={modbooks}
+              value={slots[meta.key].suffix_modbook_id}
+              onChange={(v) => setSlot(meta.key, "suffix_modbook_id", v)}
+            />
+
+            <label className="slot-comment-editor">
+              <span>부위 설명</span>
+              <textarea
+                value={slots[meta.key].comment}
+                onChange={(e) => setSlot(meta.key, "comment", e.target.value)}
+                placeholder="이 부위 조합을 선택한 이유"
+              />
+            </label>
+          </section>
+        ))}
+      </div>
+
+      <div className="editor-standard">
+        <strong>작성 기준</strong>
+        <span>카테고리는 작성자가 선택한 태그로만 분류됩니다. 무기 슬롯은 선택 사항이며, 선택한 무기·장비 개조서 정보는 검색과 태그 추천에 활용됩니다.</span>
+      </div>
+
+      {error && <div className="form-error">{error}</div>}
+
+      {!isEdit && (
+        <div className="rate-limit-note-v118">
+          <span>도배 방지</span>
+          <p>빌드 게시: 10분에 3개 · 24시간에 15개까지</p>
+        </div>
+      )}
+
+      <div className="modal-actions sticky">
+        <button className="btn ghost" onClick={onClose}>취소</button>
+        <button className="btn primary" onClick={save} disabled={saving}>
+          {saving ? "저장 중..." : (isEdit ? "수정 저장" : "게시하기")}
+        </button>
+      </div>
+    </Modal>
+  );
+}
+
+function ReportEditor({ user, modbooks, onClose, onSaved }) {
+  const [form, setForm] = useState({
+    report_type: "missing",
+    target_modbook_id: "",
+    name: "",
+    mod_type: "접두",
+    category: "",
+    parts: "",
+    options_text: "",
+    note: ""
+  });
+  const [file, setFile] = useState(null);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
+  const [categoryMode, setCategoryMode] = useState("select");
+  const [partsMode, setPartsMode] = useState("select");
+
+  const reportCategoryOptions = useMemo(() => {
+    const values = modbooks
+      .map((m) => String(m?.category || "").trim())
+      .filter(Boolean);
+    return [...new Set(values)].sort((a, b) => a.localeCompare(b, "ko"));
+  }, [modbooks]);
+
+  const reportPartsOptions = useMemo(() => {
+    const values = modbooks
+      .map((m) => String(m?.parts || "").trim())
+      .filter(Boolean);
+    return [...new Set(values)].sort((a, b) => a.localeCompare(b, "ko"));
+  }, [modbooks]);
+
+  const reportOptionTemplates = useMemo(() => {
+    const selectedCategory = String(form.category || "").trim();
+
+    const source = selectedCategory
+      ? modbooks.filter((m) => String(m?.category || "").trim() === selectedCategory)
+      : modbooks;
+
+    const values = source
+      .flatMap((m) => optionLines(m))
+      .map((value) => String(value || "").trim())
+      .filter(Boolean);
+
+    return [...new Set(values)].sort((a, b) => a.localeCompare(b, "ko"));
+  }, [modbooks, form.category]);
+
+  function set(k, v) {
+    setForm((prev) => ({ ...prev, [k]: v }));
+  }
+
+  function chooseCategory(value) {
+    if (value === "__custom__") {
+      setCategoryMode("custom");
+      set("category", "");
+      return;
+    }
+    setCategoryMode("select");
+    set("category", value);
+  }
+
+  function chooseParts(value) {
+    if (value === "__custom__") {
+      setPartsMode("custom");
+      set("parts", "");
+      return;
+    }
+    setPartsMode("select");
+    set("parts", value);
+  }
+
+  function addReportOptionTemplate(value) {
+    const next = String(value || "").trim();
+    if (!next) return;
+
+    const current = String(form.options_text || "")
+      .split("\n")
+      .map((line) => line.trim())
+      .filter(Boolean);
+
+    if (current.includes(next)) return;
+
+    set("options_text", [...current, next].join("\n"));
+  }
+
+  function chooseEvidenceFile(nextFile, input) {
+    const validationError = validateEvidenceFile(nextFile);
+    if (validationError) {
+      setFile(null);
+      setError(validationError);
+      if (input) input.value = "";
+      return;
+    }
+    setError("");
+    setFile(nextFile || null);
+  }
+
+  function chooseTarget(value) {
+    const mod = modbooks.find((m) => String(m.id) === String(value));
+
+    if (mod) {
+      setCategoryMode(reportCategoryOptions.includes(String(mod.category || "").trim()) ? "select" : "custom");
+      setPartsMode(reportPartsOptions.includes(String(mod.parts || "").trim()) ? "select" : "custom");
+    }
+
+    setForm((prev) => ({
+      ...prev,
+      target_modbook_id: value,
+      name: mod?.name || prev.name,
+      mod_type: mod?.type || prev.mod_type,
+      category: mod?.category || prev.category,
+      parts: mod?.parts || prev.parts,
+      options_text: mod ? optionLines(mod).join("\n") : prev.options_text
+    }));
+  }
+
+  async function save() {
+    if (!form.name.trim()) return setError("개조서 이름을 입력하세요.");
+    setSaving(true);
+    setError("");
+    try {
+      let evidence_path = null;
+      if (file) {
+        const validationError = validateEvidenceFile(file);
+        if (validationError) throw new Error(validationError);
+
+        const ext = evidenceSafeExtension(file);
+        if (!ext) throw new Error("지원하지 않는 이미지 형식입니다.");
+
+        evidence_path = `${user.id}/${crypto.randomUUID()}.${ext}`;
+        const { error: uploadError } = await supabase.storage
+          .from("modbook-evidence")
+          .upload(evidence_path, file, {
+            upsert: false,
+            contentType: file.type,
+            cacheControl: "3600"
+          });
+        if (uploadError) throw uploadError;
+      }
+
+      const { error: insertError } = await supabase.from("modbook_reports").insert({
+        reporter_id: user.id,
+        report_type: form.report_type,
+        target_modbook_id: form.target_modbook_id ? Number(form.target_modbook_id) : null,
+        name: form.name.trim(),
+        mod_type: form.mod_type,
+        category: form.category.trim() || null,
+        parts: form.parts.trim() || null,
+        options_text: form.options_text.trim() || null,
+        note: form.note.trim() || null,
+        evidence_path
+      });
+
+      if (insertError) {
+        if (evidence_path) {
+          try {
+            await supabase.storage.from("modbook-evidence").remove([evidence_path]);
+          } catch {}
+        }
+        throw insertError;
+      }
+
+      onSaved();
+    } catch (e) {
+      setError(e.message || "제보 등록 중 오류가 발생했습니다.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <Modal title="개조서 제보" onClose={onClose}>
+      <div className="form-grid">
+        <label>
+          <span>제보 유형</span>
+          <select value={form.report_type} onChange={(e) => set("report_type", e.target.value)}>
+            <option value="missing">누락 제보</option>
+            <option value="correction">정보 수정</option>
+          </select>
+        </label>
+        {form.report_type === "correction" && (
+          <label>
+            <span>수정 대상</span>
+            <select value={form.target_modbook_id} onChange={(e) => chooseTarget(e.target.value)}>
+              <option value="">직접 입력</option>
+              {modbooks.map((m) => <option key={m.id} value={m.id}>[{m.type}/{m.category}] {m.name}</option>)}
+            </select>
+          </label>
+        )}
+        <label>
+          <span>개조서 이름 *</span>
+          <input value={form.name} onChange={(e) => set("name", e.target.value)} />
+        </label>
+        <label>
+          <span>접두/접미</span>
+          <select value={form.mod_type} onChange={(e) => set("mod_type", e.target.value)}>
+            <option value="접두">접두</option>
+            <option value="접미">접미</option>
+          </select>
+        </label>
+        <label>
+          <span>분류</span>
+          <select
+            value={categoryMode === "custom" ? "__custom__" : form.category}
+            onChange={(e) => chooseCategory(e.target.value)}
+          >
+            <option value="">분류 선택</option>
+            {reportCategoryOptions.map((value) => (
+              <option key={value} value={value}>{value}</option>
+            ))}
+            <option value="__custom__">직접 입력</option>
+          </select>
+          {categoryMode === "custom" && (
+            <input
+              className="report-custom-input-v127"
+              value={form.category}
+              onChange={(e) => set("category", e.target.value)}
+              placeholder="새 분류 직접 입력"
+              autoFocus
+            />
+          )}
+        </label>
+
+        <label>
+          <span>적용 부위</span>
+          <select
+            value={partsMode === "custom" ? "__custom__" : form.parts}
+            onChange={(e) => chooseParts(e.target.value)}
+          >
+            <option value="">적용 부위 선택</option>
+            {reportPartsOptions.map((value) => (
+              <option key={value} value={value}>{value}</option>
+            ))}
+            <option value="__custom__">직접 입력</option>
+          </select>
+          {partsMode === "custom" && (
+            <input
+              className="report-custom-input-v127"
+              value={form.parts}
+              onChange={(e) => set("parts", e.target.value)}
+              placeholder="새 적용 부위 직접 입력"
+            />
+          )}
+        </label>
+
+        <label className="full report-option-helper-v127">
+          <span>옵션 빠른 선택</span>
+          <select
+            value=""
+            onChange={(e) => {
+              addReportOptionTemplate(e.target.value);
+              e.target.value = "";
+            }}
+          >
+            <option value="">
+              {form.category
+                ? `${form.category} 관련 옵션을 선택해 추가`
+                : "기존 옵션을 선택해 추가"}
+            </option>
+            {reportOptionTemplates.map((value) => (
+              <option key={value} value={value}>{value}</option>
+            ))}
+          </select>
+          <small>
+            선택한 옵션은 아래 입력란에 자동으로 추가됩니다. 실제 수치나 문구가 다르면 직접 수정할 수 있습니다.
+          </small>
+        </label>
+
+        <label className="full">
+          <span>옵션 · 한 줄에 하나</span>
+          <textarea
+            value={form.options_text}
+            onChange={(e) => set("options_text", e.target.value)}
+            placeholder="드롭다운에서 선택하거나 직접 입력하세요."
+          />
+        </label>
+        <label className="full">
+          <span>메모</span>
+          <textarea value={form.note} onChange={(e) => set("note", e.target.value)} />
+        </label>
+        <label className="full evidence-upload-v116">
+          <span>스크린샷 증빙 · 선택</span>
+          <input
+            type="file"
+            accept="image/png,image/jpeg,image/webp"
+            onChange={(e) => chooseEvidenceFile(e.target.files?.[0] || null, e.target)}
+          />
+          <small>PNG / JPG / WEBP · 최대 5MB · 직접 선택한 이미지만 업로드됩니다.</small>
+          {file && <em>{file.name} · {(file.size / 1024 / 1024).toFixed(2)}MB</em>}
+        </label>
+      </div>
+      {error && <div className="form-error">{error}</div>}
+      <div className="rate-limit-note-v118">
+        <span>도배 방지</span>
+        <p>제보 등록: 10분에 3개 · 24시간에 12개까지</p>
+      </div>
+      <div className="modal-actions sticky">
+        <button className="btn ghost" onClick={onClose}>취소</button>
+        <button className="btn primary" onClick={save} disabled={saving}>{saving ? "등록 중..." : "제보 등록"}</button>
+      </div>
+    </Modal>
+  );
+}
+
+export default function App() {
+  const [tab, setTab] = useState(() => tabFromLocation());
+  const [session, setSession] = useState(null);
+  const user = session?.user || null;
+  const [profile, setProfile] = useState(null);
+
+  const [builds, setBuilds] = useState([]);
+  const [buildSlotsMap, setBuildSlotsMap] = useState({});
+  const [modbooks, setModbooks] = useState([]);
+  const [favorites, setFavorites] = useState(new Set());
+  const [myReports, setMyReports] = useState([]);
+  const [adminReports, setAdminReports] = useState([]);
+  const [userVotes, setUserVotes] = useState(new Map());
+  const [announcements, setAnnouncements] = useState([]);
+  const [nicknameRequest, setNicknameRequest] = useState(null);
+  const [companyRequest, setCompanyRequest] = useState(null);
+  const [adminNicknameRequests, setAdminNicknameRequests] = useState([]);
+  const [adminCompanyRequests, setAdminCompanyRequests] = useState([]);
+
+  const [loading, setLoading] = useState(true);
+  const [selectedBuild, setSelectedBuild] = useState(null);
+  const [selectedSlots, setSelectedSlots] = useState([]);
+  const [selectedComments, setSelectedComments] = useState([]);
+  const [editor, setEditor] = useState(null);
+  const [reportEditor, setReportEditor] = useState(false);
+  const [profileModal, setProfileModal] = useState(false);
+  const [loginPrivacyModal, setLoginPrivacyModal] = useState(false);
+  const [shareLoginModal, setShareLoginModal] = useState(false);
+  const [categoryFilter, setCategoryFilter] = useState(() => categoryFromLocation());
+  const [adminMode, setAdminMode] = useState("nicknames");
+  const [toast, setToast] = useState({ message: "", tone: "default" });
+
+  const modMap = useMemo(() => new Map(modbooks.map((m) => [m.id, m])), [modbooks]);
+
+  function notify(message, tone = "default") {
+    setToast({ message, tone });
+    window.clearTimeout(window.__axeToastTimer);
+    window.__axeToastTimer = window.setTimeout(() => setToast({ message: "", tone: "default" }), 3200);
+  }
+
+
+  function routeForTab(nextTab, category = categoryFilter) {
+    const path = TAB_ROUTES[nextTab] || TAB_ROUTES.builds;
+    if (nextTab === "builds" && category && category !== "전체") {
+      return `${path}?category=${encodeURIComponent(category)}`;
+    }
+    return path;
+  }
+
+  function navigateTab(nextTab, { replace = false } = {}) {
+    const safeTab = TAB_ROUTES[nextTab] ? nextTab : "builds";
+    const nextUrl = routeForTab(safeTab);
+    setTab(safeTab);
+
+    const currentUrl = `${window.location.pathname}${window.location.search}`;
+    if (currentUrl === nextUrl) return;
+
+    window.history[replace ? "replaceState" : "pushState"](
+      { axeTab: safeTab, category: safeTab === "builds" ? categoryFilter : null },
+      "",
+      nextUrl
+    );
+  }
+
+  function navigateBuildCategory(category) {
+    const safeCategory = BASE_CATEGORIES.includes(category) ? category : "전체";
+    setTab("builds");
+    setCategoryFilter(safeCategory);
+
+    const nextUrl = safeCategory === "전체"
+      ? TAB_ROUTES.builds
+      : `${TAB_ROUTES.builds}?category=${encodeURIComponent(safeCategory)}`;
+
+    const currentUrl = `${window.location.pathname}${window.location.search}`;
+    if (currentUrl === nextUrl) return;
+
+    window.history.pushState(
+      { axeTab: "builds", category: safeCategory },
+      "",
+      nextUrl
+    );
+  }
+
+  useEffect(() => {
+    const onPopState = () => {
+      setTab(tabFromLocation());
+      setCategoryFilter(categoryFromLocation());
+      setSelectedBuild(null);
+      setEditor(null);
+      setReportEditor(false);
+      window.setTimeout(() => window.scrollTo({ top: 0, behavior: "auto" }), 0);
+    };
+
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
+
+  useEffect(() => {
+    const pageTitle = PAGE_TITLES[tab] || PAGE_TITLES.builds;
+    document.title = tab === "builds" && categoryFilter !== "전체"
+      ? `${categoryFilter} · ${pageTitle}`
+      : pageTitle;
+  }, [tab, categoryFilter]);
+
+  useEffect(() => {
+    if (!isSupabaseConfigured) {
+      setLoading(false);
+      return;
+    }
+
+    let alive = true;
+    supabase.auth.getSession().then(({ data }) => {
+      if (alive) setSession(data.session || null);
+    });
+
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+      setSession(nextSession || null);
+    });
+
+    Promise.all([loadBuilds(), loadModbooks(), loadAnnouncements()]).finally(() => {
+      if (alive) setLoading(false);
+    });
+
+    return () => {
+      alive = false;
+      listener?.subscription?.unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!user) {
+      setProfile(null);
+      setFavorites(new Set());
+      setMyReports([]);
+      setAdminReports([]);
+      setUserVotes(new Map());
+      setNicknameRequest(null);
+      setAdminNicknameRequests([]);
+      loadAnnouncements();
+      return;
+    }
+    loadUserData(user.id);
+  }, [user?.id]);
+
+  useEffect(() => {
+    if (profile?.is_admin) loadAdminData();
+  }, [profile?.is_admin]);
+
+  async function loadBuilds() {
+    const { data, error } = await supabase.from("builds").select("*").order("created_at", { ascending: false });
+    if (error) return notify(`추천세팅 로드 실패: ${error.message}`, "error");
+    const rows = data || [];
+    setBuilds(rows);
+    if (!rows.length) return setBuildSlotsMap({});
+    const { data: slotRows, error: slotError } = await supabase.from("build_slots").select("*").in("build_id", rows.map((b) => b.id)).order("id");
+    if (slotError) return notify(`세팅 슬롯 로드 실패: ${slotError.message}`, "error");
+    const map = {};
+    for (const row of slotRows || []) {
+      if (!map[row.build_id]) map[row.build_id] = [];
+      map[row.build_id].push(row);
+    }
+    setBuildSlotsMap(map);
+  }
+
+  async function loadModbooks() {
+    const { data, error } = await supabase
+      .from("modbooks")
+      .select("*")
+      .order("sort_order", { ascending: true });
+    if (error) return notify(`개조서 로드 실패: ${error.message}`, "error");
+    setModbooks(data || []);
+  }
+
+  async function loadUserData(userId) {
+    const [{ data: p }, { data: fav }, { data: reports }, { data: votes }, { data: nick }, { data: company }] = await Promise.all([
+      supabase.from("profiles").select("*").eq("id", userId).maybeSingle(),
+      supabase.from("favorites").select("build_id").eq("user_id", userId),
+      supabase.from("modbook_reports").select("*").eq("reporter_id", userId).order("created_at", { ascending: false }),
+      supabase.from("build_votes").select("build_id,value").eq("user_id", userId),
+      supabase.from("nickname_requests").select("*").eq("user_id", userId).order("created_at", { ascending: false }).limit(1).maybeSingle(),
+      supabase.from("company_requests").select("*").eq("user_id", userId).order("created_at", { ascending: false }).limit(1).maybeSingle()
+    ]);
+    setProfile(p || null);
+    setFavorites(new Set((fav || []).map((f) => f.build_id)));
+    setMyReports(reports || []);
+    setUserVotes(new Map((votes || []).map((v) => [v.build_id, v.value])));
+    setNicknameRequest(nick || null);
+    setCompanyRequest(company || null);
+  }
+
+  async function loadAnnouncements() {
+    const { data, error } = await supabase.from("announcements").select("*").eq("is_published", true).order("is_pinned", { ascending: false }).order("created_at", { ascending: false });
+    if (error) return notify(`공지 로드 실패: ${error.message}`, "error");
+    setAnnouncements(data || []);
+  }
+
+  async function loadAdminData() {
+    const [
+      { data: reports, error: reportError },
+      { data: names, error: nameError },
+      { data: companies, error: companyError },
+      { data: notices, error: noticeError }
+    ] = await Promise.all([
+      supabase.from("modbook_reports").select("*").order("created_at", { ascending: false }),
+      supabase.from("nickname_requests").select("*").order("created_at", { ascending: false }),
+      supabase.from("company_requests").select("*").order("created_at", { ascending: false }),
+      supabase.from("announcements").select("*").order("is_pinned", { ascending: false }).order("created_at", { ascending: false })
+    ]);
+    const error = reportError || nameError || companyError || noticeError;
+    if (error) return notify(error.message, "error");
+    setAdminReports(reports || []);
+    setAdminNicknameRequests(names || []);
+    setAdminCompanyRequests(companies || []);
+    setAnnouncements(notices || []);
+  }
+
+  function login() {
+    if (!isSupabaseConfigured) {
+      notify("Supabase 환경변수를 먼저 설정하세요.", "error");
+      return;
+    }
+
+    let acknowledged = false;
+    try {
+      acknowledged = window.localStorage.getItem("axe_login_privacy_ack_v116") === "1";
+    } catch (_) {}
+
+    if (acknowledged) {
+      beginDiscordLogin();
+      return;
+    }
+
+    setLoginPrivacyModal(true);
+  }
+
+  async function beginDiscordLogin() {
+    if (!isSupabaseConfigured) return notify("Supabase 환경변수를 먼저 설정하세요.", "error");
+
+    try {
+      window.localStorage.setItem("axe_login_privacy_ack_v116", "1");
+    } catch (_) {}
+
+    setLoginPrivacyModal(false);
+
+    // Pilot only: never return to the independently deployed BUILD when signing in here.
+    const redirectTo = `${window.location.origin}/build/`;
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "discord",
+      options: {
+        redirectTo,
+        scopes: "identify"
+      }
+    });
+    if (error) notify(error.message, "error");
+  }
+
+  async function logout() {
+    await supabase.auth.signOut();
+    notify("로그아웃했습니다.");
+  }
+
+  async function openBuild(build, countView = true) {
+    setSelectedBuild(build);
+    const [{ data: slots, error: slotError }, { data: comments, error: commentError }] = await Promise.all([
+      supabase.from("build_slots").select("*").eq("build_id", build.id).order("id"),
+      supabase.from("build_comments").select("*").eq("build_id", build.id).order("created_at", { ascending: true })
+    ]);
+    if (slotError) notify(slotError.message, "error");
+    if (commentError) notify(commentError.message, "error");
+    setSelectedSlots(slots || []);
+    setSelectedComments(comments || []);
+    if (countView) supabase.rpc("increment_build_view", { p_build_id: build.id }).then(() => loadBuilds());
+  }
+
+  async function toggleFavorite(build) {
+    if (!user) return notify("내 프리셋 저장은 Discord 로그인 후 사용할 수 있습니다.", "error");
+    const exists = favorites.has(build.id);
+    let error;
+    if (exists) {
+      ({ error } = await supabase.from("favorites").delete().eq("user_id", user.id).eq("build_id", build.id));
+    } else {
+      ({ error } = await supabase.from("favorites").insert({ user_id: user.id, build_id: build.id }));
+    }
+    if (error) return notify(error.message, "error");
+    const next = new Set(favorites);
+    exists ? next.delete(build.id) : next.add(build.id);
+    setFavorites(next);
+    await loadBuilds();
+  }
+
+  async function voteBuild(build, value) {
+    if (!user) return login();
+    const { error } = await supabase.rpc("set_build_vote", { p_build_id: build.id, p_value: value });
+    if (error) return notify(`추천 처리 실패: ${error.message}`, "error");
+    const next = new Map(userVotes);
+    if (value === 0) next.delete(build.id); else next.set(build.id, value);
+    setUserVotes(next);
+    await loadBuilds();
+    const { data: refreshed } = await supabase.from("builds").select("*").eq("id", build.id).maybeSingle();
+    if (refreshed) setSelectedBuild((prev) => prev?.id === build.id ? refreshed : prev);
+  }
+
+  async function addComment(body) {
+    if (!user || !selectedBuild) return login();
+    const { error } = await supabase.from("build_comments").insert({
+      build_id: selectedBuild.id,
+      user_id: user.id,
+      author_name: displayProfileName(profile, user),
+      author_company: displayProfileCompany(profile) || null,
+      body
+    });
+    if (error) return notify(`댓글 등록 실패: ${error.message}`, "error");
+    await openBuild(selectedBuild, false);
+    await loadBuilds();
+  }
+
+  async function deleteComment(comment) {
+    const { error } = await supabase.from("build_comments").delete().eq("id", comment.id);
+    if (error) return notify(`댓글 삭제 실패: ${error.message}`, "error");
+    await openBuild(selectedBuild, false);
+    await loadBuilds();
+  }
+
+  async function requestNickname(name) {
+    const { error } = await supabase.rpc("request_nickname", { p_requested_name: name });
+    if (error) return notify(`닉네임 신청 실패: ${error.message}`, "error");
+    notify("닉네임 신청을 접수했습니다.");
+    await loadUserData(user.id);
+  }
+
+  async function reviewNickname(request, approveValue) {
+    const note = approveValue ? null : (window.prompt("반려 사유를 입력하세요. (선택)") || null);
+    const { error } = await supabase.rpc("review_nickname_request", { p_request_id: request.id, p_approve: approveValue, p_admin_note: note });
+    if (error) return notify(`닉네임 처리 실패: ${error.message}`, "error");
+    notify(approveValue ? "닉네임을 승인했습니다." : "닉네임 신청을 반려했습니다.");
+    await loadAdminData();
+    if (user) await loadUserData(user.id);
+    await loadBuilds();
+  }
+
+
+  async function requestCompanyName(companyName) {
+    const { error } = await supabase.rpc("request_company_name", { p_requested_company: companyName });
+    if (error) return notify(`회사명 신청 실패: ${error.message}`, "error");
+    notify("회사명 신청을 접수했습니다.");
+    await loadUserData(user.id);
+  }
+
+  async function reviewCompany(request, approveValue) {
+    const note = approveValue ? null : (window.prompt("반려 사유를 입력하세요. (선택)") || null);
+    const { error } = await supabase.rpc("review_company_request", {
+      p_request_id: request.id,
+      p_approve: approveValue,
+      p_admin_note: note
+    });
+    if (error) return notify(`회사명 처리 실패: ${error.message}`, "error");
+    notify(approveValue ? "회사명을 승인했습니다." : "회사명 신청을 반려했습니다.");
+    await loadAdminData();
+    if (user) await loadUserData(user.id);
+    await loadBuilds();
+  }
+
+  async function saveAnnouncement(form) {
+    const { error } = await supabase.from("announcements").insert({ title: form.title.trim(), body: form.body.trim(), is_pinned: Boolean(form.is_pinned), is_published: true, created_by: user.id });
+    if (error) return notify(`공지 등록 실패: ${error.message}`, "error");
+    notify("공지를 등록했습니다.");
+    await loadAdminData();
+  }
+
+  async function deleteAnnouncement(notice) {
+    if (!window.confirm(`"${notice.title}" 공지를 삭제할까요?`)) return;
+    const { error } = await supabase.from("announcements").delete().eq("id", notice.id);
+    if (error) return notify(`공지 삭제 실패: ${error.message}`, "error");
+    notify("공지를 삭제했습니다.");
+    await loadAdminData();
+  }
+
+  async function saveFinished(build, action = "create") {
+    setEditor(null);
+    await loadBuilds();
+    notify(action === "edit" ? "추천세팅을 수정했습니다." : "추천세팅을 게시했습니다.");
+    await openBuild(build, false);
+  }
+
+  async function deleteBuild(build) {
+    if (!user) return;
+    const ok = window.confirm(`"${build.title}" 세팅을 삭제할까요?
+삭제 후에는 되돌릴 수 없습니다.`);
+    if (!ok) return;
+
+    const { data, error } = await supabase
+      .from("builds")
+      .delete()
+      .eq("id", build.id)
+      .select("id");
+
+    if (error) return notify(`삭제 실패: ${error.message}`, "error");
+    if (!data?.length) return notify("삭제 권한이 없거나 이미 삭제된 세팅입니다.", "error");
+
+    setSelectedBuild(null);
+    setSelectedSlots([]);
+    await loadBuilds();
+    notify("추천세팅을 삭제했습니다.");
+  }
+
+  async function reportFinished() {
+    setReportEditor(false);
+    if (user) await loadUserData(user.id);
+    notify("제보를 등록했습니다.");
+  }
+
+  async function saveAdminModbook(form) {
+    const params = {
+      p_name: form.name.trim(),
+      p_type: form.type,
+      p_category: form.category.trim(),
+      p_parts: form.parts.trim() || null,
+      p_success_rate: form.success_rate.trim() || null,
+      p_option1: form.option1.trim() || null,
+      p_option2: form.option2.trim() || null,
+      p_option3: form.option3.trim() || null,
+      p_note: form.note.trim() || null,
+      p_sort_order: form.sort_order === "" ? null : Number(form.sort_order)
+    };
+
+    const isEdit = Boolean(form.id);
+    const rpcName = isEdit ? "admin_update_modbook" : "admin_create_modbook";
+
+    if (isEdit) params.p_modbook_id = Number(form.id);
+
+    const { error } = await supabase.rpc(rpcName, params);
+    if (error) {
+      notify(`개조서 ${isEdit ? "수정" : "추가"} 실패: ${error.message}`, "error");
+      return false;
+    }
+
+    notify(isEdit ? "개조서를 수정했습니다." : "개조서를 추가했습니다.");
+    await loadModbooks();
+    return true;
+  }
+
+  async function deleteAdminModbook(mod, usageCount = 0) {
+    if (!mod?.id) return false;
+
+    const usageText = usageCount > 0
+      ? `\n\n현재 추천세팅 ${usageCount}개 슬롯에서 사용 중이라 DB가 삭제를 차단할 수 있습니다.`
+      : "";
+
+    if (!window.confirm(`"${mod.name}" 개조서를 삭제할까요?${usageText}\n\n삭제 후에는 되돌릴 수 없습니다.`)) {
+      return false;
+    }
+
+    const { error } = await supabase.rpc("admin_delete_modbook", {
+      p_modbook_id: Number(mod.id)
+    });
+
+    if (error) {
+      notify(`개조서 삭제 실패: ${error.message}`, "error");
+      return false;
+    }
+
+    notify("개조서를 삭제했습니다.");
+    await loadModbooks();
+    return true;
+  }
+
+  async function approve(report) {
+    const { error } = await supabase.rpc("approve_modbook_report", { p_report_id: report.id });
+    if (error) return notify(error.message, "error");
+    notify("제보를 승인했습니다.");
+    await Promise.all([loadAdminData(), loadModbooks()]);
+  }
+
+  async function reject(report) {
+    const { error } = await supabase.rpc("reject_modbook_report", { p_report_id: report.id });
+    if (error) return notify(error.message, "error");
+    notify("제보를 반려했습니다.");
+    await loadAdminData();
+  }
+
+  function jumpToBuilds() {
+    navigateTab("builds");
+    window.setTimeout(() => document.getElementById("build-archive")?.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
+  }
+
+
+  if (!isSupabaseConfigured) {
+    return (
+      <div className="config-screen">
+        <Brand />
+        <div className="config-card">
+          <div className="eyebrow gold">SETUP REQUIRED</div>
+          <h1>LAC HUB 연결 정보가 필요합니다.</h1>
+          <p>프로젝트 루트에 <code>.env.local</code> 파일을 만들고 아래 두 값을 입력하세요.</p>
+          <pre>{`VITE_SUPABASE_URL=https://...supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...`}</pre>
+          <small>Secret key / service_role 키는 웹에 절대 넣지 마세요.</small>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="app">
+      <Header
+        tab={tab}
+        setTab={navigateTab}
+        user={user}
+        profile={profile}
+        adminPendingCount={
+          adminNicknameRequests.filter((r) => r.status === "pending").length +
+          adminCompanyRequests.filter((r) => r.status === "pending").length +
+          adminReports.filter((r) => r.status === "pending").length
+        }
+        onLogin={login}
+        onLogout={logout}
+        onProfile={() => setProfileModal(true)}
+      />
+
+      {tab === "home" && (
+        <>
+          <NoticeStrip announcements={announcements} onOpen={() => navigateTab("notices")} />
+          <Hero
+            onJump={jumpToBuilds}
+            user={user}
+            onCreate={() => {
+              if (user) {
+                setEditor({ build: null, slots: [], mode: "create" });
+              } else {
+                setShareLoginModal(true);
+              }
+            }}
+            onProfile={() => setProfileModal(true)}
+            onLogin={login}
+          />
+        </>
+      )}
+      {tab === "builds" && (
+        <BuildsPage
+          builds={builds}
+          buildSlotsMap={buildSlotsMap}
+          modMap={modMap}
+          loading={loading}
+          user={user}
+          favorites={favorites}
+          onOpen={openBuild}
+          onFavorite={toggleFavorite}
+          onCreate={() => setEditor({ build: null, slots: [], mode: "create" })}
+          categoryFilter={categoryFilter}
+          setCategoryFilter={navigateBuildCategory}
+        />
+      )}
+      {tab === "presets" && <PresetsPage user={user} builds={builds} buildSlotsMap={buildSlotsMap} modMap={modMap} favorites={favorites} onOpen={openBuild} onFavorite={toggleFavorite} onLogin={login} />}
+      {tab === "modbooks" && <ModbooksPage modbooks={modbooks} />}
+      {tab === "weapons" && <WeaponsPage modbooks={modbooks} />}
+      {tab === "reports" && <ReportsPage user={user} myReports={myReports} onNewReport={() => setReportEditor(true)} onLogin={login} />}
+      {tab === "notices" && (
+        <NoticesPage
+          announcements={announcements}
+          profile={profile}
+          pendingProfileCount={
+            adminNicknameRequests.filter((r) => r.status === "pending").length +
+            adminCompanyRequests.filter((r) => r.status === "pending").length
+          }
+          onAnnouncementSave={saveAnnouncement}
+          onAnnouncementDelete={deleteAnnouncement}
+          onOpenProfileAdmin={() => {
+            const hasCompanyPending = adminCompanyRequests.some((r) => r.status === "pending");
+            setAdminMode(hasCompanyPending ? "companies" : "nicknames");
+            navigateTab("admin");
+          }}
+        />
+      )}
+      {tab === "admin" && (
+        <AdminPage
+          profile={profile}
+          reports={adminReports}
+          nicknameRequests={adminNicknameRequests}
+          companyRequests={adminCompanyRequests}
+          announcements={announcements}
+          modbooks={modbooks}
+          buildSlotsMap={buildSlotsMap}
+          initialMode={adminMode}
+          onApprove={approve}
+          onReject={reject}
+          onNicknameReview={reviewNickname}
+          onCompanyReview={reviewCompany}
+          onAnnouncementSave={saveAnnouncement}
+          onAnnouncementDelete={deleteAnnouncement}
+          onModbookSave={saveAdminModbook}
+          onModbookDelete={deleteAdminModbook}
+        />
+      )}
+
+      {selectedBuild && (
+        <BuildDetail
+          build={selectedBuild}
+          slots={selectedSlots}
+          modMap={modMap}
+          favorite={favorites.has(selectedBuild.id)}
+          user={user}
+          profile={profile}
+          userVote={userVotes.get(selectedBuild.id) || 0}
+          comments={selectedComments}
+          onFavorite={toggleFavorite}
+          onVote={(value) => voteBuild(selectedBuild, value)}
+          onComment={addComment}
+          onDeleteComment={deleteComment}
+          onLogin={login}
+          onClose={() => setSelectedBuild(null)}
+          onEdit={(build, slots) => {
+            setEditor({ build, slots, mode: "edit" });
+            setSelectedBuild(null);
+          }}
+          onDelete={deleteBuild}
+          onClone={() => {
+            setEditor({ build: selectedBuild, slots: selectedSlots, mode: "clone" });
+            setSelectedBuild(null);
+          }}
+        />
+      )}
+
+      {editor && user && (
+        <BuildEditor
+          user={user}
+          profile={profile}
+          modbooks={modbooks}
+          initialBuild={editor.build}
+          initialSlots={editor.slots}
+          mode={editor.mode || "create"}
+          onClose={() => setEditor(null)}
+          onSaved={saveFinished}
+        />
+      )}
+
+      {reportEditor && user && (
+        <ReportEditor
+          user={user}
+          modbooks={modbooks}
+          onClose={() => setReportEditor(false)}
+          onSaved={reportFinished}
+        />
+      )}
+
+      {shareLoginModal && !user && (
+        <ShareLoginRequiredModal
+          onClose={() => setShareLoginModal(false)}
+          onLogin={() => {
+            setShareLoginModal(false);
+            login();
+          }}
+        />
+      )}
+
+      {loginPrivacyModal && !user && (
+        <LoginPrivacyModal
+          onClose={() => setLoginPrivacyModal(false)}
+          onContinue={beginDiscordLogin}
+        />
+      )}
+
+      {profileModal && user && (
+        <ProfileModal
+          user={user}
+          profile={profile}
+          request={nicknameRequest}
+          companyRequest={companyRequest}
+          onClose={() => setProfileModal(false)}
+          onRequest={requestNickname}
+          onCompanyRequest={requestCompanyName}
+        />
+      )}
+
+      <FloatingContextPanel
+        tab={tab}
+        announcements={announcements}
+        user={user}
+        onHome={() => {
+          navigateTab("home");
+          window.setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 30);
+        }}
+        onNotice={() => navigateTab("notices")}
+        onReport={() => navigateTab("reports")}
+        onPreset={() => user ? navigateTab("presets") : login()}
+      />
+
+      <Toast message={toast.message} tone={toast.tone} />
+
+      {user && tab === "builds" && (
+        <button className="fab mobile-only" onClick={() => setEditor({ build: null, slots: [], mode: "create" })}>
+          +
+        </button>
+      )}
+    </div>
+  );
+}

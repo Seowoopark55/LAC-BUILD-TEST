@@ -1,0 +1,5 @@
+LAC BUILD 브랜드 자산 안내
+- lac-hub-mark.png : LAC HUB에서 사용하는 공식 브랜드 심볼(복사본)
+- axe-inventory-bg.png : 과거부터 사용 중인 중립적인 장비 슬롯 배경(기존 코드 경로 유지)
+- equipment/*.webp : 기존 의류 디자인 이미지, 이번 작업에서 변경하지 않음
+- AXE 회사 로고·모집 배너·포스터는 새 전체본에서 제외됨
